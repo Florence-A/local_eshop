@@ -1,0 +1,56 @@
+Git ne prend pas les dossier vides, j'ai donc mis des "specimens" à supprimer pour conserver 
+la structure du repertoire
+Oui, j'aime bien écrire pour clarifier. xD
+Bon courage ! 8D
+
+---------------------
+-     BACKEND       -
+---------------------
+
+> controllers :
+on y range les fonctions
+(celles qu'on va appeler dans nos routes ensuite)
+exemple de fonctions : createThing, getOneThing, deleteThing, modifyThing ...
+
+> db : le fichier de connexion à la bdd
+
+> models :
+ici on aura un fichier par schema sequelize
+exemple : User.js, Product.js, Category.js ...
+
+> routers :
+on range ici les fichiers de routage
+exemple de routes : app.get("/product/delete", (req,res)=>{...}
+
++ server.js
+
+
+---------------------
+-     FRONTEND      -
+---------------------
+> public
+	> favicon.ico
+	> index.html
+
+
+> src
+
+	> assets :
+Le fichier css général, le dossier images, dossier fonts etc...
+
+	> components : les composants de Vue
+exemple : LogIn.vue, ProductsList.vue, Calendar.vue...
+
+	> routers : pour faire les liens composants-pages et main.js
+on y importe les composants, on rédige l'annuaire, on créer le routeur avec l'annuaire et 
+on exporte le router
+
+	> store : le store de vuex pour stocker les infos à réutiliser sur ttes les views
+
+	> views :  les "pages" du site
+exemple : home.vue, profile.vue, dashboard.vue...
+
+	+ App.vue : qui fait office d'index vue (header et footer à caler ici ?)
+
+	+ main.js : qui centralise tout le front en important les views et routeurs
+et en montant l'application sur les éléments de l'index.html (dans public)
