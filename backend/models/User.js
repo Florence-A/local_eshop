@@ -1,21 +1,31 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('mysql::memory:');
+const Sequelize = require('sequelize');
+const sequelize = require('../db/connection.js')
 
 const User = sequelize.define('User', {
-  // Model attributes are defined here
-  first_name: {
-    type: DataTypes.STRING,
-    allowNull: false
+    
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true,
+    },
+    first_name: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    last_name: {
+      type: Sequelize.STRING
+    },
+    mail: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    password: {
+      type: Sequelize.STRING,
+      allowNull: false
+    }
   },
-  last_name: {
-    type: DataTypes.STRING
-  },
-  mail: {
-    type: DataTypes.STRING
-  },
-  password: {
-    type: DataTypes.STRING
-  }
-},
-{tableName: 'user'}
+  {tableName: '_user'}
 );
+
+module.exports = User;
