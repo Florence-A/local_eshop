@@ -1,15 +1,11 @@
-const express = require('express')
-const jwt = require('jsonwebtoken')
-const router = express.Router()
-
-require('dotenv').config()
-
+// Fonctions login -------------------------------------------------------------------
 
 function generateAccessToken(user) {
 
     console.log(user)
     return jwt.sign({nom:user.lastname, prenom:user.firstname}, process.env.TOKEN_SECRET, { expiresIn: '30m' });
 }
+
 
 function authenticateToken(req, res, next) {
     
@@ -25,6 +21,4 @@ function authenticateToken(req, res, next) {
         next() 
     })
 }
-
-
-module.exports = router
+// -----------------------------------------------------------------------------------
