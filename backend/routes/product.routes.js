@@ -3,11 +3,11 @@ module.exports = (app)=> {
     const router = require('express').Router();
 
     router.post('/new/', product.create);
+    router.get('/', product.list);
 
 
 
 
-    
 
     app.use('/products', router);
 }

@@ -17,7 +17,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Product.init({
-    _ref: DataTypes.STRING,
+    _ref: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'il faut une ref tocard!!!'
+        },
+        notEmpty: {
+          msg: 'ref ne doit pas etre vide, tocard!!!!'
+        }
+      }
+    },
     description: DataTypes.STRING,
     HT_price: DataTypes.INTEGER,
     lead_time: DataTypes.INTEGER
