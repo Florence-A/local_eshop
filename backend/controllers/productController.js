@@ -1,5 +1,5 @@
 //imports
-const mmodels = require('../models');
+const models = require('../models');
 
 // product methods
 module.exports = {
@@ -12,5 +12,7 @@ module.exports = {
             HT_price: req.body.HT_price,
             lead_time: req.body.lead_time,
         }
+
+        models.Product.create(product);
     }
 }
