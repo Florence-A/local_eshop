@@ -8,17 +8,44 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.addColumn(
-      'product',
-      'tva_id',
-      {
+    await queryInterface.addColumn('product', 'tva_id', {
         type: Sequelize.INTEGER,
         references: {
           model: 'Tva',
           key: 'id'
         }
       }
-    )
+    ),
+    await queryInterface.createTable('productcategory', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      product_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Product',
+          key: 'id'
+        }
+      },
+      category_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Category',
+          key: 'id'
+        }
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
+    });
   },
 
   async down (queryInterface, Sequelize) {
@@ -28,9 +55,7 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.removeColumn(
-      'product',
-      'tva_id'
-    )
+    await queryInterface.removeColumn('product','tva_id'),
+    await queryInterface.dropTable('productcategory');
   }
 };
