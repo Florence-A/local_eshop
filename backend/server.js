@@ -11,6 +11,9 @@ app.use(express.urlencoded({extended:true}))
 // routes to product CRUD
 require('./routes/product.routes')(app);
 
+// synchronize with db
+// const { sequelize } = require('./models');
+// sequelize.sync()
 
 // open server
 app.listen(port,()=>{
