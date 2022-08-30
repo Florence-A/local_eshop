@@ -1,5 +1,10 @@
-// Fonctions login -------------------------------------------------------------------
+// Imports
+require('dotenv').config()
+const jwt     = require('jsonwebtoken')
+const models  = require('../models')
 
+
+// Functions
 function generateAccessToken(user) {
 
     console.log(user)
@@ -21,4 +26,25 @@ function authenticateToken(req, res, next) {
         next() 
     })
 }
-// -----------------------------------------------------------------------------------
+
+
+// Modules
+exports.addUser = (req,res) => {
+
+}
+
+exports.findUser = (res,req) => {
+
+}
+
+exports.deleteUser = (res,req) => {
+
+}
+
+exports.updateUser = (req,res) => {
+
+}
+
+exports.logUser = (req,res) => {
+    
+}

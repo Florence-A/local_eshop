@@ -1,9 +1,20 @@
+// Imports
 const express = require('express')
-const jwt = require('jsonwebtoken')
+const userCtrl = require('../controllers/userController.js')
+
+
+
+// Constants
 const router = express.Router()
 
-require('dotenv').config()
-require('../controllers/userController.js')
+
+// Routes
+// TODO signup, create, read, signin, update, delete
+router.get('/signup', (req,res) => {
+    res.render('')
+})
+
+router.post('/addUser', userCtrl.addUser)
 
 
 
