@@ -1,12 +1,14 @@
 // Imports
-require('dotenv').config()
-const jwt     = require('jsonwebtoken')
-const models  = require('../models')
+require('dotenv').config();
+const jwt     = require('jsonwebtoken');
+const models  = require('../models');
+const bcrypt = require ('bcrypt');
+const { resolve } = require('path');
 
 // Constants
 const EMAIL_REGEX = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-const NAMES_REGEX = /^[a-zA-Z]{3,22}$/
+const NAMES_REGEX = /^[a-zA-Z]{3,22}$/;
 
 // Functions
 // function generateAccessToken(user) {
@@ -45,7 +47,7 @@ module.exports = {
 
         // Basic checks
         if ( last_name == "" || first_name == "" || mail == "" || password == "" ) {
-            return res.json({ 'msg': 'Merci de remplir tous les champs du formulaire' })
+            return res.json({ 'msg': 'Merci de remplir tous les champs du formulaire' });
         } 
 
         if ( last_name.length < 3 || first_name.length < 3 ){
@@ -61,8 +63,46 @@ module.exports = {
         } 
 
         if (!PASSWORD_REGEX.test(password)){
-            return res.json({ 'msg' : "Le mot de passe doit contenir au minimum 8 caractères dont au moins un chiffre, une minuscule et une majuscule."})
-        }else { return res.json({'msg': 'Ok, la suite !'})};
+            return res.json({ 'msg' : "Le mot de passe doit contenir au minimum 8 caractères dont au moins un chiffre, une minuscule et une majuscule."});
+        }
+
+        // User doesn't exists, register
+        models.User.findOne({
+            attributes: ['mail'],
+            where: {mail: mail}
+        })
+        // SELECT `mail` FROM `user` AS `User` WHERE `User`.`mail` = 'flo@kachu.fr' LIMIT 1
+
+        .then((userFound) => {
+
+            if (!userFound) {
+                console
+                // Secure the password
+                var salt = bcrypt.genSaltSync(10);
+                var hashedPassword = bcrypt.hashSync(password, salt);
+                console.log('hashedPassword', hashedPassword)
+                // Register
+                var newUser = models.User.create ({
+                    last_name: last_name,
+                    first_name: first_name,
+                    mail: mail,
+                    password: hashedPassword,
+                    id_role: 1
+                })
+                // INSERT INTO `user` (`id`,`last_name`,`first_name`,`mail`,`password`,`createdAt`,`updatedAt`) VALUES (DEFAULT,?,?,?,?,?,?)
+
+                .then( () => {
+                    return res.status(200).json({ 'msg': "Inscription bien prise en compte, merci de vous connecter avec vos nouveaux identifiants."})
+                })
+                .catch((err) => { console.log(err) })
+
+            }
+
+            else {
+                res.json({ 'msg' : "Cette adresse mail est déjà utilisée."});
+            }
+        })
+        .catch((err) => {console.log(err)} )
 
 
 
