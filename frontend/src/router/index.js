@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import signUpIn from "@/components/signUpIn.vue"
 import subScribe from "@/components/subScribe.vue"
+import signIn from "@/components/signIn.vue"
 
 
 const routes = [
@@ -13,6 +14,11 @@ const routes = [
         path: "/subScribe",
         name: "subScribe",
         component: subScribe
+    },
+    {
+        path: "/signIn",
+        name: "signIn",
+        component: signIn
     },
 
 ]

@@ -1,11 +1,9 @@
 <template>
     <div class="container">
         <div>{{msg}}</div>
-        <input class="form-control" v-model="first_name" type=text placeholder="Prénom"><br>
-        <input class="form-control" v-model="last_name" type=text placeholder="Nom"><br>
         <input class="form-control" v-model="mail" type="text" placeholder="Adresse mail"><br>
         <input class="form-control" v-model="password" type="password" placeholder="Mot de passe"><br>
-        <button @click="send(ln,fn,m,p)" class="btn btn-primary">S'inscrire</button>
+        <button @click="send(m,p)" class="btn btn-primary">Se connecter</button>
     </div>
 </template>
 
@@ -15,28 +13,35 @@
 
     export default 
     {
-        name: 'subScribe',
+        name: 'signIn',
         data(){
             return {
-                last_name:"",
-                first_name:"",
                 mail:"",
                 password:"",
                 msg:""
             }
         },
         methods: {
-            send(ln,fn,m,p){
+            send(m,p){
                 // Params
-                ln = this.last_name ;
-                fn = this.first_name ;
                 m  = this.mail ;
                 p  = this.password ;
                 
-                axios.post('http://localhost:9000/signup',{last_name: ln, first_name: fn, mail: m, password: p})
-                .then((res)=>{ 
-                    this.msg = res.data.msg; 
-                })
+                axios.post('http://localhost:9000/signin',{mail: m, password: p})
+
+                .then((res)=>{
+
+                    if (res.data.token != "err"){
+                        localStorage.setItem('token', res.data.token);
+                        // router.push('/signUpIn')
+                        // try to redirect to another component when finish
+                    } 
+                    else {
+                        this.msg = "Mot de passe incorrect"
+                    }
+                    
+                    
+                    })
                 .catch((err)=>{console.log(err)})                
             }
         }

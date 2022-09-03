@@ -1,5 +1,7 @@
 <template>
-    <button class="btn btn-primary"> Connexion </button>
+    <router-link to="/signIn">
+        <button class="btn btn-primary"> Connexion </button>
+    </router-link>
     <br><br>
     <router-link to="/subScribe">
         <button class="btn btn-primary"> Inscription </button>
