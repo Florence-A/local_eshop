@@ -33,15 +33,12 @@
 
                     if (res.data.token != "err"){
                         localStorage.setItem('token', res.data.token);
-                        // router.push('/signUpIn')
-                        // try to redirect to another component when finish
+                        location.assign('/signUpIn')
                     } 
                     else {
                         this.msg = "Mot de passe incorrect"
                     }
-                    
-                    
-                    })
+                })
                 .catch((err)=>{console.log(err)})                
             }
         }
