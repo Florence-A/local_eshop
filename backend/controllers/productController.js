@@ -15,38 +15,35 @@ module.exports = {
         }
         const category_id = req.body.category_id;
 
-        const categ = models.Category.findByPk(category_id)
-            .then( categ => {
-                console.log(categ)
-                models.Product.create(product)
-                .then(productCreated => {
-                    console.log(productCreated)
-                    productCreated.addCategory(categ)
+        
+        models.Product.create(product)
+            .then(productCreated => {
+                console.log(productCreated)
+                productCreated.addCategory(category_id)
                     .then(categoryAdded => {
                         return res.status(201).json({ 'product': productCreated, 'relation': categoryAdded})
                     })
                     .catch(err => {
                         return res.status(500).json({ 'error': 'cannot create join table: ' + err})
                     })
-                
-                })
-                .catch(err => {
-                    return res.status(500).json({ 'error': 'cannot create product: ' + err })
-                })
             })
-            
-            .catch (err => {
-                return res.status(500).json({ 'error': 'cannot create category: ' + err })
+            .catch(err => {
+                return res.status(500).json({ 'error': 'cannot create product: ' + err })
             })
-
-        
-            
     },
 
     list: (req,res)=> {
         models.Product.findAll({
-            include: Category
-            })
+            include: [
+                {
+                model: models.Tva,
+                attributes: ['rate']
+            },
+            {
+                model: models.Category,
+                attributes: ['name']
+            }]
+        })
             .then(productsFound => {
                 return res.status(201).json(productsFound)
             })
