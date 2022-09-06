@@ -4,6 +4,7 @@ const models = require('../models');
 // product methods
 module.exports = {
     
+    // create a new product
     create: (req,res)=> {
         // create a product from params
         const product = {
@@ -32,6 +33,7 @@ module.exports = {
             })
     },
 
+    // list all products with associated attributes
     list: (req,res)=> {
         models.Product.findAll({
             include: [
@@ -49,6 +51,31 @@ module.exports = {
             })
             .catch(err => {
                 return res.status(500).json({ 'error': 'cannot find products: ' + err})
+            })
+    },
+
+    // get one product with associated attributes by pk
+    getOne: (req,res)=> {
+        models.Product.findByPk(req.params.id)
+            .then( async productFound => {
+                const tva = await productFound.getTva();
+                const categories = await productFound.getCategories();
+                const categoriesName = []
+                categories.forEach(category => {
+                    categoriesName.push(category.name)
+                });
+                console.log(categoriesName);
+                // const image = productFound.getImage();
+
+                const product = {
+                    _ref: productFound._ref,
+                    description: productFound.description,
+                    HT_price: productFound.HT_price,
+                    tva: tva.rate,
+                    categories: categoriesName,
+                }
+
+                res.status(201).json(product)
             })
     }
 }
