@@ -2,7 +2,7 @@
 
     <div class="container d-flex flex-column align-items-center justify-content-around">
 
-        <router-link to="" class="d-inline-flex">
+        <router-link to="/userInfo" class="d-inline-flex">
             <button class="btn btn-primary"> Mon profil </button>
         </router-link>
 
@@ -33,6 +33,6 @@
 
 <style>
 .container{
-    height: 100px;
+    height: 150px;
 }
 </style>

@@ -22,16 +22,23 @@ module.exports = {
 
     authenticateToken : (req, res, next) => {
         
-        console.log(req.headers);
-        const token = req.headers.authorization.split(" ")[1]
-        console.log("TOKEN",token);
-        if (token == null) { 
-            return res.sendStatus(401) 
+        console.log(req.headers)
+        const authHeader = req.headers.authorization;
+        console.log(authHeader); // UNDEFINED
+        const token = authHeader.split(" ")[1];
+        // console.log(token);
+        if (!token) { 
+            return res.sendStatus(401) ;
         }
+
         jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
-            if (err) return res.sendStatus(403)
-            req.user = user
-            next() 
-        })
-    }
+            if (err) {
+                return res.sendStatus(403);
+            }
+            req.user = user;
+            next();
+        });
+        
+    },
+
 }
