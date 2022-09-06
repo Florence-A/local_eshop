@@ -16,16 +16,19 @@
     export default 
     {
         name: 'subScribe',
+
         data(){
             return {
-                last_name:"",
+                last_name :"",
                 first_name:"",
-                mail:"",
-                password:"",
-                msg:""
+                mail      :"",
+                password  :"",
+                msg       :""
             }
         },
+
         methods: {
+
             send(ln,fn,m,p){
                 // Params
                 ln = this.last_name ;
@@ -33,18 +36,24 @@
                 m  = this.mail ;
                 p  = this.password ;
                 
-                axios.post('http://localhost:9000/signup',{last_name: ln, first_name: fn, mail: m, password: p})
+                // Request
+                axios.post( 'http://localhost:9000/signup' ,{
+                    last_name : ln, 
+                    first_name: fn, 
+                    mail      : m, 
+                    password  : p
+                })
                 .then((res)=>{ 
                     this.msg = res.data.msg; 
                 })
-                .catch((err)=>{console.log(err)})                
+                .catch((err) => { console.log(err) })                
             }
         }
     }
 </script>
 
 <style>
-.container {
-    max-width: 600px;
-}
+    .container {
+        max-width: 600px;
+    }
 </style>

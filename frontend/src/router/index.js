@@ -1,7 +1,8 @@
 import { createWebHistory, createRouter } from "vue-router";
-import signUpIn from "@/components/signUpIn.vue"
-import subScribe from "@/components/subScribe.vue"
-import signIn from "@/components/signIn.vue"
+import signUpIn from "@/components/signUpIn.vue";
+import subScribe from "@/components/subScribe.vue";
+import signIn from "@/components/signIn.vue";
+import userPanel from "@/components/userPanel.vue";
 
 
 const routes = [
@@ -20,12 +21,16 @@ const routes = [
         name: "signIn",
         component: signIn
     },
-
-]
+    {
+        path: "/userPanel",
+        name: "userPanel",
+        component: userPanel
+    },
+];
 
 const router = createRouter({
     history: createWebHistory(),
     routes
-})
+});
 
-export default router
+export default router;

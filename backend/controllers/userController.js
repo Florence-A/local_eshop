@@ -23,35 +23,35 @@ module.exports = {
 
         // Basic checks
         if ( last_name == "" || first_name == "" || mail == "" || password == "" ) {
-            return res.json({ 'msg': 'Merci de remplir tous les champs du formulaire' });
+            return res.json({ 'msg' : 'Merci de remplir tous les champs du formulaire' });
         } 
 
-        if ( !(3 < last_name.length < 22) || !(2 < first_name.length < 22) ){
+        if ( !( 3 < last_name.length < 22 ) || !( 2 < first_name.length < 22 ) ){
             return res.json({ 'msg' : "Les noms et prénoms ne peuvent comprendre qu'entre 3 et 22 caractères" });
         }
 
-        if (!EMAIL_REGEX.test(mail)){
+        if (!EMAIL_REGEX.test( mail )){
             return res.json({ 'msg' : "Merci de vérifier l'adresse mail" });
         } 
 
-        if (!PASSWORD_REGEX.test(password)){
+        if (!PASSWORD_REGEX.test( password )){
             return res.json({ 'msg' : "Le mot de passe doit contenir au minimum 8 caractères dont au moins un chiffre, une minuscule et une majuscule."});
         }
 
         // User doesn't exists, register
         models.User.findOne({
-            attributes : ['mail'],
-            where      : {mail: mail}
+            attributes : [ 'mail' ],
+            where      : { mail: mail }
         })
         // SELECT `mail` FROM `user` AS `User` WHERE `User`.`mail` = 'flo@kachu.fr' LIMIT 1
 
-        .then((userFound) => {
+        .then(( userFound ) => {
 
-            if (!userFound) {
+            if ( !userFound ) {
                 
                 // Secure the password
                 var salt           = bcrypt.genSaltSync(10);
-                var hashedPassword = bcrypt.hashSync(password, salt);
+                var hashedPassword = bcrypt.hashSync( password, salt );
                 
                 // Register
                 var newUser = models.User.create ({
@@ -64,7 +64,7 @@ module.exports = {
                 // INSERT INTO `user` (`id`,`last_name`,`first_name`,`mail`,`password`,`createdAt`,`updatedAt`) VALUES (DEFAULT,?,?,?,?,?,?)
 
                 .then( () => {
-                    return res.status(200).json({ 'msg': "Inscription bien prise en compte, merci de vous connecter avec vos nouveaux identifiants."})
+                    return res.status(200).json({ 'msg' : "Inscription bien prise en compte, merci de vous connecter avec vos nouveaux identifiants." })
                 })
                 .catch((err) => { console.log(err) })
             }
@@ -89,24 +89,24 @@ module.exports = {
         if (mail == "" || password == "") {
             return res.json({ 'msg' : "Merci de remplir tous les champs"})
         }
-        if (!EMAIL_REGEX.test(mail)){
+        if (!EMAIL_REGEX.test( mail )){
             return res.json({ 'msg' : "Merci de re-vérifier l'adresse mail" });
         } 
 
         // Search and authenticate
         models.User.findOne({ 
-            where: {mail : mail}
+            where: { mail : mail }
         })
-        .then((user) => {
+        .then(( user ) => {
             
-            if(user){
+            if( user ){
 
                 var bddPassword = user.password;
-                var validPass   = bcrypt.compareSync(password , bddPassword);
+                var validPass   = bcrypt.compareSync( password , bddPassword );
 
                 if (validPass){
 
-                    const token = userUtils.generateTokenForUser(user)
+                    const token = userUtils.generateTokenForUser( user )
 
                     res.send({ 
                         userId : user.id,

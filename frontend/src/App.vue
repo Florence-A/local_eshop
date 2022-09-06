@@ -3,17 +3,19 @@
   <HelloWorld msg="Welcome to Your Vue.js App"/><hr>
   <br>
 
-<!-- ---------------------------------------------------------- -->
+<!-- -------------------- development branch flo ------------------------ -->
 
-  <router-link to="/signUpIn"> <img id="userIcon" src="./assets/user.svg"/> </router-link>
+  <router-link to="/signUpIn">  <img id="userIcon" src="./assets/user.svg"/>  </router-link>
+  <router-link to="/userPanel">  <img id="userIcon" src="./assets/user.svg"/>  </router-link>
 
-  <div class="content">
-    <router-view/>
-  </div>
+  <div class="content">  <router-view/>  </div>
 
-<!-- ---------------------------------------------------------- -->
+<!-- place the components in a view, once the branch gwen has been merged -->
+<!-- -------------------------------------------------------------------- -->
 
 </template>
+
+
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
@@ -25,6 +27,8 @@ export default {
   }
 }
 </script>
+
+
 
 <style>
 #app {
@@ -42,5 +46,4 @@ export default {
 .content {
   margin : 30px ;
 }
-
 </style>

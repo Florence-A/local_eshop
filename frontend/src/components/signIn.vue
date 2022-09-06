@@ -7,6 +7,7 @@
     </div>
 </template>
 
+
 <script>
 
     import axios from 'axios' ;
@@ -14,39 +15,48 @@
     export default 
     {
         name: 'signIn',
+
         data(){
             return {
-                mail:"",
+                mail    :"",
                 password:"",
-                msg:""
+                msg     :""
             }
         },
+
         methods: {
+
             send(m,p){
                 // Params
                 m  = this.mail ;
                 p  = this.password ;
                 
-                axios.post('http://localhost:9000/signin',{mail: m, password: p})
+                // Request
+                axios.post( 'http://localhost:9000/signin' ,{
+                    mail    : m, 
+                    password: p
+                    })
 
                 .then((res)=>{
 
+                    // Token storage
                     if (res.data.token != "err"){
-                        localStorage.setItem('token', res.data.token);
-                        location.assign('/signUpIn')
+                        localStorage.setItem( 'token', res.data.token );
+                        location.assign( '/signUpIn' )
                     } 
                     else {
                         this.msg = "Mot de passe incorrect"
                     }
                 })
-                .catch((err)=>{console.log(err)})                
+                .catch((err) => { console.log(err) })                
             }
         }
     }
 </script>
 
+
 <style>
-.container {
-    max-width: 600px;
-}
+    .container {
+        max-width: 600px;
+    }
 </style>
