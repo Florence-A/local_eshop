@@ -1,11 +1,21 @@
 //imports
 const express = require('express');
-const app = express()
-const port = 9000
+const helmet = require('helmet');
+const app     = express();
+const cors    = require('cors');
+const port    = 9000;
+
+// Import routers
+const userRouter = require('./routes/user');
 
 
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+// Use
+app.use(helmet());
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+app.use(cors());
+app.use(userRouter);
+
 
 //routes
 // routes to product CRUD
@@ -15,7 +25,8 @@ require('./routes/product.routes')(app);
 // const { sequelize } = require('./models');
 // sequelize.sync()
 
-// open server
+
+// Server start
 app.listen(port,()=>{
-    console.log(`Listen on ${ port }`)
+    console.log(`Listen on ${port}`);
 })

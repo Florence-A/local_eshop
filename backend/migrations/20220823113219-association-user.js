@@ -1,3 +1,4 @@
+
 'use strict';
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
           model: 'Role',          // modèle visé par la FK
           key: 'id',              // nom de la colonne visée
         },
+        defaultValue: 1,
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',     // si 
       }
@@ -29,3 +31,4 @@ module.exports = {
   }
 
 };
+

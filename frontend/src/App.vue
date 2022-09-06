@@ -1,3 +1,4 @@
+
 <template>
   <HomePage></HomePage>
   <!-- <ProductsPage></ProductsPage> -->
@@ -32,3 +33,4 @@ export default {
   margin-top: 60px;
 }
 </style>
+

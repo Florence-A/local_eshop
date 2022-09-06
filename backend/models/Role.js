@@ -1,3 +1,4 @@
+
 'use strict';
 const {
   Model
@@ -11,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasMany( models.User,{ foreignKey: 'id_role' })
     }
   }
   Role.init({
@@ -21,4 +23,5 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'role'
   });
   return Role;
+
 };
