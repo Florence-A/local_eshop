@@ -1,15 +1,23 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <HomePage></HomePage>
+  <!-- <ProductsPage></ProductsPage> -->
+  <!-- <CartPage></CartPage> -->
+  <!-- <CustomerAccountPage></CustomerAccountPage> -->
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HomePage from './components/HomePage.vue'
+// import ProductsPage from './components/ProductsPage.vue';
+// import CartPage from './components/CartPage.vue';
+// import CustomerAccountPage from './components/CustomerAccountPage.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HomePage,
+    // ProductsPage,
+    // CartPage,
+    // CustomerAccountPage
   }
 }
 </script>
