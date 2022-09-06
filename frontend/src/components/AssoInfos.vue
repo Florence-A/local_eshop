@@ -1,5 +1,5 @@
 <template>
-    <div id="infoAsso">
+    <div id="AssoInfos">
         <div class="row" id="titreAsso"><h1>Infos Asso</h1></div>
         <div class="row" id="blocTexteAsso">
             <div class="col-12" id="imageAsso"><img class="img-fluid" src="../assets/photoAsso.jpg" ></div>
@@ -11,7 +11,7 @@
 <script>
 // import { computed } from '@vue/reactivity'
 export default {
-    id:"infoAsso",
+    id:"AssoInfos",
     props:{
     
     }
@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style lang="scss">
-    #infoAsso{
+    #AssoInfos{
         *{
             margin: 0;
             padding: 0;

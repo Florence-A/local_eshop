@@ -1,12 +1,12 @@
 <template>
-    <div  class="articleFavori">
+    <div  class="FavoriteItem">
         <div :style="changeBackground" class="articleImage">
             <!-- {{ info_article.image }} -->
         </div>
         <div class="articleInformations">
             <div class="top">
                 <h2 class="name">
-                    {{ info_article.name }}  <!-- infos dynamiques. Props permet de passer infos d'un composant parent à un compo enfant -->
+                    {{ info_article.name }}   <!--infos dynamiques. Props permet de passer infos d'un composant parent à un compo enfant -->
                 </h2>
                 <p class="prix">
                     <span>{{ info_article.prix }}</span>
@@ -24,7 +24,7 @@
 <script>
 import { computed } from '@vue/reactivity'
 export default {
-    name:"articleFavori",
+    name:"FavoriteItem",
     props:{
         info_article: Object
     },

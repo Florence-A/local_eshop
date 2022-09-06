@@ -1,5 +1,5 @@
 <template>
-    <div class="container" id="footerShop">
+    <div class="container" id="FooterShop">
         <div class="row" id="liens">
             <div class="col-3" name="col1">
                 <a href="#BACKTOTOP">Accueil</a> 
@@ -25,7 +25,7 @@
 <script>
 // import { computed } from '@vue/reactivity'
 export default {
-    id:"footerShop",
+    id:"FooterShop",
     props:{
     
     }
@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style lang="scss">
-    #footerShop{
+    #FooterShop{
         *{
             margin: 0;
             padding: 0;

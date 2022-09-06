@@ -1,8 +1,11 @@
 <template>
     <div class="row">
-        <div class="col-12" id="titre"><h4> Commande n°XXXX</h4></div>
+        <div class="col-12" id="DeliveredTitle"><h4> Commandes livrées</h4></div>
         <div class="wrapper--card">
-            <commande v-for="(commande, index) in three_articles" :info_articles="card" :key="index"/>  <!-- vfor boucle -->
+            <DeliveredOrder></DeliveredOrder>
+            <DeliveredOrder></DeliveredOrder>
+            <DeliveredOrder></DeliveredOrder>
+            <!-- <commande v-for="(commande, index) in three_articles" :info_articles="card" :key="index"/>  vfor boucle -->
             <!-- card => nom de l'element à chaque tour de boucle. articles-card = card-->
             <!--  index est généré automatiquement par vuejs -->
             <!-- in 3 => nbre d'itérations de boucle qu'on change par three_articles-->
@@ -12,16 +15,19 @@
 </template>
 
 <script>
-import { computed } from '@vue/reactivity'
+// import { computed } from '@vue/reactivity'
+// COMPONENTS
+import DeliveredOrder from './DeliveredOrder.vue';
+
 export default {
-    
+    components: { DeliveredOrder }
 }
 </script>
 
 <style lang="scss">
-#titre
+#DeliveredTitle
     {
-        background-color: #44c0b0;
+        background-color: #195f56;
         color: #eafffc;
     }
 </style>

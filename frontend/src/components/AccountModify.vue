@@ -1,9 +1,9 @@
 <template>
-    <div class="row" id="modifCompte">
+    <div class="row" id="AccountModify">
         <div class="row">
             <h3>Modifier mon compte</h3>
         </div>
-        <div class="row" id="modifInfo">
+        <div class="row" id="modifyInfo">
             <div class="col-6">
                 <img src="../assets/reglages.svg" alt="reglage">
                 <p>Nom</p></div>
@@ -34,13 +34,13 @@
 <script>
 // import { computed } from '@vue/reactivity'
 export default {
-    id:"modifCompte",
+    id:"AccountModify",
     
 }
 </script>
 
 <style lang="scss">
-#modifCompte{
+#AccountModify{
     *{
     margin: 0;
     padding: 0;
@@ -51,7 +51,7 @@ export default {
         color: white;
         padding-bottom: 5px;
     }
-    #modifInfo{
+    #modifyInfo{
         background-color:  #cfdad8;
         padding : 5px;
         .col-6{

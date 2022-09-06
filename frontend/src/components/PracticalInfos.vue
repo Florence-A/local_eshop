@@ -1,5 +1,5 @@
 <template>
-    <div class="row" id="infoPratique">
+    <div class="row" id="PracticalInfos">
         <div id="titrePratique"><h1>Informations pratiques</h1></div>
         <div class="info" id="horaires">
             <div class="titre">
@@ -48,7 +48,7 @@
 <script>
 // import { computed } from '@vue/reactivity'
 export default {
-    id:"infoPratique",
+    id:"PracticalInfos",
     props:{
     
     }
@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style lang="scss">
-    #infoPratique{
+    #PracticalInfos{
         *{
             margin: 0;
             padding: 0;

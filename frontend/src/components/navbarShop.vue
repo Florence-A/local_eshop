@@ -1,5 +1,5 @@
 <template>
-    <div class="row" id="navbarShop">
+    <div class="row" id="NavbarShop">
         <div class="col-2" id="menu"><img src="../assets/menu.svg" alt="menu icon"></div>
         <div class="col-10" id="recherche"><input type="search" id="site-search" name="q" placeholder="Votre recherche"></div>
     </div>
@@ -8,7 +8,7 @@
 <script>
 // import { computed } from '@vue/reactivity'
 export default {
-    id:"navbarShop",
+    id:"NavbarShop",
     props:{
     
     }
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style lang="scss">
-#navbarShop{
+#NavbarShop{
     margin: 0px;
     padding: 0x;
     background-color: #2f9789;

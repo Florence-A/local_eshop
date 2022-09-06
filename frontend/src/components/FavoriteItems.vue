@@ -1,9 +1,6 @@
 <template>
-    <div class="articlesRow">
-        <h2 class="title">
-            Nos articles
-            <!-- {{ toto }}  je peux appeler mon props déclaré ds home -->
-        </h2>
+    <div class="row">    
+        <h4> Produits favoris</h4>
         <div class="wrapper--card">
             <articles-card v-for="(card, index) in three_articles" :info_articles="card" :key="index"/>  <!-- vfor boucle -->
             <!-- card => nom de l'element à chaque tour de boucle. articles-card = card-->
@@ -11,36 +8,31 @@
             <!-- in 3 => nbre d'itérations de boucle qu'on change par three_articles-->
             <!-- la clé de chaque carte sera l'index (qui fera +1 à chaque carte) -->
         </div>
-        
     </div>
 </template>
 
 <script>
-import articleCard from './articleCard.vue';
-
-export default {
-    name: "articlesRow",
-    components:{
-        articlesCard, // initialisation
-    },
-
-    props:{
-        three_articles: Array
-    }
-}
+// import { computed } from '@vue/reactivity'
+// export default {
+    
+// }
 </script>
 
 <style lang="scss">
-.articlesRow{
-    .title{
-        font: size 2rem; ;
+h1, h2, h3, h4, h5{
+        text-align: center;
+        padding-top: 2px;
+        margin-top: auto;
     }
-    .wrapper--card{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-    }    
-}
-
+    #titre
+    {
+        background-color: #44c0b0;
+        color: #eafffc;
+    }
+    #nomprod{
+        background-color: #2f9789;
+    }
+    #prod{
+        background-color: #dfeeec;
+    }
 </style>

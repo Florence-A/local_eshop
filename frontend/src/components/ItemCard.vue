@@ -1,13 +1,13 @@
 <template>
-    <div class="row" id="articleCard">
-        <div class="col-12" id="articleImage">
-            <img class="img-fluid" src="/assets/produit2.png" alt=""><!-- {{ info_article.image }} -->
-        </div>
-        <div class="col-12" id="articleInformations">
+    <div class="row" id="ItemCard">
+        <div class="col-12" id="ItemInformations">
             <div class="infos">
                 <h2 id="name">
                     Nom article  <!-- {{ info_article.name }}infos dynamiques. Props permet de passer infos d'un composant parent à un compo enfant -->
                 </h2>
+                <div class="col-12" id="ItemImage">
+                    <img class="img-fluid" src="../assets/produit2.png" alt=""><!-- {{ info_article.image }} -->
+                </div>
                 <p id="description">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis iste at quo voluptatum incidunt voluptatibus. Incidunt maiores error consequuntur numquam? <!-- {{ info_article.name }} -->
                 </p>
@@ -36,7 +36,7 @@
 <script>
 // import { computed } from '@vue/reactivity'
 export default {
-    name:"articleCard",
+    name:"ItemCard",
     // props:{
     //     info_article: Object
     // },
@@ -73,18 +73,18 @@ export default {
 </script>
 
 <style lang="scss">
-#articleCard{
+#ItemCard{
     p{
     margin: 0;
     padding: 0;
     align-content: center;
     }
-    #articleImage{
+    #ItemImage{
         img{
             height: fit-content;
         }
     }
-    #articleInformations{
+    #ItemInformations{
         .infos{
             h2{
                 text-align: center;

@@ -1,11 +1,14 @@
 <template>
-    <div class="articlesRow">
+    <div class="ItemsRow">
         <h2 class="title">
             Nos articles
             <!-- {{ toto }}  je peux appeler mon props déclaré ds home -->
         </h2>
         <div class="wrapper--card">
-            <articles-card v-for="(card, index) in three_articles" :info_articles="card" :key="index"/>  <!-- vfor boucle -->
+            <ItemCard></ItemCard>
+            <ItemCard></ItemCard>
+            <ItemCard></ItemCard>
+            <!-- <articles-card v-for="(card, index) in three_articles" :info_articles="card" :key="index"/>  vfor boucle -->
             <!-- card => nom de l'element à chaque tour de boucle. articles-card = card-->
             <!--  index est généré automatiquement par vuejs -->
             <!-- in 3 => nbre d'itérations de boucle qu'on change par three_articles-->
@@ -16,12 +19,12 @@
 </template>
 
 <script>
-import articleCard from './articleCard.vue';
+import ItemCard from './ItemCard.vue';
 
 export default {
-    name: "articlesRow",
+    name: "ItemsRow",
     components:{
-        articlesCard, // initialisation
+        ItemCard, // initialisation
     },
 
     props:{
@@ -31,16 +34,10 @@ export default {
 </script>
 
 <style lang="scss">
-.articlesRow{
+.ItemsRow{
     .title{
-        font: size 2rem; ;
-    }
-    .wrapper--card{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-    }    
+        font-size: 2.5rem ;
+    } 
 }
 
 </style>

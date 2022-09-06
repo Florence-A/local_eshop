@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { computed } from '@vue/reactivity'
+// import { computed } from '@vue/reactivity'
 export default {
     
 }

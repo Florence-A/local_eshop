@@ -1,5 +1,5 @@
 <template>
-    <div class="row" id="headerShop">
+    <div class="row" id="HeaderShop">
         <div class="col-4" id="logo"><img src="../assets/logo.svg" alt="logo icon"></div>
         <div class="col-8" id="menu">
             <div class="col" id="user"><img src="../assets/user.svg" alt="user icon"></div>
@@ -12,7 +12,7 @@
 <script>
 // import { computed } from '@vue/reactivity'
 export default {
-    id:"headerShop",
+    id:"HeaderShop",
     props:{
     
     }
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style lang="scss">
-#headerShop{
+#HeaderShop{
     *{
     margin: 0;
     padding: 0;
