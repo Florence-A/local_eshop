@@ -1,6 +1,7 @@
 <template>
     <div class="HomePage">
         <HeaderShop></HeaderShop> 
+        <router-view></router-view>
         <NavbarShop></NavbarShop>
         <CarouselShop></CarouselShop>
         <AssoInfos></AssoInfos>

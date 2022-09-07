@@ -1,36 +1,36 @@
 import { createWebHistory, createRouter } from "vue-router";
-import signUpIn from "@/components/signUpIn.vue";
-import subScribe from "@/components/subScribe.vue";
-import signIn from "@/components/signIn.vue";
-import userPanel from "@/components/userPanel.vue";
-import userInfo from "@/components/userInfo.vue";
+import SignUpIn from "@/components/SignUpIn.vue";
+import SubScribe from "@/components/SubScribe.vue";
+import SignIn from "@/components/SignIn.vue";
+import UserPanel from "@/components/UserPanel.vue";
+import UserInfo from "@/components/UserInfo.vue";
 
 
 const routes = [
     {
-        path: "/signUpIn",
-        name: "signUpIn",
-        component: signUpIn
+        path: "/SignUpIn",
+        name: "SignUpIn",
+        component: SignUpIn
     },
     {
-        path: "/subScribe",
-        name: "subScribe",
-        component: subScribe
+        path: "/SubScribe",
+        name: "SubScribe",
+        component: SubScribe
     },
     {
-        path: "/signIn",
-        name: "signIn",
-        component: signIn
+        path: "/SignIn",
+        name: "SignIn",
+        component: SignIn
     },
     {
-        path: "/userPanel",
-        name: "userPanel",
-        component: userPanel
+        path: "/UserPanel",
+        name: "UserPanel",
+        component: UserPanel
     },
     {
-        path: "/userInfo",
-        name: "userInfo",
-        component: userInfo
+        path: "/UserInfo",
+        name: "UserInfo",
+        component: UserInfo
     },
 ];
 

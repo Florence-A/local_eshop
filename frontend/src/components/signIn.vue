@@ -14,7 +14,7 @@
 
     export default 
     {
-        name: 'signIn',
+        name: 'SignIn',
 
         data(){
             return {

@@ -22,11 +22,8 @@ module.exports = {
 
     authenticateToken : (req, res, next) => {
         
-        console.log(req.headers)
-        const authHeader = req.headers.authorization;
-        console.log(authHeader); // UNDEFINED
-        const token = authHeader.split(" ")[1];
-        // console.log(token);
+        const token = req.headers.authorization;
+        
         if (!token) { 
             return res.sendStatus(401) ;
         }

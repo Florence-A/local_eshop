@@ -1,12 +1,26 @@
 <template>
+
     <div class="row" id="HeaderShop">
+
         <div class="col-4" id="logo"><img src="../assets/logo.svg" alt="logo icon"></div>
+
         <div class="col-8" id="menu">
-            <div class="col" id="user"><img src="../assets/user.svg" alt="user icon"></div>
-            <div class="col" id="favorite"><img src="../assets/favorite.svg" alt="favorite icon"></div>
-            <div class="col" id="cart"><img src="../assets/cart.svg" alt="cart icon"></div>
+            <div class="col" id="user">
+                <router-link to="/SignUpIn">
+                <img src="../assets/user.svg" alt="user icon">
+                </router-link>
+            </div>
+
+            <div class="col" id="favorite">
+                <img src="../assets/favorite.svg" alt="favorite icon">
+            </div>
+            
+            <div class="col" id="cart">
+                <img src="../assets/cart.svg" alt="cart icon">
+            </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -40,16 +54,17 @@ export default {
         justify-content: space-between;
         align-items: center;
         #user{
-            width: fit-content;
+            
             img{
                 width: 30px;
+                height: 30px;
                 margin: 10px;
                 padding: 5px;
-                padding-left:20px;
+                
             }
         }
         #favorite{
-            width: fit-content;
+            
             img{
                 width: 30px;
                 margin: 10px;
@@ -57,12 +72,11 @@ export default {
             }
         }
         #cart{
-            width: fit-content;
+            
             img{
                 width: 30px;
                 margin: 10px;
                 padding: 5px;
-                padding-right:20px;
             }
         }
     }

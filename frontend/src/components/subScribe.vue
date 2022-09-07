@@ -15,7 +15,7 @@
 
     export default 
     {
-        name: 'subScribe',
+        name: 'SubScribe',
 
         data(){
             return {

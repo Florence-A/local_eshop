@@ -10,31 +10,30 @@
 
 <script>
 
-// import axios from 'axios';
-
-// Token analysis for collect the userId
-var token = localStorage.getItem('token');
-console.log('token : '+token);
+import axios from 'axios';
 
 
 export default 
 {
-    name: "userInfo",
+    name: "UserInfo",
     data(){
         return{
             user: {}
         }
     },
+
     mounted(){
-        // axios.post('http://localhost:9000/userinfo', {
-        //     data: {},
-        //     headers:{'authorization': token}
-        // })
-        // .then((response)=>{
-        //     this.user = response.data
-        //     console.log(response)
-        // })
-        // .catch((err) => console.log(err))
+
+        var token = localStorage.getItem('token');
+        
+        axios.post('http://localhost:9000/userinfo', {
+            headers:{'authorization': token}
+        })
+        .then((response)=>{
+            this.user = response.data
+            console.log(response)
+        })
+        .catch((err) => console.log(err))
     }
 };
 </script>

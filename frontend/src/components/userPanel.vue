@@ -25,7 +25,7 @@
 <script>
 
     export default {
-        name: 'userPanel',
+        name: 'UserPanel',
     }
 
 </script>
