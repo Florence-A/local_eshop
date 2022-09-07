@@ -14,10 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Overdue_date.init({
-    time: DataTypes.INTEGER
+    time: {
+      type: DataTypes.DATE,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Overdue_date',
+    tableName: 'overdue-date'
   });
   return Overdue_date;
 };
