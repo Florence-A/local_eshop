@@ -9,15 +9,20 @@ module.exports = {
         primaryKey: true
       },
       _ref: {
+        allowNull: false,
+        unique: true,
         type: Sequelize.STRING
       },
       description: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       HT_price: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       lead_time: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {

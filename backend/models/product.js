@@ -24,18 +24,20 @@ module.exports = (sequelize, DataTypes) => {
     _ref: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        notNull: {
-          msg: 'il faut une ref tocard!!!'
-        },
-        notEmpty: {
-          msg: 'ref ne doit pas etre vide, tocard!!!!'
-        }
-      }
+      unique: true
     },
-    description: DataTypes.STRING,
-    HT_price: DataTypes.INTEGER,
-    lead_time: DataTypes.INTEGER
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    HT_price: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    lead_time: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Product',

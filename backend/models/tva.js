@@ -17,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Tva.init({
-    rate: DataTypes.INTEGER
+    rate: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Tva',

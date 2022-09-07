@@ -14,10 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Image.init({
-    path: DataTypes.STRING
+    path: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Image',
+    tableName: 'image'
   });
   return Image;
 };
