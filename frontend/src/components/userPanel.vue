@@ -1,6 +1,6 @@
 <template>
 
-    <div class="container d-flex flex-column align-items-center justify-content-around">
+    <div class="UserPanel d-flex flex-column align-items-center justify-content-around">
 
         <router-link to="/UserInfo" class="d-inline-flex">
             <button class="btn btn-primary"> Mon profil </button>
@@ -32,7 +32,12 @@
 
 
 <style>
-.container{
-    height: 150px;
+.UserPanel{
+    height: 200px;
+    background-color: #cfdad8;
+    padding: 20px;
+}
+a{
+    text-decoration: none;
 }
 </style>

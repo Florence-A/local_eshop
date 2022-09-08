@@ -15,9 +15,7 @@ const router = express.Router()
 router.post('/signup', userCtrl.addUser)
 router.post('/signin', userCtrl.logUser)
 
-router.post('/userinfo', authenticateToken, (req, res) => {
-    console.log("Je suis arrivé jusque là, tout va bien :)")
-})
+router.get('/userinfo', authenticateToken, userCtrl.getUser)
 
 
 

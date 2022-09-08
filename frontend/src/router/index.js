@@ -9,6 +9,7 @@ import FavoriteItems from "@/components/FavoriteItems.vue";
 import CartPage from "@/components/CartPage.vue";
 
 
+
 const routes = [
     {
         path: "/SignUpIn",
@@ -49,6 +50,7 @@ const routes = [
         path: "/CartPage",
         name: "CartPage",
         component: CartPage
+
     },
 ];
 

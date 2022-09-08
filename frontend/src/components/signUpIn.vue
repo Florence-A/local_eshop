@@ -1,14 +1,25 @@
 <template>
+    <div class="SignUpIn d-flex flex-column justify-content-around">
 
-    <router-link to="/SignIn">
-        <button class="btn btn-primary"> Connexion </button>
-    </router-link>
+        <div>
+            <router-link to="/SignIn">
+                <button class="btn btn-primary"> Connexion </button>
+            </router-link>
+        </div>
 
-    <br><br>
 
-    <router-link to="/SubScribe">
-        <button class="btn btn-primary"> Inscription </button>
-    </router-link>
+        <div>
+            <router-link to="/SubScribe">
+                <button class="btn btn-primary"> Inscription </button>
+            </router-link>
+        </div>
+
+        <router-link to="/SubScribe">
+            <button class="btn btn-primary"> Inscription </button>
+        </router-link>
+
+    </div>
+
 
 </template>
 
@@ -23,4 +34,11 @@
 </script>
 
 
-<style></style>
+<style>
+    .SignUpIn {
+        height: 150px;
+        background-color: #cfdad8;
+        padding: 20px;
+    }    
+    
+</style>

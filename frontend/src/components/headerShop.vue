@@ -1,4 +1,5 @@
 <template>
+
     <div class="row" id="HeaderShop">
         <router-link to="/">
             <div class="col-4" id="logo"><img src="../assets/logo.svg" alt="logo icon"></div>
@@ -17,6 +18,7 @@
             
         </div>
     </div>
+
 </template>
 
 <script>
@@ -52,11 +54,14 @@ export default {
         #user{
             img{
                 width: 30px;
+                height: 30px;
                 margin: 10px;
                 padding: 5px;
+
             }
         }
         #favorite{
+
             img{
                 width: 30px;
                 margin: 10px;
@@ -64,6 +69,7 @@ export default {
             }
         }
         #cart{
+
             img{
                 width: 30px;
                 margin: 10px;

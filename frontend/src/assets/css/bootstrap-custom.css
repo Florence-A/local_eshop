@@ -1,0 +1,11 @@
+/* Bootstrap Custom */
+
+.btn-primary{
+    background-color: #195f56;
+    border-color: #195f56;
+
+}
+.btn-primary:hover {
+    background-color: #2f9789;
+    border-color: #2f9789;
+}
