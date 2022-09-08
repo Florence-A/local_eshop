@@ -14,7 +14,7 @@
 
     export default 
     {
-        name: 'signIn',
+        name: 'SignIn',
 
         data(){
             return {
@@ -42,7 +42,7 @@
                     // Token storage
                     if (res.data.token != "err"){
                         localStorage.setItem( 'token', res.data.token );
-                        location.assign( '/signUpIn' )
+                        location.assign( '/SignUpIn' )
                     } 
                     else {
                         this.msg = "Mot de passe incorrect"

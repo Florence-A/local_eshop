@@ -2,7 +2,10 @@
     <div class="row">    
         <h4> Produits favoris</h4>
         <div class="wrapper--card">
-            <articles-card v-for="(card, index) in three_articles" :info_articles="card" :key="index"/>  <!-- vfor boucle -->
+            <FavoriteItem></FavoriteItem>
+            <FavoriteItem></FavoriteItem>
+            <FavoriteItem></FavoriteItem>
+            <!-- <articles-card v-for="(card, index) in three_articles" :info_articles="card" :key="index"/>  vfor boucle -->
             <!-- card => nom de l'element à chaque tour de boucle. articles-card = card-->
             <!--  index est généré automatiquement par vuejs -->
             <!-- in 3 => nbre d'itérations de boucle qu'on change par three_articles-->
@@ -12,10 +15,14 @@
 </template>
 
 <script>
+import FavoriteItem from "@/components/FavoriteItem.vue";
 // import { computed } from '@vue/reactivity'
-// export default {
-    
-// }
+export default {
+    name : "FavoriteItems",
+    components: {
+        FavoriteItem,
+    }
+}
 </script>
 
 <style lang="scss">

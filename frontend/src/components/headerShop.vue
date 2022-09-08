@@ -1,10 +1,20 @@
 <template>
     <div class="row" id="HeaderShop">
-        <div class="col-4" id="logo"><img src="../assets/logo.svg" alt="logo icon"></div>
+        <router-link to="/">
+            <div class="col-4" id="logo"><img src="../assets/logo.svg" alt="logo icon"></div>
+        </router-link>
+       
         <div class="col-8" id="menu">
+        <router-link to="/SignUpIn">
             <div class="col" id="user"><img src="../assets/user.svg" alt="user icon"></div>
+        </router-link>
+        <router-link to="/FavoriteItems">
             <div class="col" id="favorite"><img src="../assets/favorite.svg" alt="favorite icon"></div>
+        </router-link>
+        <router-link to="/CartPage">
             <div class="col" id="cart"><img src="../assets/cart.svg" alt="cart icon"></div>
+        </router-link>
+            
         </div>
     </div>
 </template>
@@ -40,16 +50,13 @@ export default {
         justify-content: space-between;
         align-items: center;
         #user{
-            width: fit-content;
             img{
                 width: 30px;
                 margin: 10px;
                 padding: 5px;
-                padding-left:20px;
             }
         }
         #favorite{
-            width: fit-content;
             img{
                 width: 30px;
                 margin: 10px;
@@ -57,12 +64,10 @@ export default {
             }
         }
         #cart{
-            width: fit-content;
             img{
                 width: 30px;
                 margin: 10px;
                 padding: 5px;
-                padding-right:20px;
             }
         }
     }

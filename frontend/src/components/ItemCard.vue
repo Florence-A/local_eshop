@@ -18,9 +18,11 @@
                         </p>
                     </div>
                     <div class="col-4" id="blocqtity">
-                        <p id="qtity">
-                            <button v-on:click="increment();">Qtité</button><!-- {{ count }} -->
-                        </p>
+                        <div class="quantity-toggle">
+                            <button @click="decrement()">&mdash;</button>
+                            <input type="text" :value="quantity" readonly>
+                            <button @click="increment()">&#xff0b;</button>
+                        </div>
                     </div>
                     <div class="col-4" id="blocachat">
                         <p id="achat">
@@ -40,35 +42,27 @@ export default {
     // props:{
     //     info_article: Object
     // },
-    // data(){
-    //     return{
-    //         this.count
-    //     }
-    // }
-    // setup(props){
-    //     const changeBackground = computed(() => {
-    //         return {
-    //             backgroundImage: `url(${props.info_article.image})`
-    //         }
-    //     })
-
-    //     // RETURN
-    //     return {
-    //         changeBackground,
-    //     }
-    // },
-    // methods: {
-    //     increment(){
-    //         this.count++
-    //         // fonction Increment A COMPLETER 
-    //         // - doit y avoir boutons + et -
-    //         // - doit modifier prix en fonction
-    //     },
-    //     achat(){
-    //         // fonction Achat A COMPLETER
-    //         // click => ajouter produit à liste produit du client
-    //     }
-    // }
+    data(){
+        return {
+            quantity: 1
+        }
+    },
+    methods: {
+        increment () {
+            this.quantity++
+        },
+        decrement () {
+            if(this.quantity === 1) {
+                alert('Quantité négative non autorisée')
+            } else {
+                this.quantity--
+            }
+        }
+    },
+        achat(){
+            // fonction Achat A COMPLETER
+            // click => ajouter produit à liste produit du client en fonction de qtity
+        }
 }
 </script>
 
