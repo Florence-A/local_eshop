@@ -1,8 +1,10 @@
 <template>
     <div class="HomePage">
         <HeaderShop></HeaderShop> 
-        <router-view></router-view>
         <NavbarShop></NavbarShop>
+        <div>
+            <router-view></router-view>
+        </div>
         <CarouselShop></CarouselShop>
         <AssoInfos></AssoInfos>
         <ShopInfos></ShopInfos>
@@ -37,6 +39,6 @@ export default {
     },
 }
 </script>
+
 <style>
-    
 </style>

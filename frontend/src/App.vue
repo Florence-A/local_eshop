@@ -1,15 +1,15 @@
 
 <template>
-  <LoginPage></LoginPage>
-  <!-- <HomePage></HomePage> -->
+
+  <HomePage></HomePage>
   <!-- <ProductsPage></ProductsPage> -->
   <!-- <CartPage></CartPage> -->
   <!-- <CustomerAccountPage></CustomerAccountPage> -->
 </template>
 
 <script>
-import LoginPage from './components/LoginPage.vue'
-// import HomePage from './components/HomePage.vue'
+
+import HomePage from './components/HomePage.vue'
 // import ProductsPage from './components/ProductsPage.vue';
 // import CartPage from './components/CartPage.vue';
 // import CustomerAccountPage from './components/CustomerAccountPage.vue'
@@ -17,8 +17,8 @@ import LoginPage from './components/LoginPage.vue'
 export default {
   name: 'App',
   components: {
-    LoginPage,
-    // HomePage,
+
+    HomePage,
     // ProductsPage,
     // CartPage,
     // CustomerAccountPage

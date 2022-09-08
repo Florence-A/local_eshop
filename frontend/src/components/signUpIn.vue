@@ -1,14 +1,19 @@
 <template>
+    <div class="SignUpIn d-flex flex-column justify-content-around">
 
-    <router-link to="/SignIn">
-        <button class="btn btn-info"> Connexion </button>
-    </router-link>
+        <div>
+            <router-link to="/SignIn">
+                <button class="btn btn-secondary"> Connexion </button>
+            </router-link>
+        </div>
 
-    <br><br>
+        <div>
+            <router-link to="/SubScribe">
+                <button class="btn btn-secondary"> Inscription </button>
+            </router-link>
+        </div>
 
-    <router-link to="/SubScribe">
-        <button class="btn btn-info"> Inscription </button>
-    </router-link>
+    </div>
 
 </template>
 
@@ -23,4 +28,9 @@
 </script>
 
 
-<style></style>
+<style>
+    .SignUpIn {
+        height: 100px;
+        background-color: #cfdad8;
+    }    
+</style>
