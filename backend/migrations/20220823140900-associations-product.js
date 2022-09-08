@@ -14,31 +14,15 @@ module.exports = {
           model: 'Tva',
           key: 'id'
         }
-      }
-    )
-    // await queryInterface.createTable('productcategory', {
-    //   id: {
-    //     allowNull: false,
-    //     autoIncrement: true,
-    //     primaryKey: true,
-    //     type: Sequelize.INTEGER
-    //   },
-    //   product_id: {
-    //     type: Sequelize.INTEGER
-    //   },
-    //   category_id: {
-    //     type: Sequelize.INTEGER,
-        
-    //   },
-    //   createdAt: {
-    //     allowNull: false,
-    //     type: Sequelize.DATE
-    //   },
-    //   updatedAt: {
-    //     allowNull: false,
-    //     type: Sequelize.DATE
-    //   }
-    // });
+      }),
+
+    await queryInterface.addColumn('product', 'overdue_date_id', {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Overdue_date',
+          key: 'id'
+        }
+      })
   },
 
   async down (queryInterface, Sequelize) {
@@ -49,6 +33,6 @@ module.exports = {
      * await queryInterface.dropTable('users');
      */
     await queryInterface.removeColumn('product','tva_id')
-    // await queryInterface.dropTable('productcategory');
+    await queryInterface.removeColumn('product','overdue_date_id')
   }
-};
+}
