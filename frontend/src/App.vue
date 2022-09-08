@@ -1,7 +1,12 @@
 
 <template>
 
-  <HomePage></HomePage>
+  <router-link to="/">b</router-link>
+  <router-link to="/UserPanel">a</router-link>
+        <div>
+            <router-view></router-view>
+        </div>
+  <!-- <HomePage></HomePage> -->
   <!-- <ProductsPage></ProductsPage> -->
   <!-- <CartPage></CartPage> -->
   <!-- <CustomerAccountPage></CustomerAccountPage> -->
@@ -9,7 +14,7 @@
 
 <script>
 
-import HomePage from './components/HomePage.vue'
+// import HomePage from './components/HomePage.vue'
 // import ProductsPage from './components/ProductsPage.vue';
 // import CartPage from './components/CartPage.vue';
 // import CustomerAccountPage from './components/CustomerAccountPage.vue'
@@ -18,7 +23,7 @@ export default {
   name: 'App',
   components: {
 
-    HomePage,
+    // HomePage,
     // ProductsPage,
     // CartPage,
     // CustomerAccountPage

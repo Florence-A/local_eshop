@@ -18,7 +18,7 @@ export default
     name: "UserInfo",
     data(){
         return{
-            user: {}
+            user: {},
         }
     },
 
@@ -26,7 +26,7 @@ export default
 
         var token = localStorage.getItem('token');
         
-        axios.post('http://localhost:9000/userinfo', {
+        axios.get('http://localhost:9000/userinfo', {
             headers:{'authorization': token}
         })
         .then((response)=>{

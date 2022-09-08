@@ -2,9 +2,6 @@
     <div class="HomePage">
         <HeaderShop></HeaderShop> 
         <NavbarShop></NavbarShop>
-        <div>
-            <router-view></router-view>
-        </div>
         <CarouselShop></CarouselShop>
         <AssoInfos></AssoInfos>
         <ShopInfos></ShopInfos>

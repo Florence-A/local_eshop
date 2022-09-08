@@ -44,7 +44,7 @@
                     // Token storage
                     if (res.data.token != "err"){
                         localStorage.setItem( 'token', res.data.token );
-                        location.assign( '/signUpIn' )
+                        location.assign( '/UserPanel' )
                     } 
                     else {
                         this.msg = "Mot de passe incorrect"

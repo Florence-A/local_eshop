@@ -6,7 +6,7 @@ const cors    = require('cors');
 const port    = 9000;
 
 // Import routers
-const userRouter = require('./routes/user');
+const userRouter = require('./routes/user.routes');
 
 
 // Use

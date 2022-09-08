@@ -4,6 +4,7 @@ import SubScribe from "@/components/SubScribe.vue";
 import SignIn from "@/components/SignIn.vue";
 import UserPanel from "@/components/UserPanel.vue";
 import UserInfo from "@/components/UserInfo.vue";
+import HomePage from "@/components/HomePage.vue";
 
 
 const routes = [
@@ -31,6 +32,11 @@ const routes = [
         path: "/UserInfo",
         name: "UserInfo",
         component: UserInfo
+    },
+    {
+        path: "/",
+        name: "HomePage",
+        component: HomePage
     },
 ];
 
