@@ -1,12 +1,12 @@
 <template>
 
-    <router-link to="/signIn">
+    <router-link to="/SignIn">
         <button class="btn btn-primary"> Connexion </button>
     </router-link>
 
     <br><br>
 
-    <router-link to="/subScribe">
+    <router-link to="/SubScribe">
         <button class="btn btn-primary"> Inscription </button>
     </router-link>
 
@@ -17,7 +17,7 @@
 <script>
 
     export default {
-        name: 'signUpIn',
+        name: 'SignUpIn',
     }
 
 </script>

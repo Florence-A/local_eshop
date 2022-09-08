@@ -29,7 +29,6 @@ export default {
             width: 50px;
             margin: 5px;
             padding: 5px;
-            padding-right: 10px;
         }
     }
     #recherche{

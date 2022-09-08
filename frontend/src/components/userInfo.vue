@@ -19,7 +19,7 @@ console.log('token : '+token);
 
 export default 
 {
-    name: "userInfo",
+    name: "UserInfo",
     data(){
         return{
             user: {}

@@ -6,40 +6,42 @@
         <div class="articleInformations">
             <div class="top">
                 <h2 class="name">
-                    {{ info_article.name }}   <!--infos dynamiques. Props permet de passer infos d'un composant parent à un compo enfant -->
+                    Titre
+                    <!-- {{ info_article.name }}   infos dynamiques. Props permet de passer infos d'un composant parent à un compo enfant -->
                 </h2>
                 <p class="prix">
-                    <span>{{ info_article.prix }}</span>
+                    <span>Prix</span>
+                    <!-- <span>{{ info_article.prix }}</span> -->
                 </p>
                 <p class="qtity">
-                    <span>{{ info_article.qtity }}</span>
+                    <span>Quantité</span>
+                    <!-- <span>{{ info_article.qtity }}</span> -->
                 </p>
                 <button class="achat">Acheter</button>
-                </p>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { computed } from '@vue/reactivity'
+// import { computed } from '@vue/reactivity'
 export default {
     name:"FavoriteItem",
     props:{
         info_article: Object
     },
-    setup(props){
-        const changeBackground = computed(() => {
-            return {
-                backgroundImage: `url(${props.info_article.image})`
-            }
-        })
+    // setup(props){
+    //     const changeBackground = computed(() => {
+    //         return {
+    //             backgroundImage: `url(${props.info_article.image})`
+    //         }
+    //     })
 
-        // RETURN
-        return {
-            changeBackground
-        }
-    }
+    //     // RETURN
+    //     return {
+    //         changeBackground
+    //     }
+    // }
 }
 </script>
 

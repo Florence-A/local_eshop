@@ -2,7 +2,7 @@
 
     <div class="container d-flex flex-column align-items-center justify-content-around">
 
-        <router-link to="/userInfo" class="d-inline-flex">
+        <router-link to="/UserInfo" class="d-inline-flex">
             <button class="btn btn-primary"> Mon profil </button>
         </router-link>
 
@@ -25,7 +25,7 @@
 <script>
 
     export default {
-        name: 'userPanel',
+        name: 'UserPanel',
     }
 
 </script>
