@@ -3,13 +3,13 @@
 
         <div>
             <router-link to="/SignIn">
-                <button class="btn btn-secondary"> Connexion </button>
+                <button class="btn btn-primary"> Connexion </button>
             </router-link>
         </div>
 
         <div>
             <router-link to="/SubScribe">
-                <button class="btn btn-secondary"> Inscription </button>
+                <button class="btn btn-primary"> Inscription </button>
             </router-link>
         </div>
 
@@ -30,7 +30,9 @@
 
 <style>
     .SignUpIn {
-        height: 100px;
+        height: 150px;
         background-color: #cfdad8;
+        padding: 20px;
     }    
+    
 </style>

@@ -1,9 +1,11 @@
 <template>
-    <div class="container">
-        <div>{{msg}}</div>
-        <input class="form-control" v-model="mail" type="text" placeholder="Adresse mail"><br>
-        <input class="form-control" v-model="password" type="password" placeholder="Mot de passe"><br>
-        <button @click="send(m,p)" class="btn btn-primary">Se connecter</button>
+    <div class="SignIn">
+        <div class="wrapper">
+            <div>{{msg}}</div>
+            <input class="form-control" v-model="mail" type="text" placeholder="Adresse mail"><br>
+            <input class="form-control" v-model="password" type="password" placeholder="Mot de passe"><br>
+            <button @click="send(m,p)" class="btn btn-primary">Se connecter</button>
+        </div>
     </div>
 </template>
 
@@ -56,7 +58,12 @@
 
 
 <style>
-    .container {
-        max-width: 600px;
+    .SignIn {
+        background-color: #cfdad8;
+        padding: 20px;
+    }
+    .wrapper {
+        max-width: 300px;
+        margin: auto;
     }
 </style>
