@@ -1,5 +1,5 @@
 <template>
-    <div class="container" id="FooterShop">
+    <div id="FooterShop">
         <div class="row" id="liens">
             <div class="col-3" name="col1">
                 <a href="#BACKTOTOP">Accueil</a> 

@@ -14,9 +14,6 @@
             </router-link>
         </div>
 
-        <router-link to="/shop/SubScribe">
-            <button class="btn btn-primary"> Inscription </button>
-        </router-link>
 
     </div>
 
@@ -36,7 +33,7 @@
 
 <style>
     .SignUpIn {
-        height: 150px;
+        height: 100%;
         background-color: #cfdad8;
         padding: 20px;
     }    
