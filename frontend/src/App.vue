@@ -1,5 +1,6 @@
 
 <template>
+
   <HeaderShop></HeaderShop>
   <NavbarShop></NavbarShop>
   <router-view></router-view>
@@ -12,6 +13,7 @@
 </template>
 
 <script>
+
 // import HomePage from './components/HomePage.vue'
 // import ProductsPage from './components/ProductsPage.vue';
 import HeaderShop from './components/HeaderShop.vue';
@@ -23,6 +25,7 @@ import NavbarShop from './components/NavbarShop.vue';
 export default {
   name: 'App',
   components: {
+
     // HomePage,
     // ProductsPage,
     HeaderShop,

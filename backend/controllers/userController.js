@@ -126,8 +126,21 @@ module.exports = {
     },
 
 
+    getUser : (req,res) =>
+    {
+        console.log("Je suis dans le controller c'est ok !")
+        // if (token) {
 
-    deleteUser : (res,req) => 
+        // }
+        // else {
+        //     res.send({ 'msg' : "Accès interdit, la session en cours n'est pas valide" })
+        // }
+    },
+
+
+
+
+    deleteUser : (req,res) => 
     {
 
     },

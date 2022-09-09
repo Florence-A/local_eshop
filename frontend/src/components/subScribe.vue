@@ -1,11 +1,13 @@
 <template>
-    <div class="container">
-        <div>{{msg}}</div>
-        <input class="form-control" v-model="first_name" type=text placeholder="Prénom"><br>
-        <input class="form-control" v-model="last_name" type=text placeholder="Nom"><br>
-        <input class="form-control" v-model="mail" type="text" placeholder="Adresse mail"><br>
-        <input class="form-control" v-model="password" type="password" placeholder="Mot de passe"><br>
-        <button @click="send(ln,fn,m,p)" class="btn btn-primary">S'inscrire</button>
+    <div class="SubScribe">
+        <div class="wrapper d-flex flex-column justify-content-center">
+            <div>{{msg}}</div>
+            <input class="form-control" v-model="first_name" type=text placeholder="Prénom"><br>
+            <input class="form-control" v-model="last_name" type=text placeholder="Nom"><br>
+            <input class="form-control" v-model="mail" type="text" placeholder="Adresse mail"><br>
+            <input class="form-control" v-model="password" type="password" placeholder="Mot de passe"><br>
+        </div>
+            <button @click="send(ln,fn,m,p)" class="btn btn-primary">S'inscrire</button>
     </div>
 </template>
 
@@ -53,7 +55,12 @@
 </script>
 
 <style>
-    .container {
-        max-width: 600px;
+    .SubScribe {
+        background-color: #cfdad8;
+        padding: 20px;
+    }
+    .wrapper {
+        max-width: 300px;
+        margin: auto;
     }
 </style>
