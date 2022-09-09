@@ -1,5 +1,6 @@
 <template>
 
+
     <div id="HeaderShop">
         
         <div id="menu">
