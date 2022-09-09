@@ -29,37 +29,37 @@ const routes = [
                 component: HomePage
             },
             {
-                path: "/SignUpIn",
+                path: "SignUpIn",
                 name: "SignUpIn",
                 component: SignUpIn
             },
             {
-                path: "/SubScribe",
+                path: "SubScribe",
                 name: "SubScribe",
                 component: SubScribe
             },
             {
-                path: "/SignIn",
+                path: "SignIn",
                 name: "SignIn",
                 component: SignIn
             },
             {
-                path: "/UserPanel",
+                path: "UserPanel",
                 name: "UserPanel",
                 component: UserPanel
             },
             {
-                path: "/UserInfo",
+                path: "UserInfo",
                 name: "UserInfo",
                 component: UserInfo
             },
             {
-                path: "/FavoriteItems",
+                path: "FavoriteItems",
                 name: "FavoriteItems",
                 component: FavoriteItems
             },
             {
-                path: "/CartPage",
+                path: "CartPage",
                 name: "CartPage",
                 component: CartPage
 

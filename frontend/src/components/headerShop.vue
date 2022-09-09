@@ -8,12 +8,13 @@
             <div class="col" id="logo"><img src="../assets/logo.svg" alt="logo icon"></div>
         </router-link>
         <router-link to="/SignUpIn">
+
             <div class="col" id="user"><img src="../assets/user.svg" alt="user icon"></div>
         </router-link>
-        <router-link to="/FavoriteItems">
+        <router-link to="/shop/FavoriteItems">
             <div class="col" id="favorite"><img src="../assets/favorite.svg" alt="favorite icon"></div>
         </router-link>
-        <router-link to="/CartPage">
+        <router-link to="/shop/CartPage">
             <div class="col" id="cart"><img src="../assets/cart.svg" alt="cart icon"></div>
         </router-link>
             
