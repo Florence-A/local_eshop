@@ -1,4 +1,3 @@
-
 <template>
    <HeaderShop></HeaderShop>
 </template>
