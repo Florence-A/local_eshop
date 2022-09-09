@@ -34,10 +34,10 @@ export default {
     #recherche{
         position: relative;
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: flex-end;
         #site-search{
-            width: max-content;
+            width: 70%;
         }
     }
 }

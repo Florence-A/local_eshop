@@ -108,9 +108,7 @@ export default {
 }
 
 body {
-    max-width: 37.5rem;
     margin: 0 auto;
-    padding: 0 1.25rem;
     font-family: 'Lato', sans-serif;
 }
 
@@ -262,12 +260,12 @@ li {
 
 .carousel::before,
 .carousel__prev {
-    left: -1rem;
+    left: 0.5rem;
 }
 
 .carousel::after,
 .carousel__next {
-    right: -1rem;
+    right: 0.5rem;
 }
 
 .carousel::before,

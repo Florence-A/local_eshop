@@ -1,11 +1,11 @@
 <template>
 
-    <div class="row" id="HeaderShop">
+    <div id="HeaderShop">
+        
+        <div id="menu">
         <router-link to="/">
-            <div class="col-4" id="logo"><img src="../assets/logo.svg" alt="logo icon"></div>
+            <div class="col" id="logo"><img src="../assets/logo.svg" alt="logo icon"></div>
         </router-link>
-       
-        <div class="col-8" id="menu">
         <router-link to="/SignUpIn">
             <div class="col" id="user"><img src="../assets/user.svg" alt="user icon"></div>
         </router-link>
@@ -49,7 +49,7 @@ export default {
     #menu{
         position: relative;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
         #user{
             img{

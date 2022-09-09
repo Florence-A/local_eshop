@@ -1,5 +1,5 @@
 <template>
-    <div class="row" id="PracticalInfos">
+    <div id="PracticalInfos">
         <div id="titrePratique"><h1>Informations pratiques</h1></div>
         <div class="info" id="horaires">
             <div class="titre">

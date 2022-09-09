@@ -67,6 +67,15 @@ export default {
 </script>
 
 <style lang="scss">
+button{
+    background-color: #2f9789;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    border-color: #2f9789;
+    border-width: 2px;
+}
+                    
 #ItemCard{
     p{
     margin: 0;
@@ -95,14 +104,14 @@ export default {
                 padding-top: 5px;
                 .col-4{
                     align-content: center;
-                    button{
-                        background-color: #2f9789;
-                        color: white;
-                        border-radius: 10px;
-                        padding: 5px;
-                        border-color: #2f9789;
-                        border-width: 2px;
+                    .quantity-toggle{
+                        input{
+                            width: 50px;
+                            text-align: center;
+                        }
+                        
                     }
+                    
                 }
             }    
         }
