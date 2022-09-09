@@ -1,7 +1,7 @@
 <template>
 
     <div class="row" id="HeaderShop">
-        <router-link to="/">
+        <router-link to="/shop">
             <div class="col-4" id="logo"><img src="../assets/logo.svg" alt="logo icon"></div>
         </router-link>
        

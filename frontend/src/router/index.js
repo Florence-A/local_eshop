@@ -7,51 +7,68 @@ import UserInfo from "@/components/UserInfo.vue";
 import HomePage from "@/components/HomePage.vue";
 import FavoriteItems from "@/components/FavoriteItems.vue";
 import CartPage from "@/components/CartPage.vue";
+import ShopHome from "@/views/ShopHome.vue";
+import CmsHome from "@/views/CmsHome.vue";
 
 
 
 const routes = [
     {
-        path: "/SignUpIn",
-        name: "SignUpIn",
-        component: SignUpIn
-    },
-    {
-        path: "/SubScribe",
-        name: "SubScribe",
-        component: SubScribe
-    },
-    {
-        path: "/SignIn",
-        name: "SignIn",
-        component: SignIn
-    },
-    {
-        path: "/UserPanel",
-        name: "UserPanel",
-        component: UserPanel
-    },
-    {
-        path: "/UserInfo",
-        name: "UserInfo",
-        component: UserInfo
-    },
-    {
         path: "/",
-        name: "HomePage",
-        component: HomePage
+        name: CmsHome,
+        component: CmsHome
     },
     {
-        path: "/FavoriteItems",
-        name: "FavoriteItems",
-        component: FavoriteItems
-    },
-    {
-        path: "/CartPage",
-        name: "CartPage",
-        component: CartPage
+        path: "/shop",
+        name: "ShopHome",
+        component: ShopHome,
+        children: [
+            {
+                path:"",
+                name: "HomePage",
+                component: HomePage
+            },
+            {
+                path: "/SignUpIn",
+                name: "SignUpIn",
+                component: SignUpIn
+            },
+            {
+                path: "/SubScribe",
+                name: "SubScribe",
+                component: SubScribe
+            },
+            {
+                path: "/SignIn",
+                name: "SignIn",
+                component: SignIn
+            },
+            {
+                path: "/UserPanel",
+                name: "UserPanel",
+                component: UserPanel
+            },
+            {
+                path: "/UserInfo",
+                name: "UserInfo",
+                component: UserInfo
+            },
+            {
+                path: "/FavoriteItems",
+                name: "FavoriteItems",
+                component: FavoriteItems
+            },
+            {
+                path: "/CartPage",
+                name: "CartPage",
+                component: CartPage
 
+            },
+        ]
     },
+    
+    
+    
 ];
 
 const router = createRouter({
