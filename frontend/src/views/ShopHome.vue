@@ -10,9 +10,9 @@
 </template>
   
 <script>
-    import HeaderShop from "../components/HeaderShop.vue";
-    import NavbarShop from "../components/NavbarShop.vue";
-    import FooterShop from "@/components/FooterShop.vue";
+    import HeaderShop from "../components/shop/HeaderShop.vue";
+    import NavbarShop from "../components/shop/NavbarShop.vue";
+    import FooterShop from "@/components/shop/FooterShop.vue";
   
     export default {
         name: 'ShopHome',

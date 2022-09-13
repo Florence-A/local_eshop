@@ -1,0 +1,78 @@
+<template>
+    <div class="row" id="AccountModify">
+        <div class="row">
+            <h3>Modifier mon compte</h3>
+        </div>
+        <div class="row" id="modifyInfo">
+            <div class="col-6">
+                <img src="../../assets/images/reglages.svg" alt="reglage">
+                <p>Nom</p></div>
+            <div class="col-6">
+                <img src="../../assets/images/user.svg" alt="reglage">
+                <p>Avatar</p>
+            </div>
+            <div class="col-6">
+                <img src="../../assets/images/mail.svg" alt="reglage">
+                <p>Mail</p>
+            </div>
+            <div class="col-6">
+                <img src="../../assets/images/hours.svg" alt="reglage">
+                <p>Mot de passe</p>
+            </div>
+            <div class="col-6">
+                <img src="../../assets/images/phone.svg" alt="reglage">
+                <p>Téléphone</p>
+            </div>
+            <div class="col-6">
+                <img src="../../assets/images/location.svg" alt="reglage">
+                <p>Adresse</p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+// import { computed } from '@vue/reactivity'
+export default {
+    id:"AccountModify",
+    
+}
+</script>
+
+<style lang="scss">
+#AccountModify{
+    *{
+    margin: 0;
+    padding: 0;
+    }
+    h3{
+        text-align: center;
+        background-color: #195f56;
+        color: white;
+        padding-bottom: 5px;
+    }
+    #modifyInfo{
+        background-color:  #cfdad8;
+        padding : 5px;
+        .col-6{
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            color: #2f9789;
+            float: left;
+            padding-left: 30px;
+            p{
+                margin: 0;
+                padding: 0;
+                padding-left: 5px;
+            }
+            img{
+                width: 25px;
+                display: inline-block;
+            }
+        }
+    }
+}
+</style>
