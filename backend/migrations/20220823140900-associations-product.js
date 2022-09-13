@@ -14,7 +14,7 @@ module.exports = {
           model: 'Tva',
           key: 'id'
         }
-      }),
+      })
 
     await queryInterface.addColumn('product', 'overdue_date_id', {
         type: Sequelize.INTEGER,

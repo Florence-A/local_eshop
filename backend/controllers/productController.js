@@ -17,6 +17,7 @@ module.exports = {
             HT_price: req.body.HT_price,
             lead_time: req.body.lead_time,
             tva_id: 1,
+            overdue_date: 1
         }
         const category_id = req.body.category_id;
 
