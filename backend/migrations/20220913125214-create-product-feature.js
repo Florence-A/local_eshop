@@ -22,10 +22,10 @@ module.exports = {
           key: 'id'
         }
       },
-      feature_id: {
+      feature_value_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Feature',
+          model: 'Feature_value',
           key: 'id'
         }
       },

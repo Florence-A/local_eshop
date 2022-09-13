@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       }),
 
       // a product has one or many features
-      this.belongsToMany(Feature, {
+      this.belongsToMany(Feature_value, {
         through     : 'ProductFeature',
         foreignKey  : 'product_id'
       }),

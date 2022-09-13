@@ -236,25 +236,37 @@ module.exports = {
     await queryInterface.bulkInsert('productfeature', [
       {
         product_id: 1,
-        feature_id: 4,
+        feature_value_id: 1,
+        createdAt: new Date(),
+        updatedAt:new Date()
+      },
+      {
+        product_id: 1,
+        feature_value_id: 3,
         createdAt: new Date(),
         updatedAt:new Date()
       },
       {
         product_id: 2,
-        feature_id: 4,
+        feature_value_id: 1,
+        createdAt: new Date(),
+        updatedAt:new Date()
+      },
+      {
+        product_id: 2,
+        feature_value_id: 4,
         createdAt: new Date(),
         updatedAt:new Date()
       },
       {
         product_id: 3,
-        feature_id: 8,
+        feature_value_id: 8,
         createdAt: new Date(),
         updatedAt:new Date()
       },
       {
         product_id: 4,
-        feature_id: 12,
+        feature_value_id: 12,
         createdAt: new Date(),
         updatedAt:new Date()
       },

@@ -12,16 +12,7 @@ module.exports = {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {
-        model: 'feature',
-        key: 'id'
-      }
-    })
-
-     await queryInterface.addColumn('productfeature', 'feature_id', {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'feature',
+        model: 'Feature',
         key: 'id'
       }
     })
