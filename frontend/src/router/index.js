@@ -4,9 +4,9 @@ import SubScribe from "@/components/SubScribe.vue";
 import SignIn from "@/components/SignIn.vue";
 import UserPanel from "@/components/UserPanel.vue";
 import UserInfo from "@/components/UserInfo.vue";
+import CartPage from "@/components/CartPage.vue";
 import HomePage from "@/components/HomePage.vue";
 import FavoriteItems from "@/components/FavoriteItems.vue";
-import CartPage from "@/components/CartPage.vue";
 import ShopHome from "@/views/ShopHome.vue";
 import CmsHome from "@/views/CmsHome.vue";
 

@@ -24,19 +24,19 @@ module.exports = {
         // Basic checks
         if ( last_name == "" || first_name == "" || mail == "" || password == "" ) {
             return res.json({ 'msg' : 'Merci de remplir tous les champs du formulaire' });
-        } 
+        }; 
 
         if ( !( 3 < last_name.length < 22 ) || !( 2 < first_name.length < 22 ) ){
             return res.json({ 'msg' : "Les noms et prénoms ne peuvent comprendre qu'entre 3 et 22 caractères" });
-        }
+        };
 
         if (!EMAIL_REGEX.test( mail )){
             return res.json({ 'msg' : "Merci de vérifier l'adresse mail" });
-        } 
+        };
 
         if (!PASSWORD_REGEX.test( password )){
             return res.json({ 'msg' : "Le mot de passe doit contenir au minimum 8 caractères dont au moins un chiffre, une minuscule et une majuscule."});
-        }
+        };
 
         // User doesn't exists, register
         models.User.findOne({
@@ -66,14 +66,14 @@ module.exports = {
                 .then( () => {
                     return res.status(200).json({ 'msg' : "Inscription bien prise en compte, merci de vous connecter avec vos nouveaux identifiants." })
                 })
-                .catch((err) => { console.log(err) })
+                .catch((err) => { console.log(err) });
             }
 
             else {
                 res.json({ 'msg' : "Cette adresse mail est déjà utilisée."});
             }
         })
-        .catch((err) => { console.log(err) })
+        .catch((err) => { console.log(err) });
     },
 
 
@@ -87,11 +87,11 @@ module.exports = {
 
         // Basic check
         if (mail == "" || password == "") {
-            return res.json({ 'msg' : "Merci de remplir tous les champs"})
-        }
+            return res.json({ 'msg' : "Merci de remplir tous les champs"});
+        };
         if (!EMAIL_REGEX.test( mail )){
             return res.json({ 'msg' : "Merci de re-vérifier l'adresse mail" });
-        } 
+        };
 
         // Search and authenticate
         models.User.findOne({ 
@@ -106,12 +106,12 @@ module.exports = {
 
                 if (validPass){
 
-                    const token = userUtils.generateTokenForUser( user )
+                    const token = userUtils.generateTokenForUser( user );
 
                     res.send({ 
                         userId : user.id,
                         token  : token
-                    })
+                    });
 
                 }
                 else {
@@ -122,19 +122,28 @@ module.exports = {
                 return res.json({ 'msg' : "Utilisateur non trouvé" });
             }
         })
-        .catch((err) => { console.log(err) })
+        .catch((err) => { console.log(err) });
     },
 
 
     getUser : (req,res) =>
     {
-        console.log("Je suis dans le controller c'est ok !")
-        // if (token) {
+        // Params
+        var userId = req.user.userId;
+        
+        // Request (without password)
+        models.User.scope('exceptPW').findOne({
+            where : {'id' : userId}
+        })
+        .then((user) => {
+            var result = user.dataValues
+            res.status(201).json(result);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500);
+        });
 
-        // }
-        // else {
-        //     res.send({ 'msg' : "Accès interdit, la session en cours n'est pas valide" })
-        // }
     },
 
 

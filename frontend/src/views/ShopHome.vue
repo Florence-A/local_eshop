@@ -1,10 +1,11 @@
 
 <template>
-
-    <HeaderShop></HeaderShop>
-    <NavbarShop></NavbarShop>
-    <router-view></router-view>
-    <FooterShop></FooterShop>
+    <div id="ShopHome">
+        <HeaderShop></HeaderShop>
+        <NavbarShop></NavbarShop>
+        <router-view></router-view>
+        <FooterShop></FooterShop>
+    </div>
    
 </template>
   
@@ -24,7 +25,17 @@
 </script>
   
 <style>
-  
+    #ShopHome{
+        height          : 100vh;
+        display         : flex;
+        flex-direction  : column;
+    }
+    #FooterShop{
+        /* position    : absolute;
+        bottom      : 0px;
+        left        : 0px;
+        right       : 0px; */
+    }
 </style>
   
   

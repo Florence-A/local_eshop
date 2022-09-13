@@ -9,8 +9,7 @@ module.exports = {
 
     generateTokenForUser : (user) => {
 
-        return jwt.sign({
-            first_name : user.first_name, 
+        return jwt.sign({ 
             userId     : user.id,
             role       : user.id_role
         }, 

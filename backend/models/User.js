@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
-    last_name: DataTypes.STRING,
+    last_name : DataTypes.STRING,
     first_name: DataTypes.STRING,
     mail: {
       type : DataTypes.STRING,
@@ -27,9 +27,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {
+    //options
     sequelize,
     modelName: 'User',
     tableName: 'user',
+    scopes: {
+      exceptPW: {
+        attributes: { exclude: ['password'] }
+      }
+    }
   });
   return User;
 

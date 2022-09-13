@@ -1,8 +1,8 @@
 <template>
 
-    <div class="container">
-        <h1>Bienvenue</h1>
-        <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+    <div class="UserInfo">
+        <h1>Bienvenue {{ user.first_name }},</h1>
+        
     </div>
 
 </template>
@@ -24,14 +24,15 @@ export default
 
     mounted(){
 
-        var token = localStorage.getItem('token');
+        var token  = localStorage.getItem('token');
+        var userId = localStorage.getItem('userId');
         
         axios.get('http://localhost:9000/userinfo', {
-            headers:{'authorization': token}
+            headers : { 'authorization':token },
+            body    : { 'userId':userId }
         })
         .then((response)=>{
             this.user = response.data
-            console.log(response)
         })
         .catch((err) => console.log(err))
     }
@@ -39,4 +40,6 @@ export default
 </script>
 
 
-<style></style>
+<style>
+
+</style>

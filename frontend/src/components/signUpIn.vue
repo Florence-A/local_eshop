@@ -1,5 +1,5 @@
 <template>
-    <div class="SignUpIn d-flex flex-column justify-content-around">
+    <div class="SignUpIn d-flex flex-column justify-content-start">
 
         <div>
             <router-link to="/shop/SignIn">
@@ -7,6 +7,7 @@
             </router-link>
         </div>
 
+        <br><br>
 
         <div>
             <router-link to="/shop/SubScribe">
@@ -33,9 +34,9 @@
 
 <style>
     .SignUpIn {
-        height: 100%;
+        height          : 100%;
         background-color: #cfdad8;
-        padding: 20px;
+        padding         : 50px 20px 20px 20px;
     }    
     
 </style>
