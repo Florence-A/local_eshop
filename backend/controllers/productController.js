@@ -43,13 +43,33 @@ module.exports = {
     list: (req,res)=> {
         models.Product.findAll({
             include: [
-                {
+            {
                 model: models.Tva,
                 attributes: ['rate']
             },
             {
+                model: models.Overdue_date,
+                attributes: ['time']
+            },
+            {
                 model: models.Category,
-                attributes: ['name']
+                attributes: ['name'],
+                include: [
+                    {
+                        model: models.Category,
+                        attributes: ['name']
+                    }
+                ]
+            },
+            {
+                model: models.Feature_value,
+                attributes: ['value'],
+                include: [
+                    {
+                         model: models.Feature,
+                         attributes: ['name']
+                    }
+                ]
             }]
         })
             .then(productsFound => {

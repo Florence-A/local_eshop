@@ -20,6 +20,7 @@ module.exports = {
       description     : "un pantalon bleu taille xs",
       HT_price        : 50,
       lead_time       : 1,
+      img_path        : "../../public/image-alt.svg",
       tva_rate        : 20,
       overdue_date    : new Date(),
       categories      : [{ catParent: 'homme' }, { catChild: 'pantalon' }],
@@ -33,6 +34,7 @@ module.exports = {
       description     : "un pantalon rouge taille xl",
       HT_price        : 50,
       lead_time       : 1,
+      img_path        : "../../public/image-alt.svg",
       tva_rate        : 20,
       overdue_date    : new Date(),
       categories      : [{ catParent: 'homme' }, { catChild: 'pantalon' }],
@@ -46,6 +48,7 @@ module.exports = {
       description     : "une veste bleue taille xs",
       HT_price        : 50,
       lead_time       : 1,
+      img_path        : "../../public/image-alt.svg",
       tva_rate        : 20,
       overdue_date    : new Date(),
       categories      : [{ catParent: 'femme' }, { catChild: 'veste' }],
@@ -59,6 +62,7 @@ module.exports = {
       description     : "chaussures bleues taille xs",
       HT_price        : 50,
       lead_time       : 1,
+      img_path        : "../../public/image-alt.svg",
       tva_rate        : 20,
       overdue_date    : new Date(),
       categories      : [{ catParent: 'enfant' }, { catChild: 'chaussure' }],
@@ -79,7 +83,6 @@ module.exports = {
       const catP = await models.Category.findOrCreate({
         where: { name: product.categories[0].catParent }
       });
-
       const catC = await models.Category.findOrCreate({
         where: { name: product.categories[1].catChild },
         defaults: {
@@ -107,6 +110,10 @@ module.exports = {
         }
       });
 
+      const img = await models.Feature.findOrCreate({
+        where: { path: product.img_path }
+      });
+
       const prod = await models.Product.create(
         {
           name: product.name,
@@ -123,6 +130,7 @@ module.exports = {
         // console.log(productCreated)
         await productCreated.addCategories([catP[0], catC[0]]);
         await productCreated.addFeature_values([featVal0[0], featVal1[0]]);
+        await productCreated.addImage(img[0])
       });
 
       // console.log(prod);
