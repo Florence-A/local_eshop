@@ -24,67 +24,115 @@ module.exports = {
       overdue_date    : new Date(),
       categories      : [{ catParent: 'homme' }, { catChild: 'pantalon' }],
       features        : [{ feature: 'couleur', feature_value:'bleu' }, { feature: 'taille', feature_value:'xs' }]
-    }
-    
-   
-   
-    const tva = await models.Tva.findOrCreate({
-      where: { rate: p1.tva_rate }
-    })  
-    
-    const o_d = await models.Overdue_date.findOrCreate({
-      where: { time: p1.overdue_date }
-    })
+    };
 
-    const catP = await models.Category.findOrCreate({
-      where: { name: p1.categories[0].catParent }
-    })
-
-    const catC = await models.Category.findOrCreate({
-      where: { name: p1.categories[1].catChild },
-      defaults: {
-        category_id: catP[0].dataValues.id
-      }
-    })
-
-    
-    const feat0 = await models.Feature.findOrCreate({
-      where: { name: p1.features[0].feature }
-    })
-    const featVal0 = await models.Feature_value.findOrCreate({
-      where: { value: p1.features[0].feature_value },
-      defaults: {
-        feature_id: feat0[0].dataValues.id
-      }
-    })
-    const feat1 = await models.Feature.findOrCreate({
-      where: { name: p1.features[1].feature }
-    })
-    const featVal1 = await models.Feature_value.findOrCreate({
-      where: { value: p1.features[1].feature_value },
-      defaults: {
-        feature_id: feat1[0].dataValues.id
-      }
-    })
-
-    await models.Product.create(
+    const p2 = 
       {
-        name: p1.name,
-        _ref: p1.ref,
-        description: p1.description,
-        HT_price: p1.HT_price,
-        lead_time: p1.lead_time,
-        tva_id: tva[0].dataValues.id,
-        overdue_date_id: o_d[0].dataValues.id,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      }
-    ).then(async productCreated =>  {
-      // console.log(productCreated)
-      await productCreated.addCategories([catP[0], catC[0]]);
-      await productCreated.addFeature_values([featVal0[0], featVal1[0]]);
-    })
+      name            : "pantalon homme",
+      _ref            : "phrxl02",
+      description     : "un pantalon rouge taille xl",
+      HT_price        : 50,
+      lead_time       : 1,
+      tva_rate        : 20,
+      overdue_date    : new Date(),
+      categories      : [{ catParent: 'homme' }, { catChild: 'pantalon' }],
+      features        : [{ feature: 'couleur', feature_value:'rouge' }, { feature: 'taille', feature_value:'xl' }]
+    };
+
+    const p3 = 
+      {
+      name            : "veste femme",
+      _ref            : "vfbxs03",
+      description     : "une veste bleue taille xs",
+      HT_price        : 50,
+      lead_time       : 1,
+      tva_rate        : 20,
+      overdue_date    : new Date(),
+      categories      : [{ catParent: 'femme' }, { catChild: 'veste' }],
+      features        : [{ feature: 'couleur', feature_value:'bleu' }, { feature: 'taille', feature_value:'xs' }]
+    };
+
+    const p4 = 
+      {
+      name            : "chaussure enfant",
+      _ref            : "phbxs04",
+      description     : "chaussures bleues taille xs",
+      HT_price        : 50,
+      lead_time       : 1,
+      tva_rate        : 20,
+      overdue_date    : new Date(),
+      categories      : [{ catParent: 'enfant' }, { catChild: 'chaussure' }],
+      features        : [{ feature: 'couleur', feature_value:'bleu' }, { feature: 'taille', feature_value:'xs' }]
+    };
     
+   
+    async function createProduct(product) {
+
+      const tva = await models.Tva.findOrCreate({
+        where: { rate: product.tva_rate }
+      });
+        
+      const o_d = await models.Overdue_date.findOrCreate({
+        where: { time: product.overdue_date }
+      });
+
+      const catP = await models.Category.findOrCreate({
+        where: { name: product.categories[0].catParent }
+      });
+
+      const catC = await models.Category.findOrCreate({
+        where: { name: product.categories[1].catChild },
+        defaults: {
+          category_id: catP[0].dataValues.id
+        }
+      });
+
+      
+      const feat0 = await models.Feature.findOrCreate({
+        where: { name: product.features[0].feature }
+      });
+      const featVal0 = await models.Feature_value.findOrCreate({
+        where: { value: product.features[0].feature_value },
+        defaults: {
+          feature_id: feat0[0].dataValues.id
+        }
+      });
+      const feat1 = await models.Feature.findOrCreate({
+        where: { name: product.features[1].feature }
+      });
+      const featVal1 = await models.Feature_value.findOrCreate({
+        where: { value: product.features[1].feature_value },
+        defaults: {
+          feature_id: feat1[0].dataValues.id
+        }
+      });
+
+      const prod = await models.Product.create(
+        {
+          name: product.name,
+          _ref: product._ref,
+          description: product.description,
+          HT_price: product.HT_price,
+          lead_time: product.lead_time,
+          tva_id: tva[0].dataValues.id,
+          overdue_date_id: o_d[0].dataValues.id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }
+      ).then(async productCreated =>  {
+        // console.log(productCreated)
+        await productCreated.addCategories([catP[0], catC[0]]);
+        await productCreated.addFeature_values([featVal0[0], featVal1[0]]);
+      });
+
+      // console.log(prod);
+  }
+ 
+  await createProduct(p1);
+  await createProduct(p2);
+  await createProduct(p3);
+  await createProduct(p4);
+      
   },
 
   
