@@ -22,7 +22,7 @@ module.exports = {
       lead_time       : 1,
       img_path        : "../../public/image-alt.svg",
       tva_rate        : 20,
-      overdue_date    : new Date(),
+      overdue_date    : "date",
       categories      : [{ catParent: 'homme' }, { catChild: 'pantalon' }],
       features        : [{ feature: 'couleur', feature_value:'bleu' }, { feature: 'taille', feature_value:'xs' }]
     };
@@ -36,7 +36,7 @@ module.exports = {
       lead_time       : 1,
       img_path        : "../../public/image-alt.svg",
       tva_rate        : 20,
-      overdue_date    : new Date(),
+      overdue_date    : "date",
       categories      : [{ catParent: 'homme' }, { catChild: 'pantalon' }],
       features        : [{ feature: 'couleur', feature_value:'rouge' }, { feature: 'taille', feature_value:'xl' }]
     };
@@ -50,7 +50,7 @@ module.exports = {
       lead_time       : 1,
       img_path        : "../../public/image-alt.svg",
       tva_rate        : 20,
-      overdue_date    : new Date(),
+      overdue_date    : "date",
       categories      : [{ catParent: 'femme' }, { catChild: 'veste' }],
       features        : [{ feature: 'couleur', feature_value:'bleu' }, { feature: 'taille', feature_value:'xs' }]
     };
@@ -64,7 +64,7 @@ module.exports = {
       lead_time       : 1,
       img_path        : "../../public/image-alt.svg",
       tva_rate        : 20,
-      overdue_date    : new Date(),
+      overdue_date    : "date",
       categories      : [{ catParent: 'enfant' }, { catChild: 'chaussure' }],
       features        : [{ feature: 'couleur', feature_value:'bleu' }, { feature: 'taille', feature_value:'xs' }]
     };

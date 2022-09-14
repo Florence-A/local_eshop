@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Overdue_date.init({
     time: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: false
     }
   }, {

@@ -12,31 +12,45 @@ module.exports = {
     create: (req,res)=> {
         // create a product from params
         const product = {
-            name: req.body.name,
-            _ref: req.body.ref,
-            description: req.body.description,
-            HT_price: req.body.HT_price,
-            lead_time: req.body.lead_time,
-            tva_id: 2,
-            overdue_date_id: 1
+            name            : req.body.name,
+            _ref            : req.body.ref,
+            description     : req.body.description,
+            HT_price        : req.body.HT_price,
+            lead_time       : req.body.lead_time,
+            tva_id          : "",
+            overdue_date_id : ""
         }
-        const category_id = req.body.category_id;
-
         
-        models.Product.create(product)
-            .then(productCreated => {
-                console.log(productCreated)
-                productCreated.addCategory(category_id)
-                    .then(categoryAdded => {
-                        return res.status(201).json({ 'product': productCreated, 'relation': categoryAdded})
-                    })
-                    .catch(err => {
-                        return res.status(500).json({ 'error': 'cannot create join table: ' + err})
-                    })
-            })
-            .catch(err => {
-                return res.status(500).json({ 'error': 'cannot create product: ' + err })
-            })
+        const productRelations = {
+            img_path        : req.body.img_path,
+            tva_rate        : req.body.tva_rate,
+            overdue_date    : req.body.overdue_date,
+            categories      : [{ catParent: req.body.parentCategory }, { catChild: req.body.childCategory }],
+            features        : [{ feature: req.body.feature1, feature_value: req.body.feature_value1 }, { feature: req.body.feature2, feature_value: req.body.feature_value2 }]
+        }
+       
+
+        models.Tva.findOne({
+            where : { rate: productRelations.tva_rate }
+        }) .then(tvaFound =>{
+            if( tvaFound ){
+                product.tva_id = tvaFound.dataValues.id
+                return
+            }
+            res.status(400).json({ "error" : "tva doesn't exist" })
+        }) .catch(err => { res.status(501).json({ "cannot find tva: " : "" + err })})
+        
+        models.Overdue_date.findOne({
+            where : { time: productRelations.overdue_date }
+        }).then(o_dateFound =>{
+            if( o_dateFound ){
+                product.overdue_date_id = o_dateFound.dataValues.id
+                return
+            }
+            res.status(400).json({ "error" : "overdue date doesn't exist" })
+        }) .catch(err => { res.status(501).json({ "cannot find overdue date: " : "" + err })})
+        
+        
     },
 
     // list all products with associated attributes
