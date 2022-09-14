@@ -110,7 +110,7 @@ module.exports = {
         }
       });
 
-      const img = await models.Feature.findOrCreate({
+      const img = await models.Image.findOrCreate({
         where: { path: product.img_path }
       });
 

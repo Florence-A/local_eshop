@@ -70,7 +70,12 @@ module.exports = {
                          attributes: ['name']
                     }
                 ]
-            }]
+            },
+            {
+                model: models.Image,
+                attributes: ['path']
+            }
+        ]
         })
             .then(productsFound => {
                 return res.status(201).json(productsFound)
