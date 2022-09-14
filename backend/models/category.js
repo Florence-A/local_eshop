@@ -19,7 +19,9 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(Category, {
         foreignKey: 'category_id'
       }),
-      this.belongsTo(Category)
+      this.belongsTo(Category, {
+        foreignKey: 'category_id'
+      })
     }
   }
   Category.init({

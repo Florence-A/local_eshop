@@ -12,12 +12,13 @@ module.exports = {
     create: (req,res)=> {
         // create a product from params
         const product = {
+            name: req.body.name,
             _ref: req.body.ref,
             description: req.body.description,
             HT_price: req.body.HT_price,
             lead_time: req.body.lead_time,
-            tva_id: 1,
-            overdue_date: 1
+            tva_id: 2,
+            overdue_date_id: 1
         }
         const category_id = req.body.category_id;
 
