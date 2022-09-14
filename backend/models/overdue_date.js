@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Overdue_date',
-    tableName: 'overdue-date'
+    tableName: 'overdue_date'
   });
   return Overdue_date;
 };
