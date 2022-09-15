@@ -64,8 +64,8 @@ module.exports = {
                                 return
                             }
                         }
-                        res.status(400).json({ "error" : "child category doesn't belong to parentCategory" })
-                        return paramErr = "child category doesn't belong to parentCategory"    
+                        res.status(400).json({ "error" : "child category doesn't belong to parent category" })
+                        return paramErr = "child category doesn't belong to parent category"    
                         
                     }
                     res.status(400).json({ "error" : "child category doesn't exist" })
@@ -86,7 +86,41 @@ module.exports = {
         
         // are features valid
         for( feature of productParams.features ){
-            
+            await models.Feature.findByPk(
+                feature.feature
+            ).then(async featureFound =>{
+                if( featureFound ){
+
+                    const featureValues = await featureFound.getFeature_values()
+
+                    await models.Feature_value.findByPk(
+                        feature.feature_value
+                    ).then(feature_valueFound =>{
+                        if( feature_valueFound ){
+                            console.log(feature_valueFound.dataValues.value)
+                            for( element of featureValues ){
+                                if( element.dataValues.id === feature_valueFound.dataValues.id ){
+                                    console.log(element.dataValues.id)
+                                    console.log(feature_valueFound.dataValues.id)
+                                    return
+                                }
+                                res.status(400).json({ "error" : "feature value doesn't belong to feature" })
+                                return paramErr = "feature value doesn't belong to feature"
+                            }
+                            res.status(400).json({ "error" : "feature value doesn't exist" })
+                            return paramErr = "parameter value doesn't match"
+                        }
+                    }).catch(err =>{ 
+                        res.status(501).json({ "cannot find feature_value: " : "" + err })
+                    })
+
+                }else {
+                    res.status(400).json({ "error" : "feature doesn't exist" })
+                    return paramErr = "parameter value doesn't match"
+                }
+            }).catch(err =>{ 
+                res.status(501).json({ "cannot find feature: " : "" + err })
+            })
         }
 
     }
