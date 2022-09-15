@@ -9,3 +9,7 @@
     background-color: #2f9789;
     border-color: #2f9789;
 }
+.border{
+    border-color: #195f56;
+    border : solid 1px #195f56;
+}
