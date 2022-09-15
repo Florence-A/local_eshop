@@ -102,8 +102,9 @@ module.exports = {
         }
       });
 
-      const img = await models.Image.findOrCreate({
-        where: { path: product.img_path }
+      const img = await models.Image.create({
+          path: product.img_path,
+          product_id: product.id
       });
 
       const prod = await models.Product.create(

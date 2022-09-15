@@ -22,7 +22,6 @@ module.exports = {
         
         const productParams = {
             img_path        : req.body.img_path, //just passing a path... will be an image upload with multiple actions - gildas - 15/09
-            overdue_date    : req.body.overdue_date,
             categories      : [{ catParent: req.body.parentCategory_id }, { catChild: req.body.childCategory_id }],
             features        : [{ feature: req.body.feature1_id, feature_value: req.body.feature1_value_id }, { feature: req.body.feature2_id, feature_value: req.body.feature2_value_id }]
         }
@@ -31,7 +30,8 @@ module.exports = {
     // call to await function so the program waits for the checks are done before trying to write the bd
         
     async function checkParams() {
-       
+        
+        // is tva valid
         await models.Tva.findByPk(
             newProduct.tva_id
         ).then(tvaFound =>{
@@ -44,33 +44,54 @@ module.exports = {
             res.status(501).json({ "cannot find tva: " : "" + err })
             return paramErr = "cannot find tva"
         })
-        
-        // await models.Overdue_date.create(
-        //     { time: productParams.overdue_date }
-        // ).then(o_dateCreated =>{ 
-        //     newProduct.overdue_date_id = o_dateCreated.dataValues.id
-        //     return
-        // }).catch(err => {
-        //     res.status(501).json({ "cannot create overdue date: " : "" + err })
-        //     return paramErr = "cannot create overdue date"
-        // })
-        
+
+        // is category valid
         await models.Category.findByPk(
             productParams.categories[0].catParent
         ).then(async parentCategoryFound =>{
             if( parentCategoryFound ){
-                const categs = await parentCategoryFound.getCategories()
-                console.log(categs)
-                return
+                
+                const childCategories = await parentCategoryFound.getCategories()
+                
+                await models.Category.findByPk(
+                    productParams.categories[1].catChild
+                ).then(childCategoryFound =>{
+                    if( childCategoryFound ){
+                    // console.log(childCategories)
+                        for( category of childCategories ){
+                            
+                            if( category.dataValues.id === childCategoryFound.dataValues.id ){
+                                return
+                            }
+                        }
+                        res.status(400).json({ "error" : "child category doesn't belong to parentCategory" })
+                        return paramErr = "child category doesn't belong to parentCategory"    
+                        
+                    }
+                    res.status(400).json({ "error" : "child category doesn't exist" })
+                    return paramErr = "parameter value doesn't match"
+                }).catch(err =>{ 
+                    res.status(501).json({ "cannot find child category: " : "" + err })
+                    return paramErr = "cannot find child category"
+                })
+
+            } else {
+                res.status(400).json({ "error" : "parentCategory doesn't exist" })
+                return paramErr = "parameter value doesn't match"
             }
-            res.status(400).json({ "error" : "parentCategory doesn't exist" })
-            return paramErr = "parameter value doesn't match"
-        }).catch(err => { res.status(501).json({ "cannot find parentCategory: " : "" + err })})
-    
+            
+        }).catch(err =>{ 
+            res.status(501).json({ "cannot find parentCategory: " : "" + err })
+        })
+        
+        // are features valid
+        for( feature of productParams.features ){
+            
+        }
+
     }
     await checkParams();
-
-    if( !paramErr ) {console.log(newProduct)}
+    if(typeof paramErr === 'undefined' ) {console.log(newProduct)}
     else {console.log(paramErr)}
     
 
@@ -94,10 +115,6 @@ module.exports = {
             {
                 model: models.Tva,
                 attributes: ['rate']
-            },
-            {
-                model: models.Overdue_date,
-                attributes: ['time']
             },
             {
                 model: models.Category,
@@ -137,24 +154,7 @@ module.exports = {
     getOne: (req,res)=> {
         models.Product.findByPk(req.params.id)
             .then( async productFound => {
-                const tva = await productFound.getTva();
-                const categories = await productFound.getCategories();
-                const categoriesName = []
-                categories.forEach(category => {
-                    categoriesName.push(category.name)
-                });
-                console.log(categoriesName);
-                // const image = productFound.getImage();
-
-                const product = {
-                    _ref: productFound._ref,
-                    description: productFound.description,
-                    HT_price: productFound.HT_price,
-                    tva: tva.rate,
-                    categories: categoriesName,
-                }
-
-                res.status(201).json(product)
+                res.status(201).json(productFound)
             })
     }
 }
