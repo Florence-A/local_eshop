@@ -10,19 +10,21 @@ module.exports = {
      */
     await queryInterface.addColumn('product', 'tva_id', {
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: 'Tva',
           key: 'id'
         }
-      })
+      });
 
-    await queryInterface.addColumn('product', 'overdue_date_id', {
+    await queryInterface.addColumn('image', 'product_id', {
         type: Sequelize.INTEGER,
+        allowNull: true,
         references: {
-          model: 'Overdue_date',
+          model: 'product',
           key: 'id'
         }
-      })
+      });
   },
 
   async down (queryInterface, Sequelize) {
@@ -32,7 +34,8 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.removeColumn('product','tva_id')
-    await queryInterface.removeColumn('product','overdue_date_id')
+    await queryInterface.removeColumn('product','tva_id');
+    await queryInterface.removeColumn('product','overdue_date_id');
+    await queryInterface.removeColumn('image','product_id');
   }
 }

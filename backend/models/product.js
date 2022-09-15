@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Tva, Category, Feature, Image, Overdue_date }) {
+    static associate({ Tva, Category, Feature_value, Image, Overdue_date }) {
       // define association here
       // a product has one tva
       this.belongsTo(Tva, {
@@ -23,22 +23,23 @@ module.exports = (sequelize, DataTypes) => {
       }),
 
       // a product has one or many features
-      this.belongsToMany(Feature, {
+      this.belongsToMany(Feature_value, {
         through     : 'ProductFeature',
         foreignKey  : 'product_id'
       }),
 
       // a product has one or many images
-      this.hasMany(Image),
-
-      // a product has one overdue_date
-      this.belongsTo(Overdue_date, {
-        foreignKey: 'overdue_date_id'
+      this.hasMany(Image, {
+        foreignKey: 'product_id'
       })
       
     }
   }
   Product.init({
+    name: {
+      type      : DataTypes.STRING,
+      allowNull : false,
+    },
     _ref: {
       type      : DataTypes.STRING,
       allowNull : false,

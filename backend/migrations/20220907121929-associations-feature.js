@@ -12,11 +12,10 @@ module.exports = {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {
-        model: 'feature',
+        model: 'Feature',
         key: 'id'
       }
-    }
-  )
+    })
   },
 
   async down (queryInterface, Sequelize) {

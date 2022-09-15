@@ -8,6 +8,10 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true
       },
+      name: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       _ref: {
         allowNull: false,
         unique: true,

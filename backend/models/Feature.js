@@ -11,12 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ Product, Feature_value }) {
       // define association here
-      this.belongsToMany(Product, {
-        through: 'ProductFeature',
+      this.hasMany(Feature_value, {
         foreignKey: 'feature_id'
-      }),
-
-      this.hasMany(Feature_value)
+      })
     }
   }
   Feature.init({
