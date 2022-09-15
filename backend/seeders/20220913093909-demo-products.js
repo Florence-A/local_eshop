@@ -22,7 +22,6 @@ module.exports = {
       lead_time       : 1,
       img_path        : "../../public/image-alt.svg",
       tva_rate        : 20,
-      overdue_date    : "date",
       categories      : [{ catParent: 'homme' }, { catChild: 'pantalon' }],
       features        : [{ feature: 'couleur', feature_value:'bleu' }, { feature: 'taille', feature_value:'xs' }]
     };
@@ -36,7 +35,6 @@ module.exports = {
       lead_time       : 1,
       img_path        : "../../public/image-alt.svg",
       tva_rate        : 20,
-      overdue_date    : "date",
       categories      : [{ catParent: 'homme' }, { catChild: 'pantalon' }],
       features        : [{ feature: 'couleur', feature_value:'rouge' }, { feature: 'taille', feature_value:'xl' }]
     };
@@ -50,7 +48,6 @@ module.exports = {
       lead_time       : 1,
       img_path        : "../../public/image-alt.svg",
       tva_rate        : 20,
-      overdue_date    : "date",
       categories      : [{ catParent: 'femme' }, { catChild: 'veste' }],
       features        : [{ feature: 'couleur', feature_value:'bleu' }, { feature: 'taille', feature_value:'xs' }]
     };
@@ -64,7 +61,6 @@ module.exports = {
       lead_time       : 1,
       img_path        : "../../public/image-alt.svg",
       tva_rate        : 20,
-      overdue_date    : "date",
       categories      : [{ catParent: 'enfant' }, { catChild: 'chaussure' }],
       features        : [{ feature: 'couleur', feature_value:'bleu' }, { feature: 'taille', feature_value:'xs' }]
     };
@@ -74,10 +70,6 @@ module.exports = {
 
       const tva = await models.Tva.findOrCreate({
         where: { rate: product.tva_rate }
-      });
-        
-      const o_d = await models.Overdue_date.findOrCreate({
-        where: { time: product.overdue_date }
       });
 
       const catP = await models.Category.findOrCreate({
@@ -122,7 +114,6 @@ module.exports = {
           HT_price: product.HT_price,
           lead_time: product.lead_time,
           tva_id: tva[0].dataValues.id,
-          overdue_date_id: o_d[0].dataValues.id,
           createdAt: new Date(),
           updatedAt: new Date(),
         }

@@ -17,15 +17,6 @@ module.exports = {
         }
       });
 
-    await queryInterface.addColumn('product', 'overdue_date_id', {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Overdue_date',
-          key: 'id'
-        }
-      });
-
     await queryInterface.addColumn('image', 'product_id', {
         type: Sequelize.INTEGER,
         allowNull: true,

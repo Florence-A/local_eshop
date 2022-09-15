@@ -9,51 +9,85 @@ module.exports = {
     // fonctions à développer!!!! quelques actions pour test uniquement pour l'instant //
     /////////////////////////////////////////////////////////////////////////////////////
     // le 07/09 - gildas //
-    create: (req,res)=> {
+    create: async (req,res)=> {
         // create a product from params
-        const product = {
+        const newProduct = {
             name            : req.body.name,
             _ref            : req.body.ref,
             description     : req.body.description,
             HT_price        : req.body.HT_price,
             lead_time       : req.body.lead_time,
-            tva_id          : "",
-            overdue_date_id : ""
+            tva_id          : req.body.tva_id,
         }
         
-        const productRelations = {
-            img_path        : req.body.img_path,
-            tva_rate        : req.body.tva_rate,
+        const productParams = {
+            img_path        : req.body.img_path, //just passing a path... will be an image upload with multiple actions - gildas - 15/09
             overdue_date    : req.body.overdue_date,
-            categories      : [{ catParent: req.body.parentCategory }, { catChild: req.body.childCategory }],
-            features        : [{ feature: req.body.feature1, feature_value: req.body.feature_value1 }, { feature: req.body.feature2, feature_value: req.body.feature_value2 }]
+            categories      : [{ catParent: req.body.parentCategory_id }, { catChild: req.body.childCategory_id }],
+            features        : [{ feature: req.body.feature1_id, feature_value: req.body.feature1_value_id }, { feature: req.body.feature2_id, feature_value: req.body.feature2_value_id }]
         }
        
-
-        models.Tva.findOne({
-            where : { rate: productRelations.tva_rate }
-        }) .then(tvaFound =>{
+    // check params before writing the newProduct in db
+    // call to await function so the program waits for the checks are done before trying to write the bd
+        
+    async function checkParams() {
+       
+        await models.Tva.findByPk(
+            newProduct.tva_id
+        ).then(tvaFound =>{
             if( tvaFound ){
-                product.tva_id = tvaFound.dataValues.id
                 return
             }
             res.status(400).json({ "error" : "tva doesn't exist" })
-        }) .catch(err => { res.status(501).json({ "cannot find tva: " : "" + err })})
+            return paramErr = "parameter value doesn't match"
+        }).catch(err =>{ 
+            res.status(501).json({ "cannot find tva: " : "" + err })
+            return paramErr = "cannot find tva"
+        })
         
-        models.Overdue_date.findOne({
-            where : { time: productRelations.overdue_date }
-        }).then(o_dateFound =>{
-            if( o_dateFound ){
-                product.overdue_date_id = o_dateFound.dataValues.id
+        // await models.Overdue_date.create(
+        //     { time: productParams.overdue_date }
+        // ).then(o_dateCreated =>{ 
+        //     newProduct.overdue_date_id = o_dateCreated.dataValues.id
+        //     return
+        // }).catch(err => {
+        //     res.status(501).json({ "cannot create overdue date: " : "" + err })
+        //     return paramErr = "cannot create overdue date"
+        // })
+        
+        await models.Category.findByPk(
+            productParams.categories[0].catParent
+        ).then(async parentCategoryFound =>{
+            if( parentCategoryFound ){
+                const categs = await parentCategoryFound.getCategories()
+                console.log(categs)
                 return
             }
-            res.status(400).json({ "error" : "overdue date doesn't exist" })
-        }) .catch(err => { res.status(501).json({ "cannot find overdue date: " : "" + err })})
-        
+            res.status(400).json({ "error" : "parentCategory doesn't exist" })
+            return paramErr = "parameter value doesn't match"
+        }).catch(err => { res.status(501).json({ "cannot find parentCategory: " : "" + err })})
+    
+    }
+    await checkParams();
+
+    if( !paramErr ) {console.log(newProduct)}
+    else {console.log(paramErr)}
+    
+
+        // models.Product.create(
+        //     newProduct
+        // ).then(productCreated =>{
+
+        // }).catch(err =>{ res.status(501).json({ "cannot create product: " : "" + err }) })
+
         
     },
 
     // list all products with associated attributes
+     /////////////////////////////////////////////////////////////////////////////////////
+    //
+    /////////////////////////////////////////////////////////////////////////////////////
+    
     list: (req,res)=> {
         models.Product.findAll({
             include: [

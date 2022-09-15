@@ -31,11 +31,6 @@ module.exports = (sequelize, DataTypes) => {
       // a product has one or many images
       this.hasMany(Image, {
         foreignKey: 'product_id'
-      }),
-
-      // a product has one overdue_date
-      this.belongsTo(Overdue_date, {
-        foreignKey: 'overdue_date_id'
       })
       
     }
