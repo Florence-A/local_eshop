@@ -6,9 +6,9 @@ module.exports = {
     
     // create a new product
     /////////////////////////////////////////////////////////////////////////////////////
-    // fonctions à développer!!!! quelques actions pour test uniquement pour l'instant //
+    // 
     /////////////////////////////////////////////////////////////////////////////////////
-    // le 07/09 - gildas //
+    
     create: async (req,res)=> {
         // create a product from params
         const newProduct = {
