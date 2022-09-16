@@ -1,4 +1,5 @@
 //imports
+const { sequelize } = require('../models');
 const models = require('../models');
 
 // product methods
@@ -28,21 +29,29 @@ module.exports = {
        
     // check params before writing the newProduct in db
     // call to await function so the program waits for the checks are done before trying to write the bd
+    
+
         
     async function checkParams() {
         
+        await sequelize.transaction(async(t)=>{
+
+       
         // is tva valid
         await models.Tva.findByPk(
-            newProduct.tva_id
+            newProduct.tva_id,
+            { tansaction: t }
         ).then(tvaFound =>{
             if( tvaFound ){
                 return
             }
-            res.status(400).json({ "error" : "tva doesn't exist" })
-            return paramErr = "parameter value doesn't match"
-        }).catch(err =>{ 
-            res.status(501).json({ "cannot find tva: " : "" + err })
-            return paramErr = "cannot find tva"
+            throw( error = "parameter value doesn't match" )
+            // res.status(400).json({ "error" : "tva doesn't exist" })
+            // return paramErr = "parameter value doesn't match"
+        })
+        .catch(err =>{ 
+            // res.status(501).json({ "cannot find tva: " : "" + err })
+            throw( error = err )
         })
 
         // is category valid
@@ -64,24 +73,20 @@ module.exports = {
                                 return
                             }
                         }
-                        res.status(400).json({ "error" : "child category doesn't belong to parent category" })
-                        return paramErr = "child category doesn't belong to parent category"    
+                        throw( error = "child category doesn't belong to parent category" )    
                         
                     }
-                    res.status(400).json({ "error" : "child category doesn't exist" })
-                    return paramErr = "parameter value doesn't match"
+                    throw( error= "parameter value doesn't match" )
                 }).catch(err =>{ 
-                    res.status(501).json({ "cannot find child category: " : "" + err })
-                    return paramErr = "cannot find child category"
+                    throw( error = err )  
                 })
 
             } else {
-                res.status(400).json({ "error" : "parentCategory doesn't exist" })
-                return paramErr = "parameter value doesn't match"
+                throw( error = err )
             }
             
         }).catch(err =>{ 
-            res.status(501).json({ "cannot find parentCategory: " : "" + err })
+            throw( error = err )
         })
         
         // are features valid
@@ -123,10 +128,19 @@ module.exports = {
             })
         }
 
+        });
     }
-    await checkParams();
-    if(typeof paramErr === 'undefined' ) {console.log(newProduct)}
-    else {console.log(paramErr)}
+    
+    try {
+        await checkParams();
+        if(typeof paramErr === 'undefined' ) {console.log(newProduct)}
+        else {console.log(paramErr)}
+    } catch (err) {
+        console.log(err)
+    }
+    
+
+    
     
 
         // models.Product.create(
