@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
 
-
+    // Token
     generateTokenForUser : (user) => {
 
         return jwt.sign({ 
@@ -36,5 +36,6 @@ module.exports = {
         });
         
     },
+
 
 }

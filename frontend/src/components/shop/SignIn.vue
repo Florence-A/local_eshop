@@ -2,8 +2,8 @@
     <div class="SignIn">
         <div class="wrapper">
             <div class="msg">{{msg}}</div><br>
-            <input class="form-control" v-model="mail" type="text" placeholder="Adresse mail"><br>
-            <input class="form-control" v-model="password" type="password" placeholder="Mot de passe"><br>
+            <input class="form-control" v-model="mail"      type="text"     placeholder="Adresse mail"><br>
+            <input class="form-control" v-model="password"  type="password" placeholder="Mot de passe"><br>
             <br>
             <button @click="send(m,p)" class="btn btn-primary">Se connecter</button>
         </div>

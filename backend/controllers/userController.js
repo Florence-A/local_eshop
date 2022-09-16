@@ -1,13 +1,16 @@
 // Imports
 require('dotenv').config();
 
-const models      = require('../models');
-const bcrypt      = require ('bcrypt');
-const userUtils   = require('../utils/userUtils');
+const models        = require('../models');
+const bcrypt        = require ('bcrypt');
+const userUtils     = require('../utils/userUtils');
+const shapingUtils  = require('../utils/shapingUtils');
 
 // Constants
 const EMAIL_REGEX    = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+const PHONE_REGEX    = /^0[1-7]{1}(([0-9]{2}){4})$/;
+const PC_REGEX       = /^[0-9]{5}$/;
 
 
 // User methods
@@ -16,18 +19,31 @@ module.exports = {
     addUser : (req,res) => 
     {
         // Params
-        const last_name  = req.body.last_name;
-        const first_name = req.body.first_name;
-        const mail       = req.body.mail;
-        const password   = req.body.password;
+        const last_name   = req.body.last_name.trim().toUpperCase();
+        const first_name  = shapingUtils.toUpperCaseFirstLetter(req.body.first_name);
+        const mail        = req.body.mail;
+        const password    = req.body.password;
+        const phone       = req.body.phone;
+        const number      = req.body.number;
+        const street_name = shapingUtils.escapeHtml(req.body.street_name.trim());
+        const postal_code = req.body.postal_code;
+        const city        = req.body.city.trim().toUpperCase();
 
         // Basic checks
         if ( last_name == "" || first_name == "" || mail == "" || password == "" ) {
             return res.json({ 'msg' : 'Merci de remplir tous les champs du formulaire' });
         }; 
 
-        if ( !( 3 < last_name.length < 22 ) || !( 2 < first_name.length < 22 ) ){
+        if ( !( 3 <= last_name.length <= 22 ) || !( 3 <= first_name.length <= 22 ) ){
             return res.json({ 'msg' : "Les noms et prénoms ne peuvent comprendre qu'entre 3 et 22 caractères" });
+        };
+
+        if (!PHONE_REGEX.test( phone )){
+            return res.json({ 'msg' : "Merci de vérifier le numéro de téléphone" });
+        };
+
+        if (!PC_REGEX.test( postal_code )){
+            return res.json({ 'msg' : "Merci de vérifier le code postal" });
         };
 
         if (!EMAIL_REGEX.test( mail )){
@@ -101,9 +117,11 @@ module.exports = {
             
             if( user ){
 
+                // Check the password
                 var bddPassword = user.password;
                 var validPass   = bcrypt.compareSync( password , bddPassword );
 
+                // If password ok, send a token
                 if (validPass){
 
                     const token = userUtils.generateTokenForUser( user );
