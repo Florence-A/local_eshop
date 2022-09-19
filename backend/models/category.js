@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       }),
 
       this.hasMany(Category, {
+        as: 'child_category',
         foreignKey: 'category_id'
       }),
       this.belongsTo(Category, {
