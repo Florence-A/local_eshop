@@ -1,9 +1,43 @@
 //imports
 const { sequelize } = require('../models');
 const models = require('../models');
+const category = require('../models/category');
+const formidable = require('formidable');
+const path = require('path');
 
 // product methods
 module.exports = {
+
+    image: (req,res)=> {
+
+        const form = formidable({})
+        const uploadFolder = path.join(__dirname, '../public', 'images');
+
+        form.options.multiples   = true;
+        form.options.keepExtensions   = true;
+        form.options.maxFileSize = 5 * 1024 * 1024;
+        form.uploadDir   = uploadFolder;
+        const newFilename    = `_ref_${Math.round(Math.random()*1000)}`;
+
+        // console.log(form)
+
+        form.parse(req, async (err, fields, files) => {
+            console.log(fields);
+            console.log(files);
+            if (err) {
+              console.log("Error parsing the files");
+              return res.status(400).json({
+                status: "Fail",
+                message: "There was an error parsing the files",
+                error: err,
+              });
+            }
+            
+        });
+       
+        // console.log('await')
+
+    },
     
     // create a new product
     /////////////////////////////////////////////////////////////////////////////////////
@@ -11,6 +45,7 @@ module.exports = {
     /////////////////////////////////////////////////////////////////////////////////////
     
     create: async (req,res)=> {
+        
         // create a product from params
         const newProduct = {
             name            : req.body.name,
@@ -28,14 +63,15 @@ module.exports = {
         }
 
         const paramFeat = [{ feature: req.body.feature1_id, feature_value: req.body.feature1_value_id }, { feature: req.body.feature2_id, feature_value: req.body.feature2_value_id }]
-       
+
+        
     // check params before writing the newProduct in db
     // call to await function so the program waits for the checks are done before trying to write the bd
     
 
         
     async function checkParams() {
-               
+
         // is tva valid
         await models.Tva.findByPk(
             newProduct.tva_id
@@ -52,6 +88,7 @@ module.exports = {
         ).then(async parentCategoryFound =>{
             if( parentCategoryFound ){
                 
+                productParams.categories.push(parentCategoryFound.dataValues.id);
                 const childCategories = await parentCategoryFound.getChild_category();
                
                 await models.Category.findByPk(
@@ -62,13 +99,14 @@ module.exports = {
 
                         for( category of childCategories ){
                             if( category.dataValues.id === childCategoryFound.dataValues.id ){
+                                productParams.categories.push(childCategoryFound.dataValues.id);
                                 return
                             }
                         }
                         throw error = "child category doesn't belong to parent category" 
                         
                     }
-                    throw error= "parameter value doesn't match" 
+                    // throw error= "parameter value doesn't match" 
             
                 })
                 
@@ -99,8 +137,9 @@ module.exports = {
                                 }
                                 throw error = "feature value doesn't belong to feature";
                             }
-                            throw error = "parameter value doesn't match"
+                            
                         }
+                        throw error = "parameter value doesn't match"
                     })
 
                 }else {
@@ -117,29 +156,30 @@ module.exports = {
         await sequelize.transaction(async(t)=>{
             await models.Product.create(
                 newProduct,
-                {  tansaction: t }
-            ).then(async productCreated =>{
-                
-                productCreated.addCategories(
-                    productParams.categories
-                )
+                {  transaction: t }
+            ).then(async newProductCreated =>{
 
-                productCreated.addFeature_values(
+                newProductCreated.addCategories(
+                    productParams.categories
+                ); //add categories
+
+                newProductCreated.addFeature_values(
                     productParams.features
-                )
+                ); //add features
 
                 await sequelize.transaction(async(t)=>{
                     await models.Image.create(
                         { path: productParams.img_path },
-                        { tansaction: t }
-                    ).then(imageCreated =>{
-                        
-                        productCreated.addImage(
-                            imageCreated
+                        { transaction: t }
+                    ).then(async newImageCreated =>{
+                        newProductCreated.addImage(
+                            newImageCreated
                         )
                     })
-                });
-
+                }); //create new image(s) and add it
+                    
+                console.log("await")
+                res.status(201).json(newProductCreated)
             })
         })
         
@@ -175,9 +215,13 @@ module.exports = {
             {
                 model: models.Category,
                 attributes: ['name'],
+                through: {
+                    attributes: []
+                },
                 include: [
                     {
                         model: models.Category,
+                        as: 'child_category',
                         attributes: ['name']
                     }
                 ]
@@ -185,6 +229,9 @@ module.exports = {
             {
                 model: models.Feature_value,
                 attributes: ['value'],
+                through: {
+                    attributes: []
+                },
                 include: [
                     {
                          model: models.Feature,
@@ -207,9 +254,50 @@ module.exports = {
 
     // get one product with associated attributes by pk
     getOne: (req,res)=> {
-        models.Product.findByPk(req.params.id)
-            .then( async productFound => {
-                res.status(201).json(productFound)
-            })
+        models.Product.findByPk(
+            req.params.id,{
+            include: [
+            {
+                model: models.Tva,
+                attributes: ['rate']
+            },
+            {
+                model: models.Category,
+                attributes: ['name'],
+                through: {
+                    attributes: []
+                },
+                include: [
+                    {
+                        model: models.Category,
+                        as: 'child_category',
+                        attributes: ['name']
+                    }
+                ]
+            },
+            {
+                model: models.Feature_value,
+                attributes: ['value'], 
+                through: {
+                    attributes: []
+                },
+                include: [
+                    {
+                         model: models.Feature,
+                         attributes: ['name']
+                    }
+                ]
+            },
+            {
+                model: models.Image,
+                attributes: ['path']
+            }
+        ]
+        }).then(productFound => {
+            return res.status(201).json(productFound)
+        })
+        .catch(err => {
+            return res.status(500).json({ 'error': 'cannot find product: ' + err})
+        })
     }
 }
