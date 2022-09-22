@@ -2,7 +2,7 @@
 
     <div class="UserPanel d-flex flex-column align-items-center justify-content-start">
 
-        <router-link to="/shop/UserInfo" class="d-inline-flex">
+        <router-link to="shop/UserInfo" class="d-inline-flex">
             <button class="btn btn-primary"> Mon profil </button>
         </router-link>
 
