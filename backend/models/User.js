@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo ( models.Role, { foreignKey: 'id_role' }),
-      this.hasMany ( models.Phone, {foreignKey: 'id_user' } ),
-      this.hasMany ( models.Adress , { foreignKey: 'id_user' } )
+      User.Role = this.belongsTo ( models.Role, { foreignKey: 'id_role' }),
+      User.Phone = this.hasMany ( models.Phone, {foreignKey: 'id_user' } ),
+      User.Adress = this.hasMany ( models.Adress , { foreignKey: 'id_user' } )
     }
   }
   User.init({

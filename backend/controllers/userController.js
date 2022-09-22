@@ -9,7 +9,7 @@ const shapingUtils  = require('../utils/shapingUtils');
 // Constants
 const EMAIL_REGEX    = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-const PHONE_REGEX    = /^0[1-7]{1}(([0-9]{2}){4})$/;
+// const PHONE_REGEX    = /^0[1-7]{1}(([0-9]{2}){4})$/;
 const PC_REGEX       = /^[0-9]{5}$/;
 
 
@@ -38,9 +38,9 @@ module.exports = {
             return res.json({ 'msg' : "Les noms et prénoms ne peuvent comprendre qu'entre 3 et 22 caractères" });
         };
 
-        if (!PHONE_REGEX.test( phone )){
-            return res.json({ 'msg' : "Merci de vérifier le numéro de téléphone" });
-        };
+        // if (!PHONE_REGEX.test( phone )){
+        //     return res.json({ 'msg' : "Merci de vérifier le numéro de téléphone" });
+        // };
 
         if (!PC_REGEX.test( postal_code )){
             return res.json({ 'msg' : "Merci de vérifier le code postal" });
@@ -70,12 +70,44 @@ module.exports = {
                 var hashedPassword = bcrypt.hashSync( password, salt );
                 
                 // Register
+
+                // https://sequelize.org/docs/v6/core-concepts/assocs/#many-to-many-relationships
                 var newUser = models.User.create ({
                     last_name  : last_name,
                     first_name : first_name,
                     mail       : mail,
                     password   : hashedPassword,
-                    id_role    : 1
+                    id_role    : 1,
+
+                    phone      : [{
+                        number : phone
+                    }],
+
+                    adress     : [{
+                        title             : null,
+                        number            : number,
+                        street_name       : street_name,
+                        additional_adress : null,
+                    
+                        city   : {
+                            label : city,
+
+                            postal_code : {
+                                number  : postal_code
+                            }
+                        }
+                    }]
+                }, 
+                {
+                    include : [{
+                        association : models.User.Phone,
+                        include : [{
+                            association : models.Adress.City,
+                            include : [{
+                                association : models.City.Pc,
+                            }]
+                        }]
+                    }]
                 })
                 // INSERT INTO `user` (`id`,`last_name`,`first_name`,`mail`,`password`,`createdAt`,`updatedAt`) VALUES (DEFAULT,?,?,?,?,?,?)
 
