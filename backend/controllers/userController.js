@@ -1,13 +1,16 @@
 // Imports
 require('dotenv').config();
 
-const models      = require('../models');
-const bcrypt      = require ('bcrypt');
-const userUtils   = require('../utils/userUtils');
+const models        = require('../models');
+const bcrypt        = require ('bcrypt');
+const userUtils     = require('../utils/userUtils');
+const shapingUtils  = require('../utils/shapingUtils');
 
 // Constants
 const EMAIL_REGEX    = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+// const PHONE_REGEX    = /^0[1-7]{1}(([0-9]{2}){4})$/;
+const PC_REGEX       = /^[0-9]{5}$/;
 
 
 // User methods
@@ -16,27 +19,40 @@ module.exports = {
     addUser : (req,res) => 
     {
         // Params
-        const last_name  = req.body.last_name;
-        const first_name = req.body.first_name;
-        const mail       = req.body.mail;
-        const password   = req.body.password;
+        const last_name   = req.body.last_name.trim().toUpperCase();
+        const first_name  = shapingUtils.toUpperCaseFirstLetter(req.body.first_name);
+        const mail        = req.body.mail;
+        const password    = req.body.password;
+        const phone       = req.body.phone;
+        const number      = req.body.number;
+        const street_name = shapingUtils.escapeHtml(req.body.street_name.trim());
+        const postal_code = req.body.postal_code;
+        const city        = req.body.city.trim().toUpperCase();
 
         // Basic checks
         if ( last_name == "" || first_name == "" || mail == "" || password == "" ) {
             return res.json({ 'msg' : 'Merci de remplir tous les champs du formulaire' });
-        } 
+        }; 
 
-        if ( !( 3 < last_name.length < 22 ) || !( 2 < first_name.length < 22 ) ){
+        if ( !( 3 <= last_name.length <= 22 ) || !( 3 <= first_name.length <= 22 ) ){
             return res.json({ 'msg' : "Les noms et prénoms ne peuvent comprendre qu'entre 3 et 22 caractères" });
-        }
+        };
+
+        // if (!PHONE_REGEX.test( phone )){
+        //     return res.json({ 'msg' : "Merci de vérifier le numéro de téléphone" });
+        // };
+
+        if (!PC_REGEX.test( postal_code )){
+            return res.json({ 'msg' : "Merci de vérifier le code postal" });
+        };
 
         if (!EMAIL_REGEX.test( mail )){
             return res.json({ 'msg' : "Merci de vérifier l'adresse mail" });
-        } 
+        };
 
         if (!PASSWORD_REGEX.test( password )){
             return res.json({ 'msg' : "Le mot de passe doit contenir au minimum 8 caractères dont au moins un chiffre, une minuscule et une majuscule."});
-        }
+        };
 
         // User doesn't exists, register
         models.User.findOne({
@@ -54,26 +70,58 @@ module.exports = {
                 var hashedPassword = bcrypt.hashSync( password, salt );
                 
                 // Register
+
+                // https://sequelize.org/docs/v6/core-concepts/assocs/#many-to-many-relationships
                 var newUser = models.User.create ({
                     last_name  : last_name,
                     first_name : first_name,
                     mail       : mail,
                     password   : hashedPassword,
-                    id_role    : 1
+                    id_role    : 1,
+
+                    phone      : [{
+                        number : phone
+                    }],
+
+                    adress     : [{
+                        title             : null,
+                        number            : number,
+                        street_name       : street_name,
+                        additional_adress : null,
+                    
+                        city   : {
+                            label : city,
+
+                            postal_code : {
+                                number  : postal_code
+                            }
+                        }
+                    }]
+                }, 
+                {
+                    include : [{
+                        association : models.User.Phone,
+                        include : [{
+                            association : models.Adress.City,
+                            include : [{
+                                association : models.City.Pc,
+                            }]
+                        }]
+                    }]
                 })
                 // INSERT INTO `user` (`id`,`last_name`,`first_name`,`mail`,`password`,`createdAt`,`updatedAt`) VALUES (DEFAULT,?,?,?,?,?,?)
 
                 .then( () => {
                     return res.status(200).json({ 'msg' : "Inscription bien prise en compte, merci de vous connecter avec vos nouveaux identifiants." })
                 })
-                .catch((err) => { console.log(err) })
+                .catch((err) => { console.log(err) });
             }
 
             else {
                 res.json({ 'msg' : "Cette adresse mail est déjà utilisée."});
             }
         })
-        .catch((err) => { console.log(err) })
+        .catch((err) => { console.log(err) });
     },
 
 
@@ -87,11 +135,11 @@ module.exports = {
 
         // Basic check
         if (mail == "" || password == "") {
-            return res.json({ 'msg' : "Merci de remplir tous les champs"})
-        }
+            return res.json({ 'msg' : "Merci de remplir tous les champs"});
+        };
         if (!EMAIL_REGEX.test( mail )){
             return res.json({ 'msg' : "Merci de re-vérifier l'adresse mail" });
-        } 
+        };
 
         // Search and authenticate
         models.User.findOne({ 
@@ -101,17 +149,19 @@ module.exports = {
             
             if( user ){
 
+                // Check the password
                 var bddPassword = user.password;
                 var validPass   = bcrypt.compareSync( password , bddPassword );
 
+                // If password ok, send a token
                 if (validPass){
 
-                    const token = userUtils.generateTokenForUser( user )
+                    const token = userUtils.generateTokenForUser( user );
 
                     res.send({ 
                         userId : user.id,
                         token  : token
-                    })
+                    });
 
                 }
                 else {
@@ -122,19 +172,28 @@ module.exports = {
                 return res.json({ 'msg' : "Utilisateur non trouvé" });
             }
         })
-        .catch((err) => { console.log(err) })
+        .catch((err) => { console.log(err) });
     },
 
 
     getUser : (req,res) =>
     {
-        console.log("Je suis dans le controller c'est ok !")
-        // if (token) {
+        // Params
+        var userId = req.user.userId;
+        
+        // Request (without password)
+        models.User.scope('exceptPW').findOne({
+            where : {'id' : userId}
+        })
+        .then((user) => {
+            var result = user.dataValues
+            res.status(201).json(result);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500);
+        });
 
-        // }
-        // else {
-        //     res.send({ 'msg' : "Accès interdit, la session en cours n'est pas valide" })
-        // }
     },
 
 

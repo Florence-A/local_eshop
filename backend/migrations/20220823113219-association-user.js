@@ -12,12 +12,12 @@ module.exports = {
       {            
         type: Sequelize.INTEGER,  // Options de la FK
         references: {
-          model: 'Role',          // modèle visé par la FK
-          key: 'id',              // nom de la colonne visée
+          model   : 'Role',          // modèle visé par la FK
+          key     : 'id',              // nom de la colonne visée
         },
         defaultValue: 1,
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',     // si 
+        onUpdate    : 'CASCADE',
+        onDelete    : 'SET NULL',     // si 
       }
     )
 

@@ -6,16 +6,15 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
 
-
+    // Token
     generateTokenForUser : (user) => {
 
-        return jwt.sign({
-            first_name : user.first_name, 
+        return jwt.sign({ 
             userId     : user.id,
             role       : user.id_role
         }, 
         process.env.TOKEN_SECRET, { 
-            expiresIn: '30m' 
+            expiresIn: '2h' 
         });
     },
 
@@ -37,5 +36,6 @@ module.exports = {
         });
         
     },
+
 
 }

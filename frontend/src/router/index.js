@@ -1,12 +1,12 @@
 import { createWebHistory, createRouter } from "vue-router";
-import SignUpIn from "@/components/SignUpIn.vue";
-import SubScribe from "@/components/SubScribe.vue";
-import SignIn from "@/components/SignIn.vue";
-import UserPanel from "@/components/UserPanel.vue";
-import UserInfo from "@/components/UserInfo.vue";
-import HomePage from "@/components/HomePage.vue";
-import FavoriteItems from "@/components/FavoriteItems.vue";
-import CartPage from "@/components/CartPage.vue";
+import SignUpIn from "@/components/shop/SignUpIn.vue";
+import SubScribe from "@/components/shop/SubScribe.vue";
+import SignIn from "@/components/shop/SignIn.vue";
+import UserPanel from "@/components/shop/UserPanel.vue";
+import UserInfo from "@/components/shop/UserInfo.vue";
+import CartPage from "@/components/shop/CartPage.vue";
+import HomePage from "@/components/shop/HomePage.vue";
+import FavoriteItems from "@/components/shop/FavoriteItems.vue";
 import ShopHome from "@/views/ShopHome.vue";
 import CmsHome from "@/views/CmsHome.vue";
 

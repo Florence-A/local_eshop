@@ -19,7 +19,6 @@ import AdminProductsPage from "@/components/AdminProductsPage.vue";
 </script>
   
 <style>
- 
 </style>
   
   
