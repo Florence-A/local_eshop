@@ -17,7 +17,6 @@ module.exports = {
         form.options.keepExtensions   = true;
         form.options.maxFileSize = 5 * 1024 * 1024;
         form.uploadDir   = uploadFolder;
-        const newFilename    = `_ref_${Math.round(Math.random()*1000)}`;
 
         // console.log(form)
 
@@ -27,8 +26,6 @@ module.exports = {
             if (err) {
               console.log("Error parsing the files");
               return res.status(400).json({
-                status: "Fail",
-                message: "There was an error parsing the files",
                 error: err,
               });
             }
@@ -62,7 +59,7 @@ module.exports = {
             features        : []
         }
 
-        const paramFeat = [{ feature: req.body.feature1_id, feature_value: req.body.feature1_value_id }, { feature: req.body.feature2_id, feature_value: req.body.feature2_value_id }]
+        const featureParams = [{ feature: req.body.feature1_id, feature_value: req.body.feature1_value_id }, { feature: req.body.feature2_id, feature_value: req.body.feature2_value_id }]
 
         
     // check params before writing the newProduct in db
@@ -97,8 +94,8 @@ module.exports = {
 
                     if( childCategoryFound ){
 
-                        for( category of childCategories ){
-                            if( category.dataValues.id === childCategoryFound.dataValues.id ){
+                        for( cat of childCategories ){
+                            if( cat.dataValues.id === childCategoryFound.dataValues.id ){
                                 productParams.categories.push(childCategoryFound.dataValues.id);
                                 return
                             }
@@ -106,7 +103,7 @@ module.exports = {
                         throw error = "child category doesn't belong to parent category" 
                         
                     }
-                    // throw error= "parameter value doesn't match" 
+                    throw error= "parameter value doesn't match" 
             
                 })
                 
@@ -116,7 +113,8 @@ module.exports = {
         })
         
         // are features valid
-        for( feature of paramFeat ){
+        console.log(featureParams)
+        for( feature of featureParams ){
             console.log(feature); 
             await models.Feature.findByPk(
                 feature.feature
