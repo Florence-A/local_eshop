@@ -300,5 +300,31 @@ module.exports = {
         }).catch(err =>{
             res.status(500).json(err)
         })
+    },
+
+    //get all features
+    getFeatures: (req,res)=>{
+        models.Feature.findAll()
+        .then(features =>{
+            res.status(201).json(features)
+        })
+        .catch(err =>{
+            res.status(500).json(err)
+        })
+    },
+
+    //get all features
+    getFeatureValues: (req,res)=>{
+        console.log(req.body)
+        models.Feature_value.findAll({
+            where: { id:req.body.feat }
+        })
+        .then(featureValues =>{
+            res.status(201).json(featureValues)
+        })
+        .catch(err =>{
+            res.status(500).json(err)
+        })
     }
+
 }
