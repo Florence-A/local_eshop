@@ -6,7 +6,7 @@
             <button class="btn btn-primary"> Mon profil </button>
         </router-link>
 
-        <router-link to="" class="d-inline-flex">
+        <router-link to="/UserPanel" class="d-inline-flex">
             <button class="btn btn-primary"> Modifier mon profil </button>
         </router-link>
 

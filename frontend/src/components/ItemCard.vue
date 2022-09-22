@@ -3,18 +3,22 @@
         <div class="col-12" id="ItemInformations">
             <div class="infos">
                 <h2 id="name">
-                    Nom article  <!-- {{ info_article.name }}infos dynamiques. Props permet de passer infos d'un composant parent à un compo enfant -->
+                    Nom article  
+                    {{ dataItem._ref }}
+                    <!-- infos dynamiques. Props permet de passer infos d'un composant parent à un compo enfant -->
                 </h2>
                 <div class="col-12" id="ItemImage">
-                    <img class="img-fluid" src="../assets/produit2.png" alt=""><!-- {{ info_article.image }} -->
+                    <img class="img-fluid" src={{dataItem.image}} alt=""><!--../assets/produit2.png {{ info_article.image }} -->
                 </div>
                 <p id="description">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis iste at quo voluptatum incidunt voluptatibus. Incidunt maiores error consequuntur numquam? <!-- {{ info_article.name }} -->
+                    {{ dataItem.description }}
+                    <!-- Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis iste at quo voluptatum incidunt voluptatibus. Incidunt maiores error consequuntur numquam? -->
                 </p>
                 <div class="row" id="infoproduits">
                     <div class="col-4" id="blocprix">
                         <p id="prix">
-                            Prix article € <!-- {{ info_article.name }} -->
+                            <!--Prix article €  -->
+                            {{ dataItem.HT_price }}
                         </p>
                     </div>
                     <div class="col-4" id="blocqtity">
@@ -36,15 +40,14 @@
 </template>
 
 <script>
-// import { computed } from '@vue/reactivity'
+// import { computed } from '@vue/reactivity';
+import axios from 'axios'
 export default {
     name:"ItemCard",
-    // props:{
-    //     info_article: Object
-    // },
     data(){
         return {
-            quantity: 1
+            quantity: 1,
+            dataItem: {}
         }
     },
     methods: {
@@ -57,12 +60,20 @@ export default {
             } else {
                 this.quantity--
             }
-        }
-    },
+        },
         achat(){
             // fonction Achat A COMPLETER
             // click => ajouter produit à liste produit du client en fonction de qtity
         }
+    },
+    mounted(){
+        axios.get('http://localhost:9000/product/:id')
+        .then((response)=>{
+            console.log(response.data)
+            this.dataItem = response.data
+            
+        })
+    }
 }
 </script>
 
