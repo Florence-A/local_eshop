@@ -5,17 +5,17 @@
         
         <div id="menu">
         <router-link to="/">
-            <div class="col" id="logo"><img src="../assets/logo.svg" alt="logo icon"></div>
+            <div class="col" id="logo"><img src="../assets/images/logo.svg" alt="logo icon"></div>
         </router-link>
         <router-link to="/SignUpIn">
 
-            <div class="col" id="user"><img src="../assets/user.svg" alt="user icon"></div>
+            <div class="col" id="user"><img src="../assets/images/user.svg" alt="user icon"></div>
         </router-link>
         <router-link to="/shop/FavoriteItems">
-            <div class="col" id="favorite"><img src="../assets/favorite.svg" alt="favorite icon"></div>
+            <div class="col" id="favorite"><img src="../assets/images/favorite.svg" alt="favorite icon"></div>
         </router-link>
         <router-link to="/shop/CartPage">
-            <div class="col" id="cart"><img src="../assets/cart.svg" alt="cart icon"></div>
+            <div class="col" id="cart"><img src="../assets/images/cart.svg" alt="cart icon"></div>
         </router-link>
             
         </div>
