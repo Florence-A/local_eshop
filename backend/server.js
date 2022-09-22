@@ -1,9 +1,10 @@
 //imports
 const express = require('express');
 const helmet = require('helmet');
-const app     = express();
 const cors    = require('cors');
+
 const port    = 9000;
+const app     = express();
 
 // Import routers
 const userRouter = require('./routes/user.routes');

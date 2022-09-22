@@ -6,6 +6,7 @@ module.exports = (app)=> {
 
     // routes
     router.post('/new/', product.create);
+    router.post('/image/', product.image);
     router.get('/', product.list);
     router.get('/product/:id', product.getOne);
 
