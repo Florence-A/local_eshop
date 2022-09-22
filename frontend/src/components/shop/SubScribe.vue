@@ -4,7 +4,8 @@
             <div class="msg">{{msg}}</div>
             <input class="form-control" v-model="first_name"    type="text"     placeholder="Prénom"        maxlength="22"> <br>
             <input class="form-control" v-model="last_name"     type="text"     placeholder="Nom"           maxlength="22"> <br>
-            <input class="form-control" v-model="number"        type="text"     placeholder="N°"            maxlength="10">  <br>
+            <input class="form-control" v-model="phone"         type="text"     placeholder="Téléphone"      maxlength="10">  <br>
+            <input class="form-control" v-model="number"        type="text"     placeholder="N°Rue"         maxlength="5">  <br>
             <input class="form-control" v-model="street_name"   type="text"     placeholder="Rue/Lieu-dit"  maxlength="30"> <br>
             <input class="form-control" v-model="postal_code"   type="text"     placeholder="Code Postal"   maxlength="5">  <br>
             <input class="form-control" v-model="city"          type="text"     placeholder="Ville"         maxlength="25"> <br>
@@ -12,7 +13,7 @@
             <input class="form-control" v-model="password"      type="password" placeholder="Mot de passe">                 <br>
         </div>
         <br>
-        <button @click="send(ln,fn,m,p)" class="btn btn-primary">S'inscrire</button>
+        <button @click="send(ln,fn,m,p,ph,nb,st,pc,c)" class="btn btn-primary">S'inscrire</button>
     </div>
 </template>
 

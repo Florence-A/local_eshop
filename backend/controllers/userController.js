@@ -1,6 +1,7 @@
 // Imports
 require('dotenv').config();
 
+const { sequelize } = require('../models');
 const models        = require('../models');
 const bcrypt        = require ('bcrypt');
 const userUtils     = require('../utils/userUtils');
@@ -9,7 +10,7 @@ const shapingUtils  = require('../utils/shapingUtils');
 // Constants
 const EMAIL_REGEX    = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-// const PHONE_REGEX    = /^0[1-7]{1}(([0-9]{2}){4})$/;
+const PHONE_REGEX    = /^0[1-7]{1}(([0-9]{2}){4})$/;
 const PC_REGEX       = /^[0-9]{5}$/;
 
 
@@ -38,9 +39,9 @@ module.exports = {
             return res.json({ 'msg' : "Les noms et prénoms ne peuvent comprendre qu'entre 3 et 22 caractères" });
         };
 
-        // if (!PHONE_REGEX.test( phone )){
-        //     return res.json({ 'msg' : "Merci de vérifier le numéro de téléphone" });
-        // };
+        if (!PHONE_REGEX.test( phone )){
+            return res.json({ 'msg' : "Merci de vérifier le numéro de téléphone" });
+        };
 
         if (!PC_REGEX.test( postal_code )){
             return res.json({ 'msg' : "Merci de vérifier le code postal" });
@@ -70,59 +71,107 @@ module.exports = {
                 var hashedPassword = bcrypt.hashSync( password, salt );
                 
                 // Register
+                try {
 
-                // https://sequelize.org/docs/v6/core-concepts/assocs/#many-to-many-relationships
-                var newUser = models.User.create ({
-                    last_name  : last_name,
-                    first_name : first_name,
-                    mail       : mail,
-                    password   : hashedPassword,
-                    id_role    : 1,
+                    sequelize.transaction(async (t)=>{
 
-                    phone      : [{
-                        number : phone
-                    }],
+                        // Create the user
+                        await models.User.create({
+                            last_name   : last_name,
+                            first_name  : first_name,
+                            mail        : mail,
+                            password    : password,
+                            id_role     : 1
+                        },
+                        { transaction: t }
 
-                    adress     : [{
-                        title             : null,
-                        number            : number,
-                        street_name       : street_name,
-                        additional_adress : null,
-                    
-                        city   : {
-                            label : city,
+                        ).then( userCreated => {
+            
+                            // Create the phone and add to user
+                            models.Phone.findOrCreate({
+                                where : { number : number }
+                            })
+                            .then ((phoneCreated) => {
+                                userCreated.addPhone({
+                                    phoneCreated
+                                },
+                                { transaction : t })
+                            })
+                            
+                            // await Create the City if doesn't exists
+                            // await Create the postal code if doesn't exists
+                            // await Add the postal code to city
+                            // await Create adress if doesn't exist
+                            // await Add the adress to user
 
-                            postal_code : {
-                                number  : postal_code
-                            }
-                        }
-                    }]
-                }, 
-                {
-                    include : [{
-                        association : models.User.Phone,
-                        include : [{
-                            association : models.Adress.City,
-                            include : [{
-                                association : models.City.Pc,
-                            }]
-                        }]
-                    }]
-                })
-                // INSERT INTO `user` (`id`,`last_name`,`first_name`,`mail`,`password`,`createdAt`,`updatedAt`) VALUES (DEFAULT,?,?,?,?,?,?)
+                        })
+                    })                    
+                }
+                catch (error) {
+                    console.log(error)
+                }
 
-                .then( () => {
-                    return res.status(200).json({ 'msg' : "Inscription bien prise en compte, merci de vous connecter avec vos nouveaux identifiants." })
-                })
-                .catch((err) => { console.log(err) });
-            }
-
-            else {
-                res.json({ 'msg' : "Cette adresse mail est déjà utilisée."});
             }
         })
-        .catch((err) => { console.log(err) });
     },
+            
+
+                // https://sequelize.org/docs/v6/core-concepts/assocs/#many-to-many-relationships
+                // var newUser = models.User.create ({
+                //     last_name  : last_name,
+                //     first_name : first_name,
+                //     mail       : mail,
+                //     password   : hashedPassword,
+                //     id_role    : 1,
+
+                //     phone      : [{
+                //         number : phone
+                //     }],
+
+                //     adress     : [{
+                //         title             : null,
+                //         number            : number,
+                //         street_name       : street_name,
+                //         additional_adress : null,
+                    
+                //         city   : {
+                //             label : city,
+
+                //             postal_code : {
+                //                 number  : postal_code
+                //             }
+                //         }
+                //     }]
+                // }, 
+                // {
+                //     include : [{
+                //         association : models.User.Phone,
+                //         include : [Phone.number],
+                //         include : [{
+                //             association : models.User.Adress,
+                //             include : [{
+                //                 association : models.Adress.City,
+                //                 include : [{
+                //                     association : models.City.Pc,
+                //                 }]
+                //             }]
+                //         }]
+                //     }]
+                // })
+                
+
+        //         .then( () => {
+        //             return res.status(200).json({ 'msg' : "Inscription bien prise en compte, merci de vous connecter avec vos nouveaux identifiants." })
+        //         })
+        //         .catch((err) => { console.log(err) });
+        //     }
+
+        //     else {
+        //         res.json({ 'msg' : "Cette adresse mail est déjà utilisée."});
+        //     }
+        // })
+        // .catch((err) => { console.log(err) });
+
 
 
 
