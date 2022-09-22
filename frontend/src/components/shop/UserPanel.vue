@@ -6,13 +6,9 @@
             <button class="btn btn-primary"> Mon profil </button>
         </router-link>
 
-<<<<<<< HEAD:frontend/src/components/userPanel.vue
-        <router-link to="/UserPanel" class="d-inline-flex">
-=======
         <br>
 
         <router-link to="" class="d-inline-flex">
->>>>>>> flo:frontend/src/components/shop/UserPanel.vue
             <button class="btn btn-primary"> Modifier mon profil </button>
         </router-link>
 
