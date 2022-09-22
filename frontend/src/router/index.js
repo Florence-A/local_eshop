@@ -10,8 +10,6 @@ import CartPage from "@/components/CartPage.vue";
 import ShopHome from "@/views/ShopHome.vue";
 import CmsHome from "@/views/CmsHome.vue";
 
-
-
 const routes = [
     {
         path: "/",
@@ -63,7 +61,7 @@ const routes = [
                 name: "CartPage",
                 component: CartPage
 
-            },
+            }
         ]
     },
     

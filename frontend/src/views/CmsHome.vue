@@ -1,13 +1,19 @@
 <template>
-   <HeaderShop></HeaderShop>
+   <HeaderCMS></HeaderCMS>
+   <AdminProductsPage></AdminProductsPage>
+   <FooterCMS></FooterCMS>
 </template>
   
 <script>
-import HeaderShop from "../components/HeaderShop.vue";
+import FooterCMS from "../components/FooterCMS.vue"
+import HeaderCMS from "../components/HeaderCMS.vue";
+import AdminProductsPage from "@/components/AdminProductsPage.vue";
     export default {
         name: 'CmsHome',
         components: {
-    HeaderShop
+    HeaderCMS,
+    FooterCMS,
+    AdminProductsPage,
 }
     }
 </script>
