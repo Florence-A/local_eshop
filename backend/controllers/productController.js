@@ -317,9 +317,10 @@ module.exports = {
     getFeatureValues: (req,res)=>{
         console.log(req.body)
         models.Feature_value.findAll({
-            where: { id:req.body.feat }
+            where: { feature_id:req.body.feat }
         })
         .then(featureValues =>{
+            // console.log(featureValues)
             res.status(201).json(featureValues)
         })
         .catch(err =>{
