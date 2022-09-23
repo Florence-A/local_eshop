@@ -73,7 +73,7 @@ module.exports = {
                 // Register
                 try {
 
-                    sequelize.transaction(async (t)=>{
+                    sequelize.transaction(async(t)=>{
 
                         // Create the user
                         await models.User.create({
@@ -85,19 +85,21 @@ module.exports = {
                         },
                         { transaction: t }
 
-                        ).then( userCreated => {
+                        ).then( async(userCreated) => {
             
                             // Create the phone and add to user
-                            models.Phone.findOrCreate({
-                                where : { number : number }
+                            await models.Phone.create({
+                                number : phone,
                             })
-                            .then ((phoneCreated) => {
-                                userCreated.addPhone({
-                                    phoneCreated
-                                },
-                                { transaction : t })
-                            })
+                            .then ( async(phoneCreated) => {
+                                await userCreated.addPhone(
+                                phoneCreated,
+                                { transaction : t }
+                                )
+                            });
+
                             
+
                             // await Create the City if doesn't exists
                             // await Create the postal code if doesn't exists
                             // await Add the postal code to city
