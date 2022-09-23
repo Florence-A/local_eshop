@@ -66,7 +66,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<!-- <style lang="scss">
 * {
             margin: 0;
             padding: 0;
@@ -105,4 +105,4 @@ export default {
     padding: 0;
     padding-left: 5px;
   }    
-</style>
+</style> -->

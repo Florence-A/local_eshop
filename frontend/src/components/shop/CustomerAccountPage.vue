@@ -1,12 +1,9 @@
 <template>
     <div class="CustomerAccountPage">
-        <HeaderShop></HeaderShop>
-        <NavbarShop></NavbarShop>
-        <AccountInfos></AccountInfos>
-        <AccountModify></AccountModify>
-        <PendingOrders></PendingOrders>
-        <DeliveredOrders></DeliveredOrders>
-        <FooterShop></FooterShop>
+        <Cust_AccountInfos></Cust_AccountInfos>
+        <Cust_AccountModify></Cust_AccountModify>
+        <Cust_PendingOrders></Cust_PendingOrders>
+        <Cart_DeliveredOrders></Cart_DeliveredOrders>
     </div>
 </template>
 
@@ -16,27 +13,24 @@
 // import { onMounted, ref, watch } from 'vue' //destructuration
 
 // COMPONENTS
-import HeaderShop from './HeaderShop.vue'
-import NavbarShop from './NavbarShop.vue'
-import AccountInfos from './AccountInfos.vue'
-import AccountModify from './AccountModify.vue'
-import PendingOrders from './PendingOrders.vue'
-import DeliveredOrders from './DeliveredOrders.vue'
-import FooterShop from './FooterShop.vue'
+import Cust_AccountInfos from './Cust_AccountInfos.vue'
+import Cust_AccountModify from './Cust_AccountModify.vue'
+import Cust_PendingOrders from './Cust_PendingOrders.vue'
+import Cart_DeliveredOrders from './Cart_DeliveredOrders.vue'
 
 export default {
     name: 'CustomerAccountPage',
     components:{
-        HeaderShop,
-        NavbarShop,
-        AccountInfos,
-        AccountModify,
-        PendingOrders,
-        DeliveredOrders,
-        FooterShop
+        Cust_AccountInfos,
+        Cust_AccountModify,
+        Cust_PendingOrders,
+        Cart_DeliveredOrders,
     },
 }
 </script>
 <style>
-    
+    img{
+        width: 25px;
+        display: inline-block;
+    }
 </style>

@@ -5,7 +5,7 @@
         <div class="row">
             
                 <hr>
-                <h3>Mon compte</h3>
+                    <h3>Mon compte</h3>
                 <hr>
         
                     <p class="name">{{user.first_name}} {{user.last_name}}</p>

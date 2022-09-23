@@ -34,50 +34,53 @@ export default {
 </script>
 
 <style lang="scss">
-#HeaderCMS{
-    *{
-    margin: 0;
-    padding: 0;
-    }
-    background-color: #9b9454;
-    #logo{
-        position: relative;
-        img{
-            width: 50px;
-            margin: 5px;
-            padding: 5px;
-        }
-    }
-    #menu{
-        position: relative;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        #user{
-            img{
-                width: 30px;
-                height: 30px;
-                margin: 10px;
-                padding: 5px;
+// #HeaderCMS{
+//     *{
+//     margin: 0;
+//     padding: 0;
+//     }
+//     div{
+//       background-color: #9b9454;  
+//     }
+    
+//     #logo{
+//         position: relative;
+//         img{
+//             width: 50px;
+//             margin: 5px;
+//             padding: 5px;
+//         }
+//     }
+//     #menu{
+//         position: relative;
+//         display: flex;
+//         justify-content: space-around;
+//         align-items: center;
+//         #user{
+//             img{
+//                 width: 30px;
+//                 height: 30px;
+//                 margin: 10px;
+//                 padding: 5px;
 
-            }
-        }
-        #favorite{
+//             }
+//         }
+//         #favorite{
 
-            img{
-                width: 30px;
-                margin: 10px;
-                padding: 5px;
-            }
-        }
-        #cart{
+//             img{
+//                 width: 30px;
+//                 margin: 10px;
+//                 padding: 5px;
+//             }
+//         }
+//         #cart{
 
-            img{
-                width: 30px;
-                margin: 10px;
-                padding: 5px;
-            }
-        }
-    }
-}
+//             img{
+//                 width: 30px;
+//                 margin: 10px;
+//                 padding: 5px;
+//             }
+//         }
+//     }
+// }
 </style>

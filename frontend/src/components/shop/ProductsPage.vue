@@ -1,10 +1,7 @@
 <template>
     <div class="ProductsPage">
-        <HeaderShop></HeaderShop>
-        <NavbarShop></NavbarShop>
-        <ItemsRow></ItemsRow>
-        <FavoriteItems></FavoriteItems>
-        <FooterShop></FooterShop>
+        <Products_Row></Products_Row>
+        <Cart_FavoriteItems></Cart_FavoriteItems>
     </div>
 </template>
 
@@ -14,20 +11,14 @@
 // import { onMounted, ref, watch } from 'vue' //destructuration
 
 // COMPONENTS
-import HeaderShop from './HeaderShop.vue'
-import NavbarShop from './NavbarShop.vue'
-import ItemsRow from './ItemsRow.vue'
-import FavoriteItems from './FavoriteItems.vue'
-import FooterShop from './FooterShop.vue'
+import Products_Row from './Products_Row.vue'
+import Cart_FavoriteItems from './Cart_FavoriteItems.vue'
 
 export default {
     name: 'ProductsPage',
     components:{
-        HeaderShop,
-        NavbarShop,
-        ItemsRow,
-        FavoriteItems,
-        FooterShop
+        Products_Row,
+        Cart_FavoriteItems,
     },
 }
 </script>

@@ -30,18 +30,7 @@ export default {
     props:{
         info_article: Object
     },
-    // setup(props){
-    //     const changeBackground = computed(() => {
-    //         return {
-    //             backgroundImage: `url(${props.info_article.image})`
-    //         }
-    //     })
-
-    //     // RETURN
-    //     return {
-    //         changeBackground
-    //     }
-    // }
+    
 }
 </script>
 
