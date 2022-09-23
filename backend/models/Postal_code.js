@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Postal_code',
+    tableName: 'postal_code'
   });
   return Postal_code;
 };

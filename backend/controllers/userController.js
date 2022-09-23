@@ -96,8 +96,40 @@ module.exports = {
                                 phoneCreated,
                                 { transaction : t }
                                 )
-                            });
+                            })
+                            .catch( (e) => console.log(e) );
 
+
+                            
+                            // Create the postal_code
+                            await models.Postal_code.findOrCreate({
+                                where :  {number : postal_code}
+                            })
+
+
+                            .then ( async(pcCreated) => {
+                                // Create the city
+                                await models.City.findOrCreate({
+                                    where : {label : city},
+                                })
+                
+
+                                // Trying to link pc and city
+                                .then (async(cityCreated) => {
+
+                                    console.log('pcCreated : '+pcCreated)
+                                    console.log('cityCreated : '+cityCreated)
+                                    
+                                    await pcCreated.addCities(
+                                        cityCreated,
+                                        {transaction : t}
+                                    )
+                                    .then((res)=>{console.log('réponse : '+res)})
+                                    
+                                })
+                                .catch( (e) => console.log(e) )
+                            })
+                            .catch( (e) => console.log(e) )
                             
 
                             // await Create the City if doesn't exists
