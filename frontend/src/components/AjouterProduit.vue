@@ -38,7 +38,7 @@
       </div>
       <div class="col-6" v-for="feature in features" :key="feature.id" :value="feature.id">
         <p>{{ feature.name }}</p>
-        <select v-model="feat" id="feature">
+        <select v-model="feat" id="feature" @focus="loadFeatures(feature.id)">
           <option disabled selected value="">--Choisissez une option--</option>
           <option v-for="featureValue in featureValues" :key="featureValue.id" :value="featureValue.id">{{ featureValue.value }}</option>
         </select>
@@ -74,6 +74,13 @@
           categ: categ
         }).then( resp=> {
           this.childCategories = resp.data
+        })
+      },
+      loadFeatures(feature_id){
+        axios.post('http://localhost:9000/products/childCategories/', {
+          feature_id: feature_id
+        }).then( resp=> {
+          this.featureValues = resp.data
           console.log(resp.data)
         })
       }
@@ -89,12 +96,6 @@
       axios.get('http://localhost:9000/products/features/')
         .then( resp =>{
           this.features = resp.data
-          console.log(resp.data)
-        })
-
-      axios.get('http://localhost:9000/products/featuresValues/')
-        .then( resp =>{
-          this.featuresValues = resp.data
           console.log(resp.data)
         })
 
