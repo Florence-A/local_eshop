@@ -103,7 +103,8 @@ module.exports = {
                             
                             // Create the postal_code
                             await models.Postal_code.findOrCreate({
-                                where :  {number : postal_code}
+                                where :  {number : postal_code},
+                                
                             })
 
 
@@ -117,14 +118,29 @@ module.exports = {
                                 // Trying to link pc and city
                                 .then (async(cityCreated) => {
 
-                                    console.log('pcCreated : '+pcCreated)
-                                    console.log('cityCreated : '+cityCreated)
-                                    
-                                    await pcCreated.addCities(
-                                        cityCreated,
+                                    await cityCreated[0].setPostal_code(
+                                        pcCreated,
                                         {transaction : t}
-                                    )
-                                    .then((res)=>{console.log('réponse : '+res)})
+                                    )////////////////////////////////////////////////
+                                    .then(async(city)=>{
+
+                                        await models.Adress.create({
+                                            title : null,
+                                            number : number,
+                                            street_name : street_name,
+                                            additional_adress : null,
+                                        })
+                                        .then(async(adressCreated) =>{
+                                            await adressCreated.setUser(
+                                                userCreated
+                                            ).then(async(adressCreated) =>{
+                                                await adressCreated.setCity(
+                                                    city
+                                                )
+                                            })
+                                        })
+                                    })//////////////////////////////////////////////
+                                    // Pas encore testé
                                     
                                 })
                                 .catch( (e) => console.log(e) )
