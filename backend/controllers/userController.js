@@ -86,12 +86,11 @@ module.exports = {
                         )
 
                         // Create the phone
-                            await models.Phone.create({
-                                number : phone },
-                                {transaction : t}
-                            )
-
-                            // Associate phone and user t
+                        const newPhone = await models.Phone.create({
+                            number : phone },
+                            {transaction : t}
+                        )
+                            // Associate phone and user
                             .then ( async(phoneCreated) => {
                                 await newUser.addPhone(
                                 phoneCreated,
@@ -100,70 +99,44 @@ module.exports = {
                             })
                             .catch( (e) => console.log(e) );
                             
-                            // Create the postal_code
-                            await models.Postal_code.findOrCreate({
-                                where :  {number : postal_code},
-                            })
 
-                            // Create the city
-                            .then ( async(pcCreated) => {
-                                await models.City.findOrCreate({
-                                    where : {label : city}                                    
-                                })
+                        // Create the postal_code
+                        const newPC = await models.Postal_code.findOrCreate({
+                            where :  {number : postal_code},
+                        })
+
+                        // Create the city
+                        const newCity = await models.City.findOrCreate({
+                            where : {label : city}                                    
+                        })
                 
-                                // Associate pc and city t
-                                .then (async(cityCreated) => {
-                                    await cityCreated[0].setPostal_code(
-                                        pcCreated[0],
-                                        {transaction : t}
-                                    )
+                        // Associate pc and city
+                        await newCity[0].setPostal_code(
+                            newPC[0],
+                            {transaction : t}
+                        )
 
-                                    // Create address
-                                    .then(async(city)=>{
-                                        console.log(city)
-                                        const newAd = await models.Adress.create({
-                                            title : null,
-                                            number : number,
-                                            street_name : street_name,
-                                            additional_adress : null,
-                                            },
-                                            {transaction : t}
-                                        )
+                        // Create address
+                        const newAd = await models.Adress.create({
+                            title : null,
+                            number : number,
+                            street_name : street_name,
+                            additional_adress : null,
+                            },
+                            {transaction : t}
+                        )
 
-                                        // Associate address and city
-                                        .then(async(adressCreated) =>{
-                                            console.log(adressCreated)
-                                            await adressCreated.setCity(
-                                                city,
-                                                {transaction : t})
-                                        })
-
-                                            // Erreur ici : TypeError: Cannot read properties of undefined (reading 'setUser')
-                                            // Associate user and address
-                                            .then(async(adressCreated) =>{
-                                                console.log(newUser)
-                                                console.log(adressCreated)
-                                                await adressCreated.setUser(
-                                                    newUser,
-                                                    {transaction : t}
-                                                )
-                                            })
-                                    })
-                                    
-                                    
-                                })
-                                .catch( (e) => console.log(e) )
-                            })
-                            .catch( (e) => console.log(e) )
-                            
-
-                            // await Create the City if doesn't exists
-                            // await Create the postal code if doesn't exists
-                            // await Add the postal code to city
-                            // await Create adress if doesn't exist
-                            // await Add the adress to user
-
-                        
+                        // Associate address and city             
+                        await newAd.setCity(
+                            newCity[0],
+                            {transaction : t})
+                                        
+    
+                        // Associate user and address                      
+                        await newAd.setUser(
+                            newUser,
+                            {transaction : t}
+                        )
                     })                    
                 }
                 catch (error) {
