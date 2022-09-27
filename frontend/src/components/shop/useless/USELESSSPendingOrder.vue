@@ -1,10 +1,7 @@
 <template>
     <div class="row">
-        <div class="col-12" id="PendingTitle"><h4> Commandes en cours</h4></div>
+        <div class="col-12" id="titre"><h4> Commande n°XXXX</h4></div>
         <div class="wrapper--card">
-            <PendingOrder></PendingOrder>
-            <PendingOrder></PendingOrder>
-            <PendingOrder></PendingOrder>
             <!-- <commande v-for="(commande, index) in three_articles" :info_articles="card" :key="index"/>  vfor boucle -->
             <!-- card => nom de l'element à chaque tour de boucle. articles-card = card-->
             <!--  index est généré automatiquement par vuejs -->
@@ -16,18 +13,15 @@
 
 <script>
 // import { computed } from '@vue/reactivity'
-
-// COMPONENTS
-import PendingOrder from '../components/PendingOrder.vue'
 export default {
-    components: { PendingOrder }
+    
 }
 </script>
 
 <style lang="scss">
-#PendingTitle
+#titre
     {
-        background-color: #195f56;
+        background-color: #44c0b0;
         color: #eafffc;
     }
 </style>

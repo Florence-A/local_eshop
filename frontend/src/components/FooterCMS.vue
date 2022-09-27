@@ -33,32 +33,35 @@ export default {
 </script>
 
 <style lang="scss">
-    #FooterCMS{
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        a{
-            color: white;
-            text-decoration: none;
-            margin : 5px;
-            padding : 5px;
-        }
-        a:hover{
-            color: #706b3b;
-        }
-        #liens{
-            position: relative;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #9b9454;
-        }
-        #mentions{
-            background-color: #706b3b;
-            color: white;
-            text-align: center;
-            padding-top: 5px;
-        }
-    }
+    // #FooterCMS{
+    //     *{
+    //         margin: 0;
+    //         padding: 0;
+    //     }
+    //     div{
+    //         background-color: #706b3b
+    //     }
+    //     a{
+    //         color: white;
+    //         text-decoration: none;
+    //         margin : 5px;
+    //         padding : 5px;
+    //     }
+    //     a:hover{
+    //         color: #706b3b;
+    //     }
+    //     #liens{
+    //         position: relative;
+    //         display: flex;
+    //         justify-content: space-between;
+    //         align-items: center;
+    //         background-color: #9b9454;
+    //     }
+    //     #mentions{
+    //         background-color: #706b3b;
+    //         color: white;
+    //         text-align: center;
+    //         padding-top: 5px;
+    //     }
+    // }
 </style>

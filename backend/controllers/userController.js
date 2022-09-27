@@ -1,6 +1,7 @@
 // Imports
 require('dotenv').config();
 
+const { sequelize } = require('../models');
 const models        = require('../models');
 const bcrypt        = require ('bcrypt');
 const userUtils     = require('../utils/userUtils');
@@ -9,16 +10,17 @@ const shapingUtils  = require('../utils/shapingUtils');
 // Constants
 const EMAIL_REGEX    = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-// const PHONE_REGEX    = /^0[1-7]{1}(([0-9]{2}){4})$/;
+const PHONE_REGEX    = /^0[1-9]{1}(([0-9]{2}){4})$/;
 const PC_REGEX       = /^[0-9]{5}$/;
 
 
 // User methods
 module.exports = {
 
+
     addUser : (req,res) => 
     {
-        // Params
+        // Params and shapping
         const last_name   = req.body.last_name.trim().toUpperCase();
         const first_name  = shapingUtils.toUpperCaseFirstLetter(req.body.first_name);
         const mail        = req.body.mail;
@@ -29,7 +31,7 @@ module.exports = {
         const postal_code = req.body.postal_code;
         const city        = req.body.city.trim().toUpperCase();
 
-        // Basic checks
+        // Check form
         if ( last_name == "" || first_name == "" || mail == "" || password == "" ) {
             return res.json({ 'msg' : 'Merci de remplir tous les champs du formulaire' });
         }; 
@@ -38,9 +40,9 @@ module.exports = {
             return res.json({ 'msg' : "Les noms et prénoms ne peuvent comprendre qu'entre 3 et 22 caractères" });
         };
 
-        // if (!PHONE_REGEX.test( phone )){
-        //     return res.json({ 'msg' : "Merci de vérifier le numéro de téléphone" });
-        // };
+        if (!PHONE_REGEX.test( phone )){
+            return res.json({ 'msg' : "Merci de vérifier le numéro de téléphone" });
+        };
 
         if (!PC_REGEX.test( postal_code )){
             return res.json({ 'msg' : "Merci de vérifier le code postal" });
@@ -54,12 +56,11 @@ module.exports = {
             return res.json({ 'msg' : "Le mot de passe doit contenir au minimum 8 caractères dont au moins un chiffre, une minuscule et une majuscule."});
         };
 
-        // User doesn't exists, register
+        // Check if user already exists
         models.User.findOne({
             attributes : [ 'mail' ],
             where      : { mail: mail }
         })
-        // SELECT `mail` FROM `user` AS `User` WHERE `User`.`mail` = 'flo@kachu.fr' LIMIT 1
 
         .then(( userFound ) => {
 
@@ -69,60 +70,91 @@ module.exports = {
                 var salt           = bcrypt.genSaltSync(10);
                 var hashedPassword = bcrypt.hashSync( password, salt );
                 
-                // Register
 
-                // https://sequelize.org/docs/v6/core-concepts/assocs/#many-to-many-relationships
-                var newUser = models.User.create ({
-                    last_name  : last_name,
-                    first_name : first_name,
-                    mail       : mail,
-                    password   : hashedPassword,
-                    id_role    : 1,
+                // Register ----
+                try {
 
-                    phone      : [{
-                        number : phone
-                    }],
+                    sequelize.transaction(async(t)=>{
 
-                    adress     : [{
-                        title             : null,
-                        number            : number,
-                        street_name       : street_name,
-                        additional_adress : null,
-                    
-                        city   : {
-                            label : city,
+                        // Create the user
+                        const newUser = await models.User.create({
+                            last_name   : last_name,
+                            first_name  : first_name,
+                            mail        : mail,
+                            password    : hashedPassword,
+                            id_role     : 1
+                            },
+                            {transaction : t}
+                        )
 
-                            postal_code : {
-                                number  : postal_code
-                            }
+                        // Create the phone
+                        const newPhone = await models.Phone.create(
+                            {number : phone },
+                            {transaction : t}
+                        )
+                            // Associate phone and user
+                            .then ( async(phoneCreated) => {
+                                await newUser.addPhone(
+                                phoneCreated,
+                                {transaction : t}
+                                )
+                            })
+                            .catch( (e) => console.log(e) );
+                            
+
+                        // Create the postal_code
+                        const newPC = await models.Postal_code.findOrCreate({
+                            where :  {number : postal_code},
+                            transaction : t
                         }
-                    }]
-                }, 
-                {
-                    include : [{
-                        association : models.User.Phone,
-                        include : [{
-                            association : models.Adress.City,
-                            include : [{
-                                association : models.City.Pc,
-                            }]
-                        }]
-                    }]
-                })
-                // INSERT INTO `user` (`id`,`last_name`,`first_name`,`mail`,`password`,`createdAt`,`updatedAt`) VALUES (DEFAULT,?,?,?,?,?,?)
+                        )
 
-                .then( () => {
-                    return res.status(200).json({ 'msg' : "Inscription bien prise en compte, merci de vous connecter avec vos nouveaux identifiants." })
-                })
-                .catch((err) => { console.log(err) });
-            }
+                        // Create the city
+                        const newCity = await models.City.findOrCreate({
+                            where : {label : city},
+                            transaction : t                                    
+                        })
+                
+                        // Associate pc and city
+                        await newCity[0].setPostal_code(
+                            newPC[0],
+                            {transaction : t}
+                        )
 
-            else {
-                res.json({ 'msg' : "Cette adresse mail est déjà utilisée."});
+                        // Create address
+                        const newAd = await models.Adress.create({
+                            title             : null,
+                            number            : number,
+                            street_name       : street_name,
+                            additional_adress : null,
+                            },
+                            {transaction : t}
+                        )
+
+                        // Associate address and city             
+                        await newAd.setCity(
+                            newCity[0],
+                            {transaction : t})
+                                        
+    
+                        // Associate user and address                      
+                        await newAd.setUser(
+                            newUser,
+                            {transaction : t}
+                        )
+                        .then(()=>{res.status(201)
+                                        .json({ 'msg' : "Votre inscription a bien été prise en compte, merci de vous connecter avec vos nouveau identifiants" }) 
+                        })
+                    })                    
+                }
+                catch (error) {
+                    console.log( "Rollback "+ error )
+                }
+
             }
         })
-        .catch((err) => { console.log(err) });
     },
+      
 
 
 
@@ -176,6 +208,8 @@ module.exports = {
     },
 
 
+
+
     getUser : (req,res) =>
     {
         // Params
@@ -183,9 +217,31 @@ module.exports = {
         
         // Request (without password)
         models.User.scope('exceptPW').findOne({
-            where : {'id' : userId}
+            where : {'id' : userId},
+            include : [
+            { 
+                model : models.Phone,
+                attributes : ['id','number'] 
+            },
+            {
+                model : models.Adress,
+
+                include : [
+                    {
+                        model : models.City,
+                        include : [
+                            {
+                                model : models.Postal_code,
+                            }
+                        ]
+                    }
+                ]
+            }
+
+        ]
         })
         .then((user) => {
+            
             var result = user.dataValues
             res.status(201).json(result);
         })

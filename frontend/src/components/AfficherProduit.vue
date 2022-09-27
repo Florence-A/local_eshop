@@ -51,7 +51,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<!-- <style lang="scss">
 #AfficheProduit {
   * {
     margin: 0;
@@ -88,4 +88,4 @@ export default {
     }
   }
 }
-</style>
+</style> -->
