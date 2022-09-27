@@ -23,19 +23,42 @@ module.exports = {
     async function checkParams() {
 
          // create a product from params
-         const newProduct = {
-            name            : req.body.newProduct.name,
+         
+    }
+    
+    try {
+
+        const uploadFolder = path.join(__dirname, '../public', `images/products/`);
+        const form = formidable({
+            multiples: true,
+                    keepExtensions: true,
+                    maxFileSize: 50 * 1024 * 1024,
+                    uploadDir: uploadFolder,
+                    filter: ({mimetype})=>{
+                        return mimetype && mimetype.includes("image");
+                    }
+        })
+
+    form.parse(req, async (err, fields, files) => {
+            
+            if (err) {
+                throw err
+            }
+
+        // await checkParams()
+        const newProduct = {
+            name            : fields.name,
             _ref            : `_ref_${Math.round(Math.random()*1000)}`, //random generated number for test... todo: créate a generating function
-            description     : req.body.newProduct.description,
-            HT_price        : req.body.newProduct.price,
+            description     : fields.description,
+            HT_price        : fields.price,
             lead_time       : 4,
-            tva_id          : req.body.newProduct.tva,
+            tva_id          : fields.tva,
         }
         
         const productParams = {
-            // img_path        : req.body.newProduct.img_path, //just passing a path... will be an image upload with multiple actions - gildas - 15/09
+            // img_path        : fields.img_path, //just passing a path... will be an image upload with multiple actions - gildas - 15/09
             categories      : [],
-            features        : req.body.newProduct.features
+            features        : fields.features
         }
 
         // is tva valid
@@ -50,14 +73,14 @@ module.exports = {
 
         // is category valid
         await models.Category.findByPk(
-            req.body.newProduct.parentCategory
+            fields.parentCategory
         ).then(async parentCategoryFound =>{
             if( parentCategoryFound ){
                 productParams.categories.push(parentCategoryFound.dataValues.id);
                 const childCategories = await parentCategoryFound.getChild_category();
                
                 await models.Category.findByPk(
-                    req.body.newProduct.childCategory
+                    fields.childCategory
                 ).then(childCategoryFound =>{
 
                     if( childCategoryFound ){
@@ -112,27 +135,6 @@ module.exports = {
         //     })
         // }
 
-    }
-    
-    try {
-
-        const form = formidable({
-            multiples: true,
-                    keepExtensions: true,
-                    maxFileSize: 5 * 1024 * 1024,
-                    uploadDir: uploadFolder,
-                    filter: ({mimetype})=>{
-                        return mimetype && mimetype.includes("image");
-                    }
-        })
-
-        form.parse(req, async (err, fields, files) => {
-            
-            if (err) {
-                throw err
-            }
-
-        await checkParams()
 
         await sequelize.transaction(async(t)=>{
             await models.Product.create(
@@ -151,31 +153,20 @@ module.exports = {
                 ); //add features
 
 
-                const uploadFolder = path.join(__dirname, '../public', `images/products/${newProductCreated.dataValues.id}`);
                 await fs.promises.mkdir(uploadFolder, { recursive: true })
-
-                const form = formidable({
-                    
-                })
         
-                form.parse(req, async (err, fields, files) => {
-                    console.log(files)
-                    if (err) {
-                        throw err
-                    }
                     for( file in files ){
-                        console.log(files[file].filepath)
                         await models.Image.create(
                             { path: files[file].filepath },
                             { transaction: t }
                         ).then(async newImageCreated =>{
-                            newProductCreated.addImage(
+                            await newProductCreated.addImage(
                                 newImageCreated,
                                 { transaction: t }
                             )
                         }) 
                     }
-                })
+                
                 res.status(201).json(newProductCreated)
             })
         })
@@ -300,7 +291,7 @@ module.exports = {
     //get all child categories
     getChildCategories: (req,res)=> {
         models.Category.findAll({
-            where: { category_id: req.body.newProduct.categ}
+            where: { category_id: req.body.categ}
         }).then(foundCategories =>{
             res.status(201).json(foundCategories)
         }).catch(err =>{
