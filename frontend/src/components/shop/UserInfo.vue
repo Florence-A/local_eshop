@@ -80,10 +80,11 @@ export default
 
         .then((response)=>{
             this.user = response.data;
+            console.log(response)
             this.phones = response.data.Phones;
             //
             this.adresses = response.data.Adresses;
-            console.log(this.adresses);
+            
             //
         })
         .catch((err) => console.log(err))

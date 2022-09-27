@@ -83,7 +83,8 @@ module.exports = {
                             mail        : mail,
                             password    : hashedPassword,
                             id_role     : 1
-                            }
+                            },
+                            {transaction : t}
                         )
 
                         // Create the phone
@@ -104,11 +105,14 @@ module.exports = {
                         // Create the postal_code
                         const newPC = await models.Postal_code.findOrCreate({
                             where :  {number : postal_code},
-                        })
+                            transaction : t
+                        }
+                        )
 
                         // Create the city
                         const newCity = await models.City.findOrCreate({
-                            where : {label : city}                                    
+                            where : {label : city},
+                            transaction : t                                    
                         })
                 
                         // Associate pc and city
@@ -237,6 +241,7 @@ module.exports = {
         ]
         })
         .then((user) => {
+            
             var result = user.dataValues
             res.status(201).json(result);
         })
