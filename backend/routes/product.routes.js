@@ -6,9 +6,12 @@ module.exports = (app)=> {
 
     // routes
     router.post('/new/', product.create);
-    router.post('/image/', product.image);
     router.get('/', product.list);
     router.get('/product/:id', product.getOne);
+    router.get('/parentCategories/', product.getParentCategories);
+    router.post('/childCategories/', product.getChildCategories);
+    router.get('/features/', product.getFeatures);
+    router.post('/featureValues/', product.getFeatureValues);
 
     // use router with '/products' prefix
     app.use('/products', router);

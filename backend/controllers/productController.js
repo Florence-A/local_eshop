@@ -1,40 +1,12 @@
 //imports
 const { sequelize } = require('../models');
 const models = require('../models');
-const category = require('../models/category');
 const formidable = require('formidable');
 const path = require('path');
+const fs = require('fs');
 
 // product methods
 module.exports = {
-
-    image: (req,res)=> {
-
-        const form = formidable({})
-        const uploadFolder = path.join(__dirname, '../public', 'images');
-
-        form.options.multiples   = true;
-        form.options.keepExtensions   = true;
-        form.options.maxFileSize = 5 * 1024 * 1024;
-        form.uploadDir   = uploadFolder;
-
-        // console.log(form)
-
-        form.parse(req, async (err, fields, files) => {
-            console.log(fields);
-            console.log(files);
-            if (err) {
-              console.log("Error parsing the files");
-              return res.status(400).json({
-                error: err,
-              });
-            }
-            
-        });
-       
-        // console.log('await')
-
-    },
     
     // create a new product
     /////////////////////////////////////////////////////////////////////////////////////
@@ -55,8 +27,8 @@ module.exports = {
         
         const productParams = {
             img_path        : req.body.img_path, //just passing a path... will be an image upload with multiple actions - gildas - 15/09
-            categories      : [],
-            features        : []
+            categories      : [req.body.parentCategory, req.body.childCategory],
+            features        : [req.body.feature1_value_id, req.body.feature2_value_id]
         }
 
         const featureParams = [{ feature: req.body.feature1_id, feature_value: req.body.feature1_value_id }, { feature: req.body.feature2_id, feature_value: req.body.feature2_value_id }]
@@ -65,7 +37,6 @@ module.exports = {
     // check params before writing the newProduct in db
     // call to await function so the program waits for the checks are done before trying to write the bd
     
-
         
     async function checkParams() {
 
@@ -155,28 +126,50 @@ module.exports = {
             await models.Product.create(
                 newProduct,
                 {  transaction: t }
-            ).then(async newProductCreated =>{
+            ).then(async newProductCreated => {
 
-                newProductCreated.addCategories(
-                    productParams.categories
+                await newProductCreated.addCategories(
+                    productParams.categories,
+                    {  transaction: t }
                 ); //add categories
 
-                newProductCreated.addFeature_values(
-                    productParams.features
+                await newProductCreated.addFeature_values(
+                    productParams.features,
+                    {  transaction: t }
                 ); //add features
 
-                await sequelize.transaction(async(t)=>{
-                    await models.Image.create(
-                        { path: productParams.img_path },
-                        { transaction: t }
-                    ).then(async newImageCreated =>{
-                        newProductCreated.addImage(
-                            newImageCreated
-                        )
-                    })
-                }); //create new image(s) and add it
-                    
-                console.log("await")
+
+                const uploadFolder = path.join(__dirname, '../public', `images/products/${newProductCreated.dataValues.id}`);
+                await fs.promises.mkdir(uploadFolder, { recursive: true })
+
+                const form = formidable({
+                    multiples: true,
+                    keepExtensions: true,
+                    maxFileSize: 5 * 1024 * 1024,
+                    uploadDir: uploadFolder,
+                    filter: ({mimetype})=>{
+                        return mimetype && mimetype.includes("image");
+                    }
+                })
+        
+                form.parse(req, async (err, fields, files) => {
+                    console.log(files)
+                    if (err) {
+                        throw err
+                    }
+                    for( file in files ){
+                        console.log(files[file].filepath)
+                        await models.Image.create(
+                            { path: files[file].filepath },
+                            { transaction: t }
+                        ).then(async newImageCreated =>{
+                            newProductCreated.addImage(
+                                newImageCreated,
+                                { transaction: t }
+                            )
+                        }) 
+                    }
+                })
                 res.status(201).json(newProductCreated)
             })
         })
@@ -184,18 +177,6 @@ module.exports = {
     } catch (err) {
         res.status(500).json({"error": "" + err})
     }
-    
-
-    
-    
-
-        // models.Product.create(
-        //     newProduct
-        // ).then(productCreated =>{
-
-        // }).catch(err =>{ res.status(501).json({ "cannot create product: " : "" + err }) })
-
-        
     },
 
     // list all products with associated attributes
@@ -297,5 +278,55 @@ module.exports = {
         .catch(err => {
             return res.status(500).json({ 'error': 'cannot find product: ' + err})
         })
+    },
+
+    //get all parentcategories 
+    getParentCategories: (req,res)=> {
+        models.Category.findAll({
+            where: { category_id: null}
+        }).then(foundCategories =>{
+            res.status(201).json(foundCategories)
+        }).catch(err =>{
+            res.status(500).json(err)
+        })
+    },
+    //get all features
+    getChildCategories: (req,res)=> {
+        console.log(req.body)
+        models.Category.findAll({
+            where: { category_id: req.body.categ}
+        }).then(foundCategories =>{
+            res.status(201).json(foundCategories)
+        }).catch(err =>{
+            res.status(500).json(err)
+        })
+    },
+
+    //get all features
+    getFeatures: (req,res)=>{
+        models.Feature.findAll()
+        .then(features =>{
+            res.status(201).json(features)
+        })
+        .catch(err =>{
+            res.status(500).json(err)
+        })
+    },
+
+    //get all features
+    getFeatureValues: (req,res)=>{
+        console.log(req.body)
+        models.Feature_value.findAll({
+            where: { feature_id: req.body.feature_id }
+        })
+        .then(featureValues =>{
+            console.log('featureValues')
+            // res.status(201).json(featureValues)
+        })
+        .catch(err =>{
+            console.log('err')
+            // res.status(500).json(err)
+        })
     }
+
 }

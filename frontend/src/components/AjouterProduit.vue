@@ -14,22 +14,16 @@
       </div>
       <div class="col-6">
         <p>Categorie</p>
-        <select name="categProd" id="categProd">
-          <option value="">--Choisissez une catégorie--</option>
-          <option value="cat1">Cat 1</option>
-          <option value="cat2">Cat 2</option>
-          <option value="cat3">Cat 3</option>
-          <option value="cat4">Cat 4</option>
+        <select  v-model="categProd" id="categProd">
+          <option disabled selected value="">--Choisissez une catégorie--</option>
+          <option @click="send(categProd)" v-for="category in parentCategories" :key="category.id" :value="category.id">{{ category.name }}</option>
         </select>
       </div>
       <div class="col-6">
         <p>Sous-catégorie</p>
-        <select name="sousCategProd" id="sousCategProd">
-          <option value="">--Choisissez une sous-catégorie--</option>
-          <option value="souscat1">sousCat 1</option>
-          <option value="souscat2">sousCat 2</option>
-          <option value="souscat3">sousCat 3</option>
-          <option value="souscat4">sousCat 4</option>
+        <select v-model="sousCategProd" id="sousCategProd">
+          <option disabled selected value="">--Choisissez une catégorie--</option>
+          <option v-for="category in childCategories" :key="category.id" :value="category.id">{{ category.name }}</option>
         </select>
       </div>
       <div class="col-6">
@@ -42,14 +36,11 @@
           max="100"
         />
       </div>
-      <div class="col-6">
-        <p>Autres</p>
-        <select name="otherCateg" id="otherCateg">
-          <option value="">--Choisissez une option--</option>
-          <option value="othercat1">otherCat 1</option>
-          <option value="othercat2">otherCat 2</option>
-          <option value="othercat3">otherCat 3</option>
-          <option value="othercat4">otherCat 4</option>
+      <div class="col-6" v-for="feature in features" :key="feature.id" :value="feature.id">
+        <p>{{ feature.name }}</p>
+        <select v-model="feat" id="feature" @focus="loadFeatures(feature.id)">
+          <option disabled selected value="">--Choisissez une option--</option>
+          <option v-for="featureValue in featureValues" :key="featureValue.id" :value="featureValue.id">{{ featureValue.value }}</option>
         </select>
       </div>
     </div>
@@ -60,11 +51,58 @@
 </template>
 
 <script>
-// import { computed } from '@vue/reactivity'
-export default {
-  id: "AjouterProduit",
-};
+
+  import axios from 'axios';
+  // import { computed } from '@vue/reactivity'
+
+  export default {
+    
+    name: "AjouterProduit",
+    data(){
+      return{
+        parentCategories: [],
+        childCategories: [],
+        features: [],
+        featureValues: [],
+        categProd: ""
+      }
+    },
+    methods: {
+      send(categ){
+        categ = this.categProd
+        axios.post('http://localhost:9000/products/childCategories/', {
+          categ: categ
+        }).then( resp=> {
+          this.childCategories = resp.data
+        })
+      },
+      loadFeatures(feature_id){
+        axios.post('http://localhost:9000/products/childCategories/', {
+          feature_id: feature_id
+        }).then( resp=> {
+          this.featureValues = resp.data
+          console.log(resp.data)
+        })
+      }
+    },
+    mounted(){
+
+      axios.get('http://localhost:9000/products/parentCategories/')
+        .then( resp =>{
+          this.parentCategories = resp.data
+          console.log(resp.data)
+        })
+        
+      axios.get('http://localhost:9000/products/features/')
+        .then( resp =>{
+          this.features = resp.data
+          console.log(resp.data)
+        })
+
+    }
+  };
 </script>
+
 
 <style lang="scss">
 * {
