@@ -15,23 +15,22 @@ module.exports = {
     
     create: async (req,res)=> {
         
+        console.log(req.body)
         // create a product from params
         const newProduct = {
-            name            : req.body.name,
+            name            : req.body.newProduct.name,
             _ref            : `_ref_${Math.round(Math.random()*1000)}`, //random generated number for test... todo: créate a generating function
-            description     : req.body.description,
-            HT_price        : req.body.HT_price,
-            lead_time       : req.body.lead_time,
-            tva_id          : req.body.tva_id,
+            description     : req.body.newProduct.description,
+            HT_price        : req.body.newProduct.price,
+            lead_time       : 4,
+            tva_id          : req.body.newProduct.tva,
         }
         
         const productParams = {
-            img_path        : req.body.img_path, //just passing a path... will be an image upload with multiple actions - gildas - 15/09
-            categories      : [req.body.parentCategory, req.body.childCategory],
-            features        : [req.body.feature1_value_id, req.body.feature2_value_id]
+            // img_path        : req.body.newProduct.img_path, //just passing a path... will be an image upload with multiple actions - gildas - 15/09
+            categories      : [],
+            features        : req.body.newProduct.features
         }
-
-        const featureParams = [{ feature: req.body.feature1_id, feature_value: req.body.feature1_value_id }, { feature: req.body.feature2_id, feature_value: req.body.feature2_value_id }]
 
         
     // check params before writing the newProduct in db
@@ -52,15 +51,14 @@ module.exports = {
 
         // is category valid
         await models.Category.findByPk(
-            req.body.parentCategory_id
+            req.body.newProduct.parentCategory
         ).then(async parentCategoryFound =>{
             if( parentCategoryFound ){
-                
                 productParams.categories.push(parentCategoryFound.dataValues.id);
                 const childCategories = await parentCategoryFound.getChild_category();
                
                 await models.Category.findByPk(
-                    req.body.childCategory_id
+                    req.body.newProduct.childCategory
                 ).then(childCategoryFound =>{
 
                     if( childCategoryFound ){
@@ -84,38 +82,36 @@ module.exports = {
         })
         
         // are features valid
-        console.log(featureParams)
-        for( feature of featureParams ){
-            console.log(feature); 
-            await models.Feature.findByPk(
-                feature.feature
-            ).then(async featureFound =>{
-                if( featureFound ){
+        // for( feature of productParams.features ){
+        //     await models.Feature.findByPk(
+        //         feature.feature
+        //     ).then(async featureFound =>{
+        //         if( featureFound ){
 
-                    const featureValues = await featureFound.getFeature_values()
+        //             const featureValues = await featureFound.getFeature_values()
 
-                    await models.Feature_value.findByPk(
-                        feature.feature_value
-                    ).then(feature_valueFound =>{
-                        if( feature_valueFound ){
+        //             await models.Feature_value.findByPk(
+        //                 feature.feature_value
+        //             ).then(feature_valueFound =>{
+        //                 if( feature_valueFound ){
                             
-                            for( element of featureValues ){
-                                if( element.dataValues.id === feature_valueFound.dataValues.id ){
-                                    productParams.features.push(feature_valueFound.dataValues.id)
-                                    return
-                                }
-                                throw error = "feature value doesn't belong to feature";
-                            }
+        //                     for( element of featureValues ){
+        //                         if( element.dataValues.id === feature_valueFound.dataValues.id ){
+        //                             productParams.features.push(feature_valueFound.dataValues.id)
+        //                             return
+        //                         }
+        //                         throw error = "feature value doesn't belong to feature";
+        //                     }
                             
-                        }
-                        throw error = "parameter value doesn't match"
-                    })
+        //                 }
+        //                 throw error = "parameter value doesn't match"
+        //             })
 
-                }else {
-                    throw error = "parameter value doesn't match"
-                }
-            })
-        }
+        //         }else {
+        //             throw error = "parameter value doesn't match"
+        //         }
+        //     })
+        // }
 
     }
     
@@ -280,7 +276,7 @@ module.exports = {
         })
     },
 
-    //get all parentcategories 
+    //get all parent categories 
     getParentCategories: (req,res)=> {
         models.Category.findAll({
             where: { category_id: null}
@@ -290,11 +286,10 @@ module.exports = {
             res.status(500).json(err)
         })
     },
-    //get all features
+    //get all child categories
     getChildCategories: (req,res)=> {
-        console.log(req.body)
         models.Category.findAll({
-            where: { category_id: req.body.categ}
+            where: { category_id: req.body.newProduct.categ}
         }).then(foundCategories =>{
             res.status(201).json(foundCategories)
         }).catch(err =>{
@@ -304,7 +299,12 @@ module.exports = {
 
     //get all features
     getFeatures: (req,res)=>{
-        models.Feature.findAll()
+        models.Feature.findAll(
+            { include:{
+                model: models.Feature_value,
+                attributes: ['id', 'value']
+               }  }
+        )
         .then(features =>{
             res.status(201).json(features)
         })
@@ -312,20 +312,12 @@ module.exports = {
             res.status(500).json(err)
         })
     },
-
-    //get all features
-    getFeatureValues: (req,res)=>{
-        console.log(req.body)
-        models.Feature_value.findAll({
-            where: { feature_id: req.body.feature_id }
-        })
-        .then(featureValues =>{
-            console.log('featureValues')
-            // res.status(201).json(featureValues)
-        })
-        .catch(err =>{
-            console.log('err')
-            // res.status(500).json(err)
+    getTvas: (req,res)=>{
+        models.Tva.findAll()
+            .then(tvaFound =>{
+                res.status(201).json(tvaFound)
+        }).catch(err =>{
+            res.status(500).json(err)
         })
     }
 
