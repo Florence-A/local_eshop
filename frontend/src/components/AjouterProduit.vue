@@ -92,9 +92,8 @@
           parentCategory: null,
           childCategory: null,
           features: [],
+        },
           images: [],
-
-        }
       }
     },
     methods: {
@@ -111,18 +110,28 @@
         this.newProduct.features.push(feature)
       },
       loadImage(){
-        this.newProduct.images = this.$refs.imageFile.files
-        console.log( this.newProduct.images)
+        // console.log( this.$refs.imageFile.files )
+        this.images = this.$refs.imageFile.files
       },
       addNewProduct(){
         const formData = new FormData()
-        let i = 0
-        this.newProduct.images.forEach( image =>{
-          formData.append(`images[${i}]`,image)
-        })
-        formData.append('newProduct', this.newProduct)
         
-
+        for( let i=0; i<=this.images.length-1; i++ ){
+          let file = this.images[i]
+          formData.append(`image[${i}]`, file)
+        }
+        
+        formData.append('name', this.newProduct.name)
+        formData.append('description', this.newProduct.description)
+        formData.append('price', this.newProduct.price)
+        formData.append('tva', this.newProduct.tva)
+        formData.append('parentCategory', this.newProduct.parentCategory)
+        formData.append('childCategory', this.newProduct.childCategory)
+        for( let i=0; i<this.newProduct.features.length; i++){
+          formData.append(`feature[${i}]`, this.newProduct.features[i])
+        }
+        
+        
         axios.post('http://localhost:9000/products/new/', 
           formData, {
             headers: { 'Content-Type': 'multipart/form-data' }

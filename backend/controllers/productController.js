@@ -15,9 +15,15 @@ module.exports = {
     
     create: async (req,res)=> {
         
-        console.log(req.body)
-        // create a product from params
-        const newProduct = {
+        
+    // check params before writing the newProduct in db
+    // call to await function so the program waits for the checks are done before trying to write the bd
+    
+        
+    async function checkParams() {
+
+         // create a product from params
+         const newProduct = {
             name            : req.body.newProduct.name,
             _ref            : `_ref_${Math.round(Math.random()*1000)}`, //random generated number for test... todo: créate a generating function
             description     : req.body.newProduct.description,
@@ -31,13 +37,6 @@ module.exports = {
             categories      : [],
             features        : req.body.newProduct.features
         }
-
-        
-    // check params before writing the newProduct in db
-    // call to await function so the program waits for the checks are done before trying to write the bd
-    
-        
-    async function checkParams() {
 
         // is tva valid
         await models.Tva.findByPk(
@@ -116,6 +115,23 @@ module.exports = {
     }
     
     try {
+
+        const form = formidable({
+            multiples: true,
+                    keepExtensions: true,
+                    maxFileSize: 5 * 1024 * 1024,
+                    uploadDir: uploadFolder,
+                    filter: ({mimetype})=>{
+                        return mimetype && mimetype.includes("image");
+                    }
+        })
+
+        form.parse(req, async (err, fields, files) => {
+            
+            if (err) {
+                throw err
+            }
+
         await checkParams()
 
         await sequelize.transaction(async(t)=>{
@@ -139,13 +155,7 @@ module.exports = {
                 await fs.promises.mkdir(uploadFolder, { recursive: true })
 
                 const form = formidable({
-                    multiples: true,
-                    keepExtensions: true,
-                    maxFileSize: 5 * 1024 * 1024,
-                    uploadDir: uploadFolder,
-                    filter: ({mimetype})=>{
-                        return mimetype && mimetype.includes("image");
-                    }
+                    
                 })
         
                 form.parse(req, async (err, fields, files) => {
@@ -169,7 +179,8 @@ module.exports = {
                 res.status(201).json(newProductCreated)
             })
         })
-        
+    
+    })
     } catch (err) {
         res.status(500).json({"error": "" + err})
     }
