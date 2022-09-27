@@ -1,7 +1,9 @@
 <template>
-   <HeaderCMS></HeaderCMS>
-   <AdminProductsPage></AdminProductsPage>
-   <FooterCMS></FooterCMS>
+    <div id="CmsHome">
+        <HeaderCMS></HeaderCMS>
+        <AdminProductsPage></AdminProductsPage>
+        <FooterCMS></FooterCMS>
+   </div>
 </template>
   
 <script>
@@ -19,6 +21,7 @@ import AdminProductsPage from "../components/AdminProductsPage.vue";
 </script>
   
 <style lang="scss">
+#CmsHome{
     a{
             color: white;
             text-decoration: none;
@@ -27,6 +30,22 @@ import AdminProductsPage from "../components/AdminProductsPage.vue";
             a:hover{
             color: #706b3b;
         }
+    h1, h2{
+        text-align: center;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        background-color: #3f3c21;
+        color: white;
+    }
+    h3, h4, h5{
+        text-align: center;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding-left: 0;
+        padding-right: 0;
+        background-color: #706b3b;
+        color: white;
+    }
     a:hover{
         color: #706b3b;}
     #FooterCMS{
@@ -87,6 +106,8 @@ import AdminProductsPage from "../components/AdminProductsPage.vue";
         }
     }
 }
+}
+    
 </style>
   
   

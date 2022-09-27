@@ -6,7 +6,7 @@
             <p class="prix">{{data.HT_price}} €</p>
             <div class="quantity-toggle">
                 <button @click="decrement()">&mdash;</button>
-                <input type="text" :value="quantity" readonly>
+                <input class="input_qte" type="text" :value="quantity" readonly>
                 <button @click="increment()">&#xff0b;</button>
             </div>
             <button v-on:click="achat();" class="butAchat">Acheter</button>

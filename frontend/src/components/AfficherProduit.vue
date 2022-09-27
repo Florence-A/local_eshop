@@ -1,7 +1,7 @@
 <template>
   <div class="row" id="AfficheProduit">
     <div class="row">
-      <h3>Afficher un produit</h3>
+      <h2>Afficher un produit</h2>
     </div>
     <div class="row" id="infosProd">
       <div class="row" id="infosUnitProd">

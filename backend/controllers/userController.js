@@ -254,14 +254,5 @@ module.exports = {
 
 
 
-
-    deleteUser : (req,res) => 
-    {
-
-    },
-    updateUser : (req,res) => 
-    {
-
-    },
     
 }
