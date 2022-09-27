@@ -5,32 +5,39 @@
         <div class="row">
             
                 <hr>
-                <h3>Mon compte</h3>
+                    <h3>Mon compte</h3>
                 <hr>
         
                     <p class="name">{{user.first_name}} {{user.last_name}}</p>
                 
 
                 <div class="row " id="table">
+
                     <div class="col-6 border border-secondary">
                         <p>E-Mail</p>
                     </div>
                     <div class="col-6 border border-secondary">
                         <p>{{user.mail}}</p>
                     </div>
+
+
                     <div class="col-6 border border-secondary">
                         <p>Téléphone</p>
                     </div>
                     <div class="col-6 border border-secondary">
-                        <!-- <div v-for ...> -->
-                        <p>{{user.phone1}}</p>
-                        <p>{{user.phone2}}</p>
+                        <div v-for="(phone,i) in phones" :key="i">
+                            <p>{{phone.number}}</p>
+                        </div>
                     </div>
-                    <div class="col-6 border border-secondary">
-                        <p>Adresse</p>
-                    </div>
-                    <div class="col-6 border border-secondary">
-                        <p>{{Adress}}</p>
+
+                    <div v-for="(adress,i) in adresses" :key="i">
+                        <div class="col-6 border border-secondary">
+                            <p>Adresse : {{adress.title}}</p>
+                        </div>
+                        <div class="col-6 border border-secondary">
+                            <p>{{adress.number}} {{adress.street_name}}</p>
+                            <p>{{adress.City.Postal_code.number}} {{adress.City.label}}</p>
+                        </div>
                     </div>
                 </div>
             
@@ -54,7 +61,9 @@ export default
     name: "UserInfo",
     data(){
         return{
-            user: {},
+            user     : {},
+            phones   : [],
+            adresses : [],
         }
     },
 
@@ -67,8 +76,16 @@ export default
             headers : { 'authorization':token },
             body    : { 'userId':userId }
         })
+
+
         .then((response)=>{
-            this.user = response.data
+            this.user = response.data;
+            console.log(response)
+            this.phones = response.data.Phones;
+            //
+            this.adresses = response.data.Adresses;
+            
+            //
         })
         .catch((err) => console.log(err))
     }
@@ -89,6 +106,7 @@ export default
         margin      : auto;
         max-width   : 500px;
     }
+
     p{
         line-height : 40px;
     }

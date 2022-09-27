@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      City.Pc = this.belongsTo ( models.Postal_code , { foreignKey: 'id_pc'} ),
+      this.belongsTo ( models.Postal_code , { foreignKey: 'id_pc'} ),
       this.hasMany ( models.Adress , { foreignKey: 'id_city' } )
     }
   }
@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'City',
+    tableName: 'city'
   });
   return City;
 };

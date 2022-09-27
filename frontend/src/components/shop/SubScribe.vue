@@ -2,17 +2,27 @@
     <div class="SubScribe">
         <div class="wrapper d-flex flex-column justify-content-center">
             <div class="msg">{{msg}}</div>
-            <input class="form-control" v-model="first_name"    type="text"     placeholder="Prénom"        maxlength="22"> <br>
-            <input class="form-control" v-model="last_name"     type="text"     placeholder="Nom"           maxlength="22"> <br>
-            <input class="form-control" v-model="number"        type="text"     placeholder="N°"            maxlength="10">  <br>
-            <input class="form-control" v-model="street_name"   type="text"     placeholder="Rue/Lieu-dit"  maxlength="30"> <br>
-            <input class="form-control" v-model="postal_code"   type="text"     placeholder="Code Postal"   maxlength="5">  <br>
-            <input class="form-control" v-model="city"          type="text"     placeholder="Ville"         maxlength="25"> <br>
-            <input class="form-control" v-model="mail"          type="text"     placeholder="Adresse mail">                 <br>
-            <input class="form-control" v-model="password"      type="password" placeholder="Mot de passe">                 <br>
+            <label for="fn"> Prénom </label>
+            <input class="form-control" v-model="first_name"    id="fn"     type="text"     placeholder="Prénom"        maxlength="22"> <br>
+            <label for="fn"> Nom </label>
+            <input class="form-control" v-model="last_name"     id="ln"     type="text"     placeholder="Nom"           maxlength="22"> <br>
+            <label for="fn"> N° de téléphone </label>
+            <input class="form-control" v-model="phone"         id="ph"     type="text"     placeholder="Téléphone"     maxlength="10"> <br>
+            <label for="fn"> N° de rue </label>
+            <input class="form-control" v-model="number"        id="nu"     type="text"     placeholder="N°Rue"         maxlength="5">  <br>
+            <label for="fn"> Nom de rue </label>
+            <input class="form-control" v-model="street_name"   id="sn"     type="text"     placeholder="Rue/Lieu-dit"  maxlength="30"> <br>
+            <label for="fn"> Code postal </label>
+            <input class="form-control" v-model="postal_code"   id="pc"     type="text"     placeholder="Code Postal"   maxlength="5">  <br>
+            <label for="fn"> Ville </label>
+            <input class="form-control" v-model="city"          id="c"      type="text"     placeholder="Ville"         maxlength="25"> <br>
+            <label for="fn"> E-mail </label>
+            <input class="form-control" v-model="mail"          id="m"      type="text"     placeholder="Adresse mail">                 <br>
+            <label for="fn"> Mot de passe </label> 
+            <input class="form-control" v-model="password"      id="pw"     type="password" placeholder="Mot de passe">                 <br>
         </div>
         <br>
-        <button @click="send(ln,fn,m,p)" class="btn btn-primary">S'inscrire</button>
+        <button @click="send(ln,fn,m,p,ph,nb,st,pc,c)" class="btn btn-primary">S'inscrire</button>
     </div>
 </template>
 
@@ -79,7 +89,6 @@
     .SubScribe {
         background-color: #cfdad8;
         padding         : 40px 20px 20px 20px;
-        height          : 100vh;
     }
     .wrapper {
         max-width   : 300px;
@@ -87,5 +96,10 @@
     }
     .msg {
         color: purple;
+        margin-bottom : 15px;
+        
+    }
+    input {
+        margin-bottom : 7px;
     }
 </style>
