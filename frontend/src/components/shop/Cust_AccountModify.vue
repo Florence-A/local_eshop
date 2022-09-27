@@ -1,8 +1,6 @@
 <template>
-    <div class="row" id="AccountModify">
-        <div class="row">
-            <h3>Modifier mon compte</h3>
-        </div>
+    <div class="row" id="Cust_AccountModify">
+        <h3>Modifier mon compte</h3>
         <div class="row" id="modifyInfo">
             <div class="col-6">
                 <img src="../../assets/images/reglages.svg" alt="reglage">
@@ -27,6 +25,9 @@
                 <img src="../../assets/images/location.svg" alt="reglage">
                 <p>Adresse</p>
             </div>
+            <div class="col-12">
+                <button v-on:click="valider();" class="butValid">Valider</button>
+            </div>
         </div>
     </div>
 </template>
@@ -34,45 +35,24 @@
 <script>
 // import { computed } from '@vue/reactivity'
 export default {
-    id:"AccountModify",
+    id:"Cust_AccountModify",
+    dataAccount : [],
+    methods: {
+        valider(){
+            // Update des infos du compte client
+        }
+    },
+    // mounted(){
+    //     axios.get('http://localhost:9000/INFOSCOMPTE/')
+    //     .then((response)=>{
+    //         console.log(response.data)
+    //         this.dataAccount = response.data
+            
+    //     })
+    // }
     
 }
 </script>
 
 <style lang="scss">
-#AccountModify{
-    *{
-    margin: 0;
-    padding: 0;
-    }
-    h3{
-        text-align: center;
-        background-color: #195f56;
-        color: white;
-        padding-bottom: 5px;
-    }
-    #modifyInfo{
-        background-color:  #cfdad8;
-        padding : 5px;
-        .col-6{
-            display: flex;
-            align-items: center;
-            justify-content: left;
-            margin-top: 5px;
-            margin-bottom: 5px;
-            color: #2f9789;
-            float: left;
-            padding-left: 30px;
-            p{
-                margin: 0;
-                padding: 0;
-                padding-left: 5px;
-            }
-            img{
-                width: 25px;
-                display: inline-block;
-            }
-        }
-    }
-}
 </style>

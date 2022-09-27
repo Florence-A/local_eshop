@@ -12,7 +12,7 @@
 <script>
     import HeaderShop from "../components/shop/HeaderShop.vue";
     import NavbarShop from "../components/shop/NavbarShop.vue";
-    import FooterShop from "@/components/shop/FooterShop.vue";
+    import FooterShop from "../components/shop/FooterShop.vue";
   
     export default {
         name: 'ShopHome',
@@ -25,16 +25,66 @@
 </script>
   
 <style>
-    #ShopHome{
-        height          : 100vh;
-        display         : flex;
-        flex-direction  : column;
+    *{
+            margin: 0;
+            padding: 0;
     }
-    #FooterShop{
-        /* position    : absolute;
-        bottom      : 0px;
-        left        : 0px;
-        right       : 0px; */
+    h1, h2{
+        text-align: center;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        background-color: #195f56;
+        color: white;
+    }
+    h3, h4, h5{
+        text-align: center;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding-left: 0;
+        padding-right: 0;
+        background-color: #2f9789;
+        color: white;
+    }
+    p{
+        text-align: center;
+        padding-bottom: 5px;
+        padding-top: 5px ;
+    }
+    .img-fluid {
+        width: auto;
+    }
+    .icon{
+        width: 30px;
+        margin: 5px ;
+    }
+    a{
+        text-align: center;
+    }
+    .row{
+        background-color:  #cfdad8; 
+    }
+    .col-6, .col-12{
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        color: #2f9789;
+        padding-left: 30px;   
+    }
+    button{
+        background-color: #2f9789;
+        color: white;
+        border-radius: 5px;
+        padding-right: 5px;
+        padding-left: 5px;
+        margin-top: 5px ;
+        margin-bottom: 5px ;
+        align-items: center;
+        border: none;
+    }
+    input{
+        max-width: 50px;
+        text-align: center;
     }
 </style>
   

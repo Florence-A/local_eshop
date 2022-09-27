@@ -1,9 +1,9 @@
 <template>
         <div class="HomePage">
-            <CarouselShop></CarouselShop>
-            <AssoInfos></AssoInfos>
-            <ShopInfos></ShopInfos>
-            <PracticalInfos></PracticalInfos>
+            <Ho_CarouselShop></Ho_CarouselShop>
+            <Ho_AssoInfos></Ho_AssoInfos>
+            <Ho_ShopInfos></Ho_ShopInfos>
+            <Ho_PracticalInfos></Ho_PracticalInfos>
         </div>
     
 </template>
@@ -12,18 +12,18 @@
 
 
 // COMPONENTS
-import CarouselShop from './CarouselShop.vue'
-import ShopInfos from './ShopInfos.vue'
-import PracticalInfos from './PracticalInfos.vue'
-import AssoInfos from './AssoInfos.vue'
+import Ho_CarouselShop from './Ho_CarouselShop.vue'
+import Ho_ShopInfos from './Ho_ShopInfos.vue'
+import Ho_PracticalInfos from './Ho_PracticalInfos.vue'
+import Ho_AssoInfos from './Ho_AssoInfos.vue'
 
 export default {
     name: 'HomePage',
     components:{
-        CarouselShop,
-        ShopInfos,
-        PracticalInfos,
-        AssoInfos,
+        Ho_CarouselShop,
+        Ho_ShopInfos,
+        Ho_PracticalInfos,
+        Ho_AssoInfos,
     },
 }
 </script>

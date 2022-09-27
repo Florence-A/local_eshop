@@ -1,8 +1,8 @@
 <template>
     <div class="CartPage">
-        <ShoppingList></ShoppingList>
-        <DeliveredOrders></DeliveredOrders>
-        <FavoriteProducts></FavoriteProducts>
+        <Cart_ShoppingList></Cart_ShoppingList>
+        <Cart_DeliveredOrders></Cart_DeliveredOrders>
+        <Cart_FavoriteItems></Cart_FavoriteItems>
     </div>
 </template>
 
@@ -12,19 +12,18 @@
 // import { onMounted, ref, watch } from 'vue' //destructuration
 
 // COMPONENTS
-import ShoppingList from './ShoppingList.vue'
-import DeliveredOrders from './DeliveredOrders.vue'
-import FavoriteProducts from './FavoriteItems.vue'
+import Cart_ShoppingList from './Cart_ShoppingList.vue'
+import Cart_DeliveredOrders from './Cart_DeliveredOrders.vue'
+import Cart_FavoriteItems from './Cart_FavoriteItems.vue'
 
 export default {
     name: 'CartPage',
     components:{
-        ShoppingList,
-        DeliveredOrders,
-        FavoriteProducts,
+        Cart_ShoppingList,
+        Cart_DeliveredOrders,
+        Cart_FavoriteItems,
     },
 }
 </script>
 <style>
-    
 </style>

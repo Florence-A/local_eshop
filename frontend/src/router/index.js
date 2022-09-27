@@ -3,12 +3,13 @@ import SignUpIn from "@/components/shop/SignUpIn.vue";
 import SubScribe from "@/components/shop/SubScribe.vue";
 import SignIn from "@/components/shop/SignIn.vue";
 import UserPanel from "@/components/shop/UserPanel.vue";
-import UserInfo from "@/components/shop/UserInfo.vue";
 import CartPage from "@/components/shop/CartPage.vue";
 import HomePage from "@/components/shop/HomePage.vue";
-import FavoriteItems from "@/components/shop/FavoriteItems.vue";
 import ShopHome from "@/views/ShopHome.vue";
 import CmsHome from "@/views/CmsHome.vue";
+import ProductsPage from "@/components/shop/ProductsPage.vue";
+import CustomerAccountPage from "@/components/shop/CustomerAccountPage.vue";
+import UserInfo from "@/components/shop/UserInfo.vue"
 
 const routes = [
     {
@@ -52,15 +53,19 @@ const routes = [
                 component: UserInfo
             },
             {
-                path: "FavoriteItems",
-                name: "FavoriteItems",
-                component: FavoriteItems
+                path: "CustomerAccountPage",
+                name: "CustomerAccountPage",
+                component: CustomerAccountPage
             },
             {
                 path: "CartPage",
                 name: "CartPage",
                 component: CartPage
-
+            },
+            {
+                path: "ProductsPage",
+                name: "ProductsPage",
+                component: ProductsPage
             }
         ]
     },
