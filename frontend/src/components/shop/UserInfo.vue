@@ -78,7 +78,6 @@ export default
 
 <style>
     .UserInfo{
-        height          : 100vh;
         background-color: #cfdad8;
         padding         : 40px 20px 20px 20px;
     }

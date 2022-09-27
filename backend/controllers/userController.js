@@ -81,7 +81,6 @@ module.exports = {
                 var salt           = bcrypt.genSaltSync(10);
                 var hashedPassword = bcrypt.hashSync( password, salt );
                 
-
                 // Register ----
                 try {
 
@@ -208,7 +207,7 @@ module.exports = {
 
                 }
                 else {
-                    return res.send({ token : "err"});
+                    return res.send({ token : "err", 'msg' : "Mot de passe incorrect"});
                 }
             }
             else {

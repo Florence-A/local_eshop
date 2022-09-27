@@ -9,7 +9,7 @@
         <br>
 
         <router-link to="" class="d-inline-flex">
-            <button class="btn btn-primary"> Modifier mon profil </button>
+            <button class="btn btn-primary"> Mes commandes </button>
         </router-link>
 
         <br>
