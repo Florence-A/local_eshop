@@ -33,27 +33,38 @@ module.exports = {
 
         // Check form
         if ( last_name == "" || first_name == "" || mail == "" || password == "" ) {
-            return res.json({ 'msg' : 'Merci de remplir tous les champs du formulaire' });
+            return res.json({ 
+                'msg' : 'Merci de remplir tous les champs du formulaire' 
+            });
         }; 
 
         if ( !( 3 <= last_name.length <= 22 ) || !( 3 <= first_name.length <= 22 ) ){
-            return res.json({ 'msg' : "Les noms et prénoms ne peuvent comprendre qu'entre 3 et 22 caractères" });
+            return res.json({ 
+                'msg' : "Les noms et prénoms ne peuvent comprendre qu'entre 3 et 22 caractères" 
+            });
         };
 
         if (!PHONE_REGEX.test( phone )){
-            return res.json({ 'msg' : "Merci de vérifier le numéro de téléphone" });
+            return res.json({ 
+                'msg' : "Merci de vérifier le numéro de téléphone" 
+            });
         };
 
         if (!PC_REGEX.test( postal_code )){
-            return res.json({ 'msg' : "Merci de vérifier le code postal" });
+            return res.json({ 
+                'msg' : "Merci de vérifier le code postal" 
+            });
         };
 
         if (!EMAIL_REGEX.test( mail )){
-            return res.json({ 'msg' : "Merci de vérifier l'adresse mail" });
+            return res.json({
+                 'msg' : "Merci de vérifier l'adresse mail" 
+                });
         };
 
         if (!PASSWORD_REGEX.test( password )){
-            return res.json({ 'msg' : "Le mot de passe doit contenir au minimum 8 caractères dont au moins un chiffre, une minuscule et une majuscule."});
+            return res.json({ 
+                'msg' : "Le mot de passe doit contenir au minimum 8 caractères dont au moins un chiffre, une minuscule et une majuscule."});
         };
 
         // Check if user already exists

@@ -1,53 +1,39 @@
 <template>
 
     <div class="UserInfo">
-    
-        <div class="row">
-            
-                <hr>
-                    <h3>Mon compte</h3>
-                <hr>
         
-                    <p class="name">{{user.first_name}} {{user.last_name}}</p>
-                
+        <h3>Mon compte</h3>
 
-                <div class="row " id="table">
+        <div class="identity">
+            <p class="name id-b">{{user.first_name}} {{user.last_name}}</p>
+            <p class="mail id-b">Mail : {{user.mail}}</p>
 
-                    <div class="col-6 border border-secondary">
-                        <p>E-Mail</p>
-                    </div>
-                    <div class="col-6 border border-secondary">
-                        <p>{{user.mail}}</p>
-                    </div>
-
-
-                    <div class="col-6 border border-secondary">
-                        <p>Téléphone</p>
-                    </div>
-                    <div class="col-6 border border-secondary">
-                        <div v-for="(phone,i) in phones" :key="i">
-                            <p>{{phone.number}}</p>
-                        </div>
-                    </div>
-
-                    <div v-for="(adress,i) in adresses" :key="i">
-                        <div class="col-6 border border-secondary">
-                            <p>Adresse : {{adress.title}}</p>
-                        </div>
-                        <div class="col-6 border border-secondary">
-                            <p>{{adress.number}} {{adress.street_name}}</p>
-                            <p>{{adress.City.Postal_code.number}} {{adress.City.label}}</p>
-                        </div>
-                    </div>
+            <div class="phone-b id-b">
+                <p>Téléphone(s) :</p>
+                <div class="phones" v-for="(phone,i) in phones" :key="i">
+                    <p>{{phone.number}}</p>
                 </div>
-            
+            </div>
+
         </div>
 
+        <h4>Adresse</h4>
+
+        <div class="adresses">
+            <div class="box-adr" v-for="(adress,i) in adresses" :key="i">
+
+                <p class="title">{{adress.title}}</p>
+                <p>{{adress.number}} {{adress.street_name}}</p>
+                <p>{{adress.City.Postal_code.number}} {{adress.City.label}}</p>
+
+            </div>
+        </div>
+    
         <br>
         <button class="button btn-primary">Modifier</button>
-        <hr>
 
     </div>
+
 </template>
 
 
@@ -82,10 +68,7 @@ export default
             this.user = response.data;
             console.log(response)
             this.phones = response.data.Phones;
-            //
             this.adresses = response.data.Adresses;
-            
-            //
         })
         .catch((err) => console.log(err))
     }
@@ -102,12 +85,34 @@ export default
     .name{
         font-weight : bold;
     }
-    #table{
-        margin      : auto;
-        max-width   : 500px;
+
+    /* identity */
+    .identity{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .id-b{
+        border : green solid 1px;
+        width : 280px;
     }
 
-    p{
-        line-height : 40px;
+    /* adresses */
+    .adresses {
+        display : flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
     }
+    .box-adr {
+        border : green solid 1px;
+        margin : 5px;
+        width : 280px;
+        
+    }
+    .title {
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
 </style>
