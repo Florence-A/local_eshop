@@ -1,22 +1,21 @@
 <template>
     <div id="CmsHome">
         <HeaderCMS></HeaderCMS>
-        <AdminProductsPage></AdminProductsPage>
+        <router-view></router-view>
         <FooterCMS></FooterCMS>
    </div>
 </template>
   
 <script>
-import FooterCMS from "../components/FooterCMS.vue"
-import HeaderCMS from "../components/HeaderCMS.vue";
-import AdminProductsPage from "../components/AdminProductsPage.vue";
+    import FooterCMS from "../components/FooterCMS.vue"
+    import HeaderCMS from "../components/HeaderCMS.vue";
+    
     export default {
         name: 'CmsHome',
         components: {
-    HeaderCMS,
-    FooterCMS,
-    AdminProductsPage,
-}
+            HeaderCMS,
+            FooterCMS,
+        }
     }
 </script>
   

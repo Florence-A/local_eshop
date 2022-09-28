@@ -20,7 +20,7 @@ module.exports = {
       description     : "un pantalon bleu taille xs",
       HT_price        : 50,
       lead_time       : 1,
-      img_path        : "../../public/image-alt.svg",
+      img_path        : "image-alt.svg",
       tva_rate        : 20,
       categories      : [{ catParent: 'homme' }, { catChild: 'pantalon' }],
       features        : [{ feature: 'couleur', feature_value:'bleu' }, { feature: 'taille', feature_value:'xs' }]
@@ -33,7 +33,7 @@ module.exports = {
       description     : "un pantalon rouge taille xl",
       HT_price        : 50,
       lead_time       : 1,
-      img_path        : "../../public/image-alt.svg",
+      img_path        : "image-alt.svg",
       tva_rate        : 20,
       categories      : [{ catParent: 'homme' }, { catChild: 'pantalon' }],
       features        : [{ feature: 'couleur', feature_value:'rouge' }, { feature: 'taille', feature_value:'xl' }]
@@ -46,7 +46,7 @@ module.exports = {
       description     : "une veste bleue taille xs",
       HT_price        : 50,
       lead_time       : 1,
-      img_path        : "../../public/image-alt.svg",
+      img_path        : "image-alt.svg",
       tva_rate        : 20,
       categories      : [{ catParent: 'femme' }, { catChild: 'veste' }],
       features        : [{ feature: 'couleur', feature_value:'bleu' }, { feature: 'taille', feature_value:'xs' }]
@@ -59,7 +59,7 @@ module.exports = {
       description     : "chaussures bleues taille xs",
       HT_price        : 50,
       lead_time       : 1,
-      img_path        : "../../public/image-alt.svg",
+      img_path        : "image-alt.svg",
       tva_rate        : 20,
       categories      : [{ catParent: 'enfant' }, { catChild: 'chaussure' }],
       features        : [{ feature: 'couleur', feature_value:'bleu' }, { feature: 'taille', feature_value:'xs' }]
@@ -107,7 +107,7 @@ module.exports = {
           product_id: product.id
       });
 
-      const prod = await models.Product.create(
+      await models.Product.create(
         {
           name: product.name,
           _ref: product._ref,
@@ -122,7 +122,7 @@ module.exports = {
         // console.log(productCreated)
         await productCreated.addCategories([catP[0], catC[0]]);
         await productCreated.addFeature_values([featVal0[0], featVal1[0]]);
-        await productCreated.addImage(img[0])
+        await productCreated.addImage(img)
       });
 
       // console.log(prod);

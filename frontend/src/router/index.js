@@ -10,12 +10,36 @@ import CmsHome from "@/views/CmsHome.vue";
 import ProductsPage from "@/components/shop/ProductsPage.vue";
 import CustomerAccountPage from "@/components/shop/CustomerAccountPage.vue";
 import UserInfo from "@/components/shop/UserInfo.vue"
+import cmsHomePage from "@/components/cmsHomePage.vue"
+// import DashBoard from "@/components/DashBoard.vue"
+import AjouterProduit from "@/components/AjouterProduit.vue"
+
 
 const routes = [
     {
         path: "/",
-        name: CmsHome,
-        component: CmsHome
+        name: "CmsHome",
+        component: CmsHome,
+        children:[
+            {
+                path: "",
+                name: "cmsHomePage",
+                component: cmsHomePage
+            },
+            {
+                path: "SignUpIn",
+                name: "SignUpIn",
+                component: SignUpIn
+            },
+            {
+                
+                        path: "DashBoard",
+                        name:"AjouterProduit",
+                        component:AjouterProduit
+                    
+                
+            },
+        ]
     },
     {
         path: "/shop",

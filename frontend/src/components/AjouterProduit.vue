@@ -142,7 +142,8 @@
             headers: { 'Content-Type': 'multipart/form-data' }
           })
         .then(resp =>{
-          console.log(resp.data)})
+          this.msg = resp.data.msg
+          })
         .catch( err =>{
           this.msg = err.response.data.msg
         })
