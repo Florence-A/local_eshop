@@ -4,6 +4,7 @@
         <div v-for="data in dataItem" :key="data.id">
             <h3 class="name">{{data.name}}</h3>
             <p class="prix">{{data.HT_price}} €</p>
+            <img :src="data.Images[0]" alt="">
             <div class="quantity-toggle">
                 <button @click="decrement()">&mdash;</button>
                 <input type="text" :value="quantity" readonly>

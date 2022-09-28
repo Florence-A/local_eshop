@@ -3,29 +3,22 @@ const { sequelize } = require('../models');
 const models = require('../models');
 const formidable = require('formidable');
 const path = require('path');
-const fs = require('fs');
+// const fs = require('fs');
+const shapingUtils  = require('../utils/shapingUtils');
+
 
 // product methods
 module.exports = {
-    
+    test: async(req,res)=>{
+        console.log(path.join(__dirname, '../public', `images/products/`)) 
+    },
     // create a new product
     /////////////////////////////////////////////////////////////////////////////////////
     // 
     /////////////////////////////////////////////////////////////////////////////////////
     
     create: async (req,res)=> {
-        
-        
-    // check params before writing the newProduct in db
-    // call to await function so the program waits for the checks are done before trying to write the bd
-    
-        
-    async function checkParams() {
 
-         // create a product from params
-         
-    }
-    
     try {
 
         const uploadFolder = path.join(__dirname, '../public', `images/products/`);
@@ -38,123 +31,51 @@ module.exports = {
                         return mimetype && mimetype.includes("image");
                     }
         })
-
-    form.parse(req, async (err, fields, files) => {
-            
+       
+        form.parse(req, async (err, fields, files) => {   
             if (err) {
                 throw err
             }
-
-        // await checkParams()
-        const newProduct = {
-            name            : fields.name,
-            _ref            : `_ref_${Math.round(Math.random()*1000)}`, //random generated number for test... todo: créate a generating function
-            description     : fields.description,
-            HT_price        : fields.price,
-            lead_time       : 4,
-            tva_id          : fields.tva,
-        }
-        
-        const productParams = {
-            // img_path        : fields.img_path, //just passing a path... will be an image upload with multiple actions - gildas - 15/09
-            categories      : [],
-            features        : fields.features
-        }
-
-        // is tva valid
-        await models.Tva.findByPk(
-            newProduct.tva_id
-        ).then(tvaFound =>{
-            if( tvaFound ){
-                return
+            // console.log(fields);return
+            const newProduct = {
+                name            : shapingUtils.toUpperCaseFirstLetter(fields.name),
+                _ref            : `_ref_${Math.round(Math.random()*1000)}`, //random generated number for test... todo: créate a generating function
+                description     : shapingUtils.escapeHtml(fields.description),
+                HT_price        : fields.price,
+                lead_time       : 4,
+                tva_id          : fields.tva,
             }
-            throw( error = "parameter value doesn't match" )
-        })
-
-        // is category valid
-        await models.Category.findByPk(
-            fields.parentCategory
-        ).then(async parentCategoryFound =>{
-            if( parentCategoryFound ){
-                productParams.categories.push(parentCategoryFound.dataValues.id);
-                const childCategories = await parentCategoryFound.getChild_category();
-               
-                await models.Category.findByPk(
-                    fields.childCategory
-                ).then(childCategoryFound =>{
-
-                    if( childCategoryFound ){
-
-                        for( cat of childCategories ){
-                            if( cat.dataValues.id === childCategoryFound.dataValues.id ){
-                                productParams.categories.push(childCategoryFound.dataValues.id);
-                                return
-                            }
-                        }
-                        throw error = "child category doesn't belong to parent category" 
-                        
-                    }
-                    throw error= "parameter value doesn't match" 
             
-                })
-                
-            } else {
-                throw error = "parameter value doesn't match"
+            const productParams = {
+                categories      : [ fields.parentCategoy, fields.childCategory ],
+                features        : fields.features
             }
-        })
-        
-        // are features valid
-        // for( feature of productParams.features ){
-        //     await models.Feature.findByPk(
-        //         feature.feature
-        //     ).then(async featureFound =>{
-        //         if( featureFound ){
 
-        //             const featureValues = await featureFound.getFeature_values()
-
-        //             await models.Feature_value.findByPk(
-        //                 feature.feature_value
-        //             ).then(feature_valueFound =>{
-        //                 if( feature_valueFound ){
-                            
-        //                     for( element of featureValues ){
-        //                         if( element.dataValues.id === feature_valueFound.dataValues.id ){
-        //                             productParams.features.push(feature_valueFound.dataValues.id)
-        //                             return
-        //                         }
-        //                         throw error = "feature value doesn't belong to feature";
-        //                     }
-                            
-        //                 }
-        //                 throw error = "parameter value doesn't match"
-        //             })
-
-        //         }else {
-        //             throw error = "parameter value doesn't match"
-        //         }
-        //     })
-        // }
-
-
-        await sequelize.transaction(async(t)=>{
-            await models.Product.create(
-                newProduct,
-                {  transaction: t }
-            ).then(async newProductCreated => {
-
-                await newProductCreated.addCategories(
-                    productParams.categories,
+            for( el in fields){
+                if( fields[el] === 'null' ){
+                    return res.status(401).json({ "msg" : "Les champs Nom, Description, Categorie, Sous-categorie, Prix et TVA doivent être renseignés" })
+                }
+            }
+           
+            //create the new product
+            await sequelize.transaction(async(t)=>{
+                await models.Product.create(
+                    newProduct,
                     {  transaction: t }
-                ); //add categories
+                ).then(async newProductCreated => {
 
-                await newProductCreated.addFeature_values(
-                    productParams.features,
-                    {  transaction: t }
-                ); //add features
+                    await newProductCreated.addCategories(
+                        productParams.categories,
+                        {  transaction: t }
+                    ); //add categories
 
+                    await newProductCreated.addFeature_values(
+                        productParams.features,
+                        {  transaction: t }
+                    ); //add features
 
-                await fs.promises.mkdir(uploadFolder, { recursive: true })
-        
+                    // await fs.promises.mkdir(uploadFolder, { recursive: true })
+            
                     for( file in files ){
                         await models.Image.create(
                             { path: files[file].filepath },
@@ -165,15 +86,15 @@ module.exports = {
                                 { transaction: t }
                             )
                         }) 
-                    }
-                
-                res.status(201).json(newProductCreated)
+                    }// add images path
+                    
+                    res.status(201).json({ "msg": "produit ajouté"})
+                })
             })
+        
         })
-    
-    })
     } catch (err) {
-        res.status(500).json({"error": "" + err})
+        console.log( err )
     }
     },
 
@@ -314,6 +235,8 @@ module.exports = {
             res.status(500).json(err)
         })
     },
+
+    //get tvas
     getTvas: (req,res)=>{
         models.Tva.findAll()
             .then(tvaFound =>{

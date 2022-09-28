@@ -5,6 +5,7 @@ module.exports = (app)=> {
     const router = require('express').Router();
 
     // routes
+    // router.post('/new/', product.test);
     router.post('/new/', product.create);
     router.get('/', product.list);
     router.get('/product/:id', product.getOne);

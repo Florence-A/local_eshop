@@ -64,6 +64,9 @@
       </div>
     </div>
     <div class="row">
+      <p>{{ msg }}</p>
+    </div>
+    <div class="row">
       <button @click="addNewProduct()">Valider</button>
     </div>
   </div>
@@ -79,6 +82,8 @@
     name: "AjouterProduit",
     data(){
       return{
+        msg:"",
+
         tvas: [],
         parentCategories: [],
         childCategories: [],
@@ -139,7 +144,7 @@
         .then(resp =>{
           console.log(resp.data)})
         .catch( err =>{
-          console.log(err)
+          this.msg = err.response.data.msg
         })
       }
     },
