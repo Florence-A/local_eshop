@@ -8,7 +8,10 @@
             <div class="col" id="logo"><img src="../../assets/images/logo.svg" svg alt="logo icon"></div>
         </router-link>
 
-        <router-link to="/shop/SignUpIn">
+        <router-link v-if="userConnected" to="/shop/UserPanel">
+            <div class="col" id="user"><img src="../../assets/images/user.svg" alt="user icon"></div>
+        </router-link>
+        <router-link v-else to="/shop/SignUpIn">
             <div class="col" id="user"><img src="../../assets/images/user.svg" alt="user icon"></div>
         </router-link>
 
@@ -29,8 +32,10 @@
 // import { computed } from '@vue/reactivity'
 export default {
     id:"HeaderShop",
-    props:{
-    
+    data(){
+        return{
+            userConnected: localStorage.token
+        }
     }
 }
 </script>

@@ -12,9 +12,9 @@
 // import { onMounted, ref, watch } from 'vue' //destructuration
 
 // COMPONENTS
-import AjouterProduit from "./AjouterProduit.vue";
-import ModifProduit from "./ModifProduit.vue";
-import AfficherProduit from "./AfficherProduit.vue";
+import AjouterProduit from "../cms/AjouterProduit.vue";
+import ModifProduit from "../ModifProduit.vue";
+import AfficherProduit from "../cms/AfficherProduit.vue";
 
 export default {
   name: "AdminProductsPage",

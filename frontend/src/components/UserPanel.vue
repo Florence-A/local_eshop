@@ -15,7 +15,7 @@
         <br>
 
         <router-link to="" class="d-inline-flex">
-            <button class="btn btn-primary"> Déconnexion </button>
+            <button class="btn btn-primary" @click="deconnect()"> Déconnexion </button>
         </router-link>
         
     </div>
@@ -30,6 +30,13 @@
 
     export default {
         name: 'UserPanel',
+
+        methods: {
+            deconnect(){
+                localStorage.clear()
+                location.assign('/shop')
+            }
+        }
     }
 
 </script>

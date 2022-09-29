@@ -1,19 +1,19 @@
 import { createWebHistory, createRouter } from "vue-router";
-import SignUpIn from "@/components/shop/SignUpIn.vue";
-import SubScribe from "@/components/shop/SubScribe.vue";
-import SignIn from "@/components/shop/SignIn.vue";
-import UserPanel from "@/components/shop/UserPanel.vue";
+import SignUpIn from "@/components/SignUpIn.vue";
+import SubScribe from "@/components/SubScribe.vue";
+import SignIn from "@/components/SignIn.vue";
+import UserPanel from "@/components/UserPanel.vue";
 import CartPage from "@/components/shop/CartPage.vue";
 import HomePage from "@/components/shop/HomePage.vue";
 import ShopHome from "@/views/ShopHome.vue";
 import CmsHome from "@/views/CmsHome.vue";
 import ProductsPage from "@/components/shop/ProductsPage.vue";
 import CustomerAccountPage from "@/components/shop/CustomerAccountPage.vue";
-import UserInfo from "@/components/shop/UserInfo.vue"
-import cmsHomePage from "@/components/cmsHomePage.vue"
-import DashBoard from "@/components/DashBoard.vue"
+import UserInfo from "@/components/UserInfo.vue"
+import cmsHomePage from "@/components/cms/cmsHomePage.vue"
+import DashBoard from "@/components/cms/DashBoard.vue"
 import cmsSignUpIn from "@/components/cmsSignUpIn.vue"
-// import AjouterProduit from "@/components/AjouterProduit.vue"
+import UserUpdate from "@/components/UserUpdate.vue"
 
 
 const routes = [
@@ -100,6 +100,11 @@ const routes = [
                 path: "UserInfo",
                 name: "UserInfo",
                 component: UserInfo
+            },
+            {
+                path: "UserUpdate",
+                name: "UserUpdate",
+                component: UserUpdate
             },
             {
                 path: "CustomerAccountPage",

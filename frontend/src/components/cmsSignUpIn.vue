@@ -6,7 +6,7 @@
 
 <script>
 
-import SignUpIn from './shop/SignUpIn.vue'
+import SignUpIn from './SignUpIn.vue'
 
 export default {
     name: 'cmsSignUpIn',

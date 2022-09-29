@@ -7,8 +7,8 @@
 </template>
   
 <script>
-    import FooterCMS from "../components/FooterCMS.vue"
-    import HeaderCMS from "../components/HeaderCMS.vue";
+    import FooterCMS from "../components/cms/FooterCMS.vue"
+    import HeaderCMS from "../components/cms/HeaderCMS.vue";
     
     export default {
         name: 'CmsHome',

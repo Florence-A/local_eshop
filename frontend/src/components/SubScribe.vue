@@ -3,7 +3,7 @@
         <div class="form_wrapper">
             <h1>Inscription</h1>
             
-            <div class="g-info flex-b">
+            <!-- <div class="g-info flex-b">
                 <label for="fn"> Prénom </label>
                 <input class="form_input" v-model="first_name"       id="fn"     type="text"     placeholder="Prénom"        maxlength="22"> <br>
                 
@@ -25,7 +25,7 @@
                 
                 <label for="c" > Ville </label>
                 <input class="form_input" v-model="city"             id="c"      type="text"     placeholder="Ville"         maxlength="25"> <br>
-            </div>
+            </div> -->
             <div class="g-ids flex-b">
                 <label for="m"> E-mail </label>
                 <input class="form_input" v-model="mail"             id="m"      type="text"     placeholder="Adresse mail">                 <br>
@@ -34,7 +34,7 @@
                 <input class="form_input" v-model="password"        id="pw"     type="password" placeholder="Mot de passe">                 <br>
             </div>
         </div>
-        <div class="msg">{{msg}}</div>
+        <div class="msg">{{ msg }}</div>
 
         <button @click="send()" class="btn btn-primary g-btn">S'inscrire</button>
         
@@ -51,16 +51,16 @@
 
         data(){
             return {
-                last_name   :"",
-                first_name  :"",
+                // last_name   :"",
+                // first_name  :"",
+                // phone       :"",
+                // number      :"",
+                // street_name :"",
+                // postal_code :"",
+                // city        :"",
+                msg         :"",
                 mail        :"",
                 password    :"",
-                phone       :"",
-                number      :"",
-                street_name :"",
-                postal_code :"",
-                city        :"",
-                msg         :""
             }
         },
 
@@ -69,17 +69,17 @@
             send(){
 
                 // Request
-                axios.post( 'http://localhost:9000/signup' ,{
-                    last_name   : this.last_name, 
-                    first_name  : this.first_name, 
+                axios.post( 'http://localhost:9000/signup' ,{ 
+                    admin       : this.$route.query.fromCmsPage,
                     mail        : this.mail, 
                     password    : this.password,
-                    phone       : this.phone,
-                    number      : this.number,
-                    street_name : this.street_name,
-                    postal_code : this.postal_code,
-                    city        : this.city,
-                    admin       : this.$route.query.fromCmsPage
+                    // phone       : this.phone,
+                    // number      : this.number,
+                    // street_name : this.street_name,
+                    // postal_code : this.postal_code,
+                    // city        : this.city,
+                    // last_name   : this.last_name, 
+                    // first_name  : this.first_name,
                 })
                 .then((res)=>{ 
                     this.msg = res.data.msg; 

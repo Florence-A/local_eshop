@@ -5,7 +5,7 @@
         
         <div id="menu">
         <router-link to="/">
-            <div class="col" id="logo"><img src="../assets/images/logo.svg" alt="logo icon"></div>
+            <div class="col" id="logo"><img src="../../assets/images/logo.svg" alt="logo icon"></div>
         </router-link>
         <router-link to="/SignUpIn">
             <div class="col" id="user">

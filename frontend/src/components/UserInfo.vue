@@ -4,23 +4,34 @@
         
         <h3>Mon compte</h3>
 
-        <div class="identity">
-            <p class="name id-b">{{user.first_name}} {{user.last_name}}</p>
+        <h4>Mon email</h4>
+        <div class="info identity">
             <p class="mail id-b">Mail : {{user.mail}}</p>
+        </div>
+
+        <h4>Mes infos</h4>
+        <div class="info infos">
+            <p class="name id-b" v-if="user.first_name && user.last_name">{{user.first_name}} {{user.last_name}}</p>
+            <p class="name id-b" v-else>Vous n'avez pas renseigné de nom ou prénom</p>
 
             <div class="phone-b id-b">
                 <p>Téléphone(s) :</p>
-                <div class="phones" v-for="(phone,i) in phones" :key="i">
+                <div v-if=" user.Phones.length === 0" >
+                    <p>Vous n'avez renseigné aucun numéro de téléphone</p>
+                </div>
+                <div v-else class="phones" v-for="(phone,i) in user.Phones" :key="i">
                     <p>{{phone.number}}</p>
                 </div>
             </div>
-
         </div>
 
-        <h4>Adresse</h4>
-
-        <div class="adresses">
-            <div class="box-adr" v-for="(adress,i) in adresses" :key="i">
+        <h4>Mon adresse</h4>
+        
+        <div  class="info adresses">
+            <div v-if=" user.Adresses.length === 0" >
+                <p>Vous n'avez renseigné aucune adresse</p>
+            </div>
+            <div v-else class="box-adr" v-for="(adress,i) in user.Adresses" :key="i">
 
                 <p class="title">{{adress.title}}</p>
                 <p>{{adress.number}} {{adress.street_name}}</p>
@@ -28,9 +39,11 @@
 
             </div>
         </div>
-    
-        <br>
-        <button class="button btn-primary">Modifier</button>
+
+        <router-link to="/shop/UserUpdate">
+            <button class="button btn-primary">Modifier</button>
+        </router-link>
+        
 
     </div>
 
@@ -47,9 +60,10 @@ export default
     name: "UserInfo",
     data(){
         return{
-            user     : {},
-            phones   : [],
-            adresses : [],
+            user     : {
+                Phones: [],
+                Adresses: []
+            }
         }
     },
 
@@ -66,9 +80,7 @@ export default
 
         .then((response)=>{
             this.user = response.data;
-            console.log(response)
-            this.phones = response.data.Phones;
-            this.adresses = response.data.Adresses;
+            console.log( this.user )
         })
         .catch((err) => console.log(err))
     }
@@ -85,22 +97,18 @@ export default
         font-weight : bold;
     }
 
-    /* identity */
-    .identity{
-        display:flex;
-        flex-direction: column;
-        align-items: center;
-    }
+    
     .id-b{
         border : green solid 1px;
         width : 280px;
     }
 
     /* adresses */
-    .adresses {
+    .info {
         display : flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
+        align-items: center;
         flex-wrap: wrap;
     }
     .box-adr {
@@ -112,6 +120,10 @@ export default
     .title {
         text-decoration: underline;
         font-weight: bold;
+    }
+    h3, h4 {
+        max-width: 60%;
+        margin: 10px auto;
     }
 
 </style>
