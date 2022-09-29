@@ -25,6 +25,10 @@
 </script>
   
 <style>
+    #ShopHome {
+        height:100%;
+        background-color:#cfdad8;
+    }
     *{
             margin: 0;
             padding: 0;
@@ -60,9 +64,6 @@
     a{
         text-align: center;
     }
-    .row{
-        background-color:  #cfdad8; 
-    }
     .col-6, .col-12{
         display: flex;
         align-items: center;
@@ -82,7 +83,7 @@
         align-items: center;
         border: none;
     }
-    input{
+    .input_qte{
         max-width: 50px;
         text-align: center;
     }

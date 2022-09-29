@@ -1,7 +1,7 @@
 <template>
-  <div class="container" id="AjouterProduit">
+  <div class="box" id="AjouterProduit">
     <div class="row">
-      <h3>Ajouter un produit</h3>
+      <h2>Ajouter un produit</h2>
     </div>
     <div class="row" id="infos">
       <div class="col-6">

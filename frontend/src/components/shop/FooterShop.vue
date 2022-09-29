@@ -34,6 +34,8 @@ export default {
 
 <style lang="scss">
     #FooterShop{
+        margin-bottom: 0px;
+        
         *{
             margin: 0;
             padding: 0;

@@ -11,7 +11,10 @@ const shapingUtils  = require('../utils/shapingUtils');
 const EMAIL_REGEX    = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 const PHONE_REGEX    = /^0[1-9]{1}(([0-9]{2}){4})$/;
+const STREET_REGEX   = /^[a-zA-Z -]*$/;
 const PC_REGEX       = /^[0-9]{5}$/;
+const CITY_REGEX     = /^[a-zA-Z -]*$/;
+
 
 
 // User methods
@@ -21,8 +24,8 @@ module.exports = {
     addUser : (req,res) => 
     {
         // Params and shapping
-        const last_name   = req.body.last_name.trim().toUpperCase();
-        const first_name  = shapingUtils.toUpperCaseFirstLetter(req.body.first_name);
+        const last_name   = shapingUtils.escapeHtml(req.body.last_name.trim().toUpperCase());
+        const first_name  = shapingUtils.escapeHtml(shapingUtils.toUpperCaseFirstLetter(req.body.first_name));
         const mail        = req.body.mail;
         const password    = req.body.password;
         const phone       = req.body.phone;
@@ -32,28 +35,52 @@ module.exports = {
         const city        = req.body.city.trim().toUpperCase();
 
         // Check form
-        if ( last_name == "" || first_name == "" || mail == "" || password == "" ) {
-            return res.json({ 'msg' : 'Merci de remplir tous les champs du formulaire' });
+        if ( last_name == "" || first_name == "" || mail == "" || password == "" ||
+             phone == ""     || street_name == ""|| postal_code == "" || city == "") {
+            return res.json({ 
+                'msg' : "Merci de remplir tous les champs du formulaire (le N° de rue n'est pas obligatoire)" 
+            });
         }; 
 
-        if ( !( 3 <= last_name.length <= 22 ) || !( 3 <= first_name.length <= 22 ) ){
-            return res.json({ 'msg' : "Les noms et prénoms ne peuvent comprendre qu'entre 3 et 22 caractères" });
+        if ( !( 2 < last_name.length < 23 ) || !( 2 < first_name.length < 23 ) ){
+            return res.json({ 
+                'msg' : "Les noms et prénoms ne peuvent comprendre qu'entre 3 et 22 caractères" 
+            });
         };
 
         if (!PHONE_REGEX.test( phone )){
-            return res.json({ 'msg' : "Merci de vérifier le numéro de téléphone" });
+            return res.json({ 
+                'msg' : "Merci de vérifier le numéro de téléphone" 
+            });
+        };
+
+        if (!STREET_REGEX.test( street_name )){
+            return res.json({ 
+                'msg' : "Le nom de rue ne peut contenir que des lettres" 
+            });
+        };
+
+        if (!CITY_REGEX.test( city )){
+            return res.json({ 
+                'msg' : "Le champ Ville ne peut contenir que des lettres et tirets" 
+            });
         };
 
         if (!PC_REGEX.test( postal_code )){
-            return res.json({ 'msg' : "Merci de vérifier le code postal" });
+            return res.json({ 
+                'msg' : "Merci de vérifier le code postal" 
+            });
         };
 
         if (!EMAIL_REGEX.test( mail )){
-            return res.json({ 'msg' : "Merci de vérifier l'adresse mail" });
+            return res.json({
+                 'msg' : "Merci de vérifier l'adresse mail" 
+                });
         };
 
         if (!PASSWORD_REGEX.test( password )){
-            return res.json({ 'msg' : "Le mot de passe doit contenir au minimum 8 caractères dont au moins un chiffre, une minuscule et une majuscule."});
+            return res.json({ 
+                'msg' : "Le mot de passe doit contenir au minimum 8 caractères dont au moins un chiffre, une minuscule et une majuscule."});
         };
 
         // Check if user already exists
@@ -70,7 +97,6 @@ module.exports = {
                 var salt           = bcrypt.genSaltSync(10);
                 var hashedPassword = bcrypt.hashSync( password, salt );
                 
-
                 // Register ----
                 try {
 
@@ -152,6 +178,10 @@ module.exports = {
                 }
 
             }
+            else {
+                return res.json({ 
+                    'msg' : "Adresse mail déjà utilisée"});
+            }
         })
     },
       
@@ -197,7 +227,7 @@ module.exports = {
 
                 }
                 else {
-                    return res.send({ token : "err"});
+                    return res.send({ token : "err", 'msg' : "Mot de passe incorrect"});
                 }
             }
             else {
@@ -237,7 +267,6 @@ module.exports = {
                     }
                 ]
             }
-
         ]
         })
         .then((user) => {
@@ -254,14 +283,5 @@ module.exports = {
 
 
 
-
-    deleteUser : (req,res) => 
-    {
-
-    },
-    updateUser : (req,res) => 
-    {
-
-    },
     
 }

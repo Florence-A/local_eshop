@@ -20,8 +20,8 @@
   color: #2c3e50;
 
   margin: 0px;
-  height: 100vh;
-  width: 100vw;
+  width: 100%;
+  height: 100%;
 }
 </style>
 
