@@ -56,9 +56,4 @@ div#HeaderCMS{
     border-style: solid;
     border-width: 3px;
 }
-svg{
-    fill: #706b3c;
-    width: 20px;
-    height: 20px;
-}
 </style>

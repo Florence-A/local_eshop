@@ -61,7 +61,7 @@
         margin : 5px;
         padding : 5px;}
     a:hover{
-        color: #706b3b;
+        color: #e2ddac;
     }
     .row{
         padding : 5px;
@@ -72,6 +72,9 @@
         color: white;
         text-align: center;
         padding-top: 5px;
+    }
+    div#FooterCMS div#mentions.row p{
+        color : white;
     }
     .col-6, .col-12{
         display: flex;

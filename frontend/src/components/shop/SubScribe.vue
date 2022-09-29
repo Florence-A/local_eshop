@@ -1,7 +1,7 @@
 <template>
     <div class="SubScribe">
         <div class="form_wrapper">
-            <h1>Inscription</h1>
+            <h2>Inscription</h2>
             
             <div class="g-info flex-b">
                 <label for="fn"> Prénom </label>

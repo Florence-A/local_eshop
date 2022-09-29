@@ -1,6 +1,6 @@
 <template>
     <div class="row" id="Cust_AccountModify">
-        <h3>Modifier mon compte</h3>
+        <h2>Modifier mon compte</h2>
         <div class="row" id="modifyInfo">
             <div class="col-6">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 

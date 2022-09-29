@@ -1,6 +1,6 @@
 <template>
     <div class="row" id="Cust_AccountInfos">
-        <h3>Mon compte</h3>
+        <h2>Mon compte</h2>
         <div class="row" id="infos">
             <div class="col-6">
                 <p>Account Name</p>

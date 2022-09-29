@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <h4> Commandes en cours</h4>
+        <h2> Commandes en cours</h2>
         <div class="wrapper--card">
             <div>Test</div>
             <div>Test</div>

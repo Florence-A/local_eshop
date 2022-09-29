@@ -1,6 +1,6 @@
 <template>
     <div class="row">    
-        <h1> Commandes livrées</h1>
+        <h2> Commandes livrées</h2>
         <div v-for="data in delivOrders" :key="data.id">
             <h2 class="name">{{delivOrders.name}}</h2>
             <p class="prix">{{delivOrders.description}} </p>

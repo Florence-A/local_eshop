@@ -2,7 +2,7 @@
 
     <div class="UserInfo">
         
-        <h3>Mon compte</h3>
+        <h2>Mon compte</h2>
 
         <div class="identity">
             <p class="name id-b">Nom : {{user.first_name}} {{user.last_name}}</p>
@@ -17,7 +17,7 @@
 
         </div>
 
-        <h4>Adresse</h4>
+        <h2>Adresse</h2>
 
         <div class="adresses">
             <div class="box-adr" v-for="(adress,i) in adresses" :key="i">
