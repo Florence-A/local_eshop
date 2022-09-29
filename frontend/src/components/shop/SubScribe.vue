@@ -66,7 +66,7 @@
         },
 
         methods: {
-
+            // obligé de mettre les parguments ?s
             send(ln,fn,m,p,ph,nb,st,pc,c){
                 // Params
                 ln = this.last_name ;
