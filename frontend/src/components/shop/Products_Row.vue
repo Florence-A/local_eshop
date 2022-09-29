@@ -4,7 +4,9 @@
         <div v-for="data in dataItem" :key="data.id">
             <h3 class="name">{{data.name}}</h3>
             <p class="prix">{{data.HT_price}} €</p>
-            <img :src="data.Images[0]" alt="">
+            <div class="image" v-for="(image, index) in data.Images" :key="index">
+                <img :src="image.path" alt="product-image" crossorigin="use-credentials">
+            </div>
             <div class="quantity-toggle">
                 <button @click="decrement()">&mdash;</button>
                 <input class="input_qte" type="text" :value="quantity" readonly>
@@ -30,12 +32,6 @@ export default {
         return {
             quantity: 1,
             dataItem : []
-            // dataItem: [
-            //     { invId: 1, _ref: 'An Item', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec dolor vel ante suscipit porta laoreet in metus. In aliquam.", image: '//placehold.it/200', HT_price: 999 },
-            //     { invId: 2, _ref: 'Thing', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec dolor vel ante suscipit porta laoreet in metus. In aliquam.", image: '//placehold.it/200', HT_price: 1499 },
-            //     { invId: 3, _ref: 'Doo-dad', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec dolor vel ante suscipit porta laoreet in metus. In aliquam.", image: '//placehold.it/200', HT_price: 499 },
-            //     { invId: 4, _ref: 'Other thing', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec dolor vel ante suscipit porta laoreet in metus. In aliquam.", image: '//placehold.it/200', HT_price: 299 },
-            // ]
         }
     },
     methods: {
@@ -58,11 +54,18 @@ export default {
 
 
     mounted(){
-        axios.get('http://localhost:9000/products/')
+        axios.get('http://localhost:9000/products/', {
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        })
         .then((response)=>{
-            console.log(response.data)
-            this.dataItem = response.data
-            
+            response.data.forEach(product => {
+                product.Images.forEach(image=>{
+                    image.path = `http://localhost:9000/images/products/${image.path}`
+                })
+            });
+            this.dataItem = response.data            
         })
     }
 }

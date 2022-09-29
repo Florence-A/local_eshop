@@ -36,7 +36,7 @@
         </div>
         <div class="msg">{{msg}}</div>
 
-        <button @click="send(ln,fn,m,p,ph,nb,st,pc,c)" class="btn btn-primary g-btn">S'inscrire</button>
+        <button @click="send()" class="btn btn-primary g-btn">S'inscrire</button>
         
         
     </div>
@@ -46,8 +46,7 @@
 
     import axios from 'axios' ;
 
-    export default 
-    {
+    export default {
         name: 'SubScribe',
 
         data(){
@@ -65,37 +64,45 @@
             }
         },
 
+        // props: {
+        //     isFromCms: Boolean
+        // },
+
         methods: {
-            // obligé de mettre les parguments ?s
-            send(ln,fn,m,p,ph,nb,st,pc,c){
+
+            send(){
                 // Params
-                ln = this.last_name ;
-                fn = this.first_name ;
-                m  = this.mail ;
-                p  = this.password ;
-                ph = this.phone ;
-                nb = this.number ;
-                st = this.street_name ;
-                pc = this.postal_code ;
-                c  = this.city ;
+                // ln = this.last_name ;
+                // fn = this.first_name ;
+                // m  = this.mail ;
+                // p  = this.password ;
+                // ph = this.phone ;
+                // nb = this.number ;
+                // st = this.street_name ;
+                // pc = this.postal_code ;
+                // c  = this.city ;
                 
                 // Request
                 axios.post( 'http://localhost:9000/signup' ,{
-                    last_name   : ln, 
-                    first_name  : fn, 
-                    mail        : m, 
-                    password    : p,
-                    phone       : ph,
-                    number      : nb,
-                    street_name : st,
-                    postal_code : pc,
-                    city        : c,
+                    last_name   : this.last_name, 
+                    first_name  : this.first_name, 
+                    mail        : this.mail, 
+                    password    : this.password,
+                    phone       : this.phone,
+                    number      : this.number,
+                    street_name : this.street_name,
+                    postal_code : this.postal_code,
+                    city        : this.city,
                 })
                 .then((res)=>{ 
                     this.msg = res.data.msg; 
                 })
                 .catch((err) => { console.log(err) })                
             }
+        },
+
+        mounted() {
+            console.log(this.$route)
         }
     }
 </script>

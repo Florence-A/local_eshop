@@ -36,7 +36,8 @@ module.exports = {
             if (err) {
                 throw err
             }
-            // console.log(fields);return
+            // console.log(fields)
+            // console.log(uploadFolder);return
             const newProduct = {
                 name            : shapingUtils.toUpperCaseFirstLetter(fields.name),
                 _ref            : `_ref_${Math.round(Math.random()*1000)}`, //random generated number for test... todo: créate a generating function
@@ -78,7 +79,7 @@ module.exports = {
             
                     for( file in files ){
                         await models.Image.create(
-                            { path: files[file].filepath },
+                            { path: files[file].newFilename },
                             { transaction: t }
                         ).then(async newImageCreated =>{
                             await newProductCreated.addImage(
@@ -104,6 +105,7 @@ module.exports = {
     /////////////////////////////////////////////////////////////////////////////////////
     
     list: (req,res)=> {
+        
         models.Product.findAll({
             include: [
             {

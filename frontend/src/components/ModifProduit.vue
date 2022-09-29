@@ -75,7 +75,7 @@
 <script>
 // import { computed } from '@vue/reactivity'
 export default {
-  id: "ModifProduit",
+  name: "ModifProduit",
 };
 </script>
 

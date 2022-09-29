@@ -7,15 +7,17 @@
         <router-link to="/">
             <div class="col" id="logo"><img src="../assets/images/logo.svg" alt="logo icon"></div>
         </router-link>
-        <router-link to="/SignUpIn">
 
+        <router-link to="/SignUpIn/">
             <div class="col" id="user"><img src="../assets/images/user.svg" alt="user icon"></div>
         </router-link>
-        <router-link to="/shop/FavoriteItems">
-            <div class="col" id="favorite"><img src="../assets/images/favorite.svg" alt="favorite icon"></div>
+
+        <router-link to="/DashBoard/">
+            <div class="col" id="user"><img src="../assets/images/dashboard.svg" alt="user icon"></div>
         </router-link>
-        <router-link to="/shop/CartPage">
-            <div class="col" id="cart"><img src="../assets/images/cart.svg" alt="cart icon"></div>
+
+        <router-link to="/shop/">
+            <div class="col" id="favorite"><img src="../assets/images/shop.svg" alt="favorite icon"></div>
         </router-link>
             
         </div>
@@ -26,7 +28,7 @@
 <script>
 // import { computed } from '@vue/reactivity'
 export default {
-    id:"HeaderCMS",
+    name:"HeaderCMS",
     props:{
     
     }
