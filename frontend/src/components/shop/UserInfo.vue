@@ -5,7 +5,7 @@
         <h3>Mon compte</h3>
 
         <div class="identity">
-            <p class="name id-b">{{user.first_name}} {{user.last_name}}</p>
+            <p class="name id-b">Nom : {{user.first_name}} {{user.last_name}}</p>
             <p class="mail id-b">Mail : {{user.mail}}</p>
 
             <div class="phone-b id-b">
@@ -77,10 +77,7 @@ export default
 
 
 <style>
-    .UserInfo{
-        background-color: #cfdad8;
-        padding         : 40px 20px 20px 20px;
-    }
+    
     .name{
         font-weight : bold;
     }
@@ -92,7 +89,7 @@ export default
         align-items: center;
     }
     .id-b{
-        border : green solid 1px;
+        border : #3b3817 solid 1px;
         width : 280px;
     }
 
@@ -104,7 +101,7 @@ export default
         flex-wrap: wrap;
     }
     .box-adr {
-        border : green solid 1px;
+        border : #3b3817 solid 1px;
         margin : 5px;
         width : 280px;
         

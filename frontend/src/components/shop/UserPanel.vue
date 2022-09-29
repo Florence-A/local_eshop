@@ -1,21 +1,21 @@
 <template>
 
-    <div class="UserPanel d-flex flex-column align-items-center justify-content-start">
+    <div class="UserPanel">
 
-        <router-link to="./UserInfo" class="d-inline-flex">
-            <button class="btn btn-primary"> Mon profil </button>
+        <router-link to="./UserInfo">
+            <button> Mon profil </button>
         </router-link>
 
         <br>
 
-        <router-link to="" class="d-inline-flex">
-            <button class="btn btn-primary"> Mes commandes </button>
+        <router-link to="">
+            <button> Mes commandes </button>
         </router-link>
 
         <br>
 
-        <router-link to="" class="d-inline-flex">
-            <button class="btn btn-primary"> Déconnexion </button>
+        <router-link to="">
+            <button> Déconnexion </button>
         </router-link>
         
     </div>
@@ -36,21 +36,5 @@
 
 
 <style>
-.UserPanel{
-    height          : 100vh;
-    background-color: #cfdad8;
-    padding         : 40px 20px 20px 20px;}
-.btn-primary{
-    border: none;
-    border-radius: 8px;
-    border-color : #2e8d82 #0e3530 #0e3530 #2e8d82;
-    border-style: solid;
-    border-width: 3px;
-    box-shadow: 2px 2px 2px #144d45;
-    }
 
-
-a{
-    text-decoration: none;
-}
 </style>

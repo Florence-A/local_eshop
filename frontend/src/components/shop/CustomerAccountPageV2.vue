@@ -104,14 +104,8 @@ export default{
     margin: 0;
     padding: 0;
     }
-    h4, h3{
-        text-align: center;
-        background-color: #195f56;
-        color:#eafffc;
-        padding-bottom: 5px;
-    }
     .row{
-        background-color:  #cfdad8;
+        background-color:  #d6d2ab;
         padding : 5px;   
     }
     .col-6, .col-12{

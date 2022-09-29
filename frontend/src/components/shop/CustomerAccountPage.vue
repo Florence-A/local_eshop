@@ -28,9 +28,8 @@ export default {
     },
 }
 </script>
-<style>
-    img{
-        width: 25px;
-        display: inline-block;
-    }
+<style lang="scss">
+    
+    
+
 </style>

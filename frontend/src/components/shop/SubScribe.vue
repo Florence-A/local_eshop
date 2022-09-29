@@ -110,13 +110,13 @@
 <style>
     
     .SubScribe {
-        background-color: #cfdad8;
+        background-color: #e2ddac;
         padding         : 40px 0px 0px 0px;
         width : 100%;
     }
     
     .msg {
-        color: purple;
+        color: #FE4A49;
         margin-bottom : 15px;
         
     }

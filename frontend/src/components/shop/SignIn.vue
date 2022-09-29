@@ -68,16 +68,7 @@
 
 
 <style>
-    .SignIn {
-        background-color : #cfdad8;
-        padding          : 40px 20px 20px 20px;
-        height           : 100vh;
-    }
-    .wrapper {
-        max-width   : 300px;
-        margin      : auto;
-    }
     .msg {
-        color: purple;
+        color: #FE4A49;
     }
 </style>

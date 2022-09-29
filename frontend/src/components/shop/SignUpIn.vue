@@ -48,7 +48,7 @@
 <style>
     .SignUpIn {
         height          : 100%;
-        background-color: #cfdad8;
+        background-color: #e2ddac;;
         padding         : 50px 20px 20px 20px;
     }    
     
