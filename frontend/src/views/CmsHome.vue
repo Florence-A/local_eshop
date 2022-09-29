@@ -25,9 +25,12 @@
         color: white;
         text-decoration: none;
         margin : 5px;
-        padding : 5px;}
-    a:hover{
-        color: #706b3b;}
+        padding : 5px;
+    }
+    a:hover
+    {
+        color: #706b3b;
+    }
     #FooterCMS{
         background-color: #706b3b
     }
@@ -46,11 +49,12 @@
     #HeaderCMS{
         background-color: #9b9454; 
         #logo{
-        position: relative;
-        img{
-            width: 50px;
-            margin: 5px;
-            padding: 5px;
+            position: relative;
+            img{
+                width: 50px;
+                margin: 5px;
+                padding: 5px;
+            }
         }
     }
     #menu{

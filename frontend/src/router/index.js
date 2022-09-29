@@ -33,7 +33,7 @@ const routes = [
                 component: cmsSignUpIn
             },
             {
-                path: "SubScribe/:fromCms",
+                path: "SubScribe",
                 name: "cmsSubScribe",
                 component: SubScribe,
                 props: true
@@ -81,7 +81,7 @@ const routes = [
                 component: SignUpIn
             },
             {
-                path: "SubScribe/:fromCms",
+                path: "SubScribe",
                 name: "SubScribe",
                 component: SubScribe,
                 props: true

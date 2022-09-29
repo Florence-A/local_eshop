@@ -64,24 +64,10 @@
             }
         },
 
-        // props: {
-        //     isFromCms: Boolean
-        // },
-
         methods: {
 
             send(){
-                // Params
-                // ln = this.last_name ;
-                // fn = this.first_name ;
-                // m  = this.mail ;
-                // p  = this.password ;
-                // ph = this.phone ;
-                // nb = this.number ;
-                // st = this.street_name ;
-                // pc = this.postal_code ;
-                // c  = this.city ;
-                
+
                 // Request
                 axios.post( 'http://localhost:9000/signup' ,{
                     last_name   : this.last_name, 
@@ -93,6 +79,7 @@
                     street_name : this.street_name,
                     postal_code : this.postal_code,
                     city        : this.city,
+                    admin       : this.$route.query.fromCmsPage
                 })
                 .then((res)=>{ 
                     this.msg = res.data.msg; 
@@ -102,7 +89,7 @@
         },
 
         mounted() {
-            console.log(this.$route)
+            console.log(this.$route.query)
         }
     }
 </script>

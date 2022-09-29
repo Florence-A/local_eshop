@@ -1,6 +1,6 @@
 <template>
     <div>
-        <SignUpIn origin-cms></SignUpIn>
+        <SignUpIn from-cms-page></SignUpIn>
     </div>
 </template>
 
@@ -11,7 +11,7 @@ import SignUpIn from './shop/SignUpIn.vue'
 export default {
     name: 'cmsSignUpIn',
     props: {
-        originCms: Boolean
+        fromCmsPage: Boolean
     },
     components: {
         SignUpIn

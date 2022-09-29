@@ -33,6 +33,7 @@ module.exports = {
         const street_name = shapingUtils.escapeHtml(req.body.street_name.trim());
         const postal_code = req.body.postal_code;
         const city        = req.body.city.trim().toUpperCase();
+        const role       = req.body.admin === "true" ? 2 : 1;
 
         // Check form
         if ( last_name == "" || first_name == "" || mail == "" || password == "" ||
@@ -108,7 +109,7 @@ module.exports = {
                             first_name  : first_name,
                             mail        : mail,
                             password    : hashedPassword,
-                            id_role     : 1
+                            id_role     : role
                             },
                             {transaction : t}
                         )

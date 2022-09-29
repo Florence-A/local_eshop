@@ -10,10 +10,10 @@
         <br><br>
 
         <div>
-            <router-link v-if="originCms" :to="{ name: 'cmsSubScribe', params: { fromCms: originCms } }">
+            <router-link v-if="fromCmsPage" :to="{ name: 'cmsSubScribe', query: { fromCmsPage } }">
                 <button class="btn btn-primary"> Inscription </button>
             </router-link>
-            <router-link v-else :to="{ name: 'SubScribe', params: { fromCms: originCms } }">
+            <router-link v-else :to="{ name: 'SubScribe', query: { fromCmsPage } }">
                 <button class="btn btn-primary"> Inscription </button>
             </router-link>
 
@@ -32,11 +32,11 @@
     export default {
         name: 'SignUpIn',
         props: {
-            originCms: Boolean
+            fromCmsPage: Boolean
         },
         
         mounted() {
-            console.log(this.originCms)
+            console.log(typeof this.fromCmsPage)
         },
     }
 
