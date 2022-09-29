@@ -20,6 +20,9 @@ export default {
     margin: 0px;
     padding: 0x;
     background-color: #2f9789;
+    border-color : #3fc4b2 #3fc4b2 #2b867a #2b867a;
+    border-style: solid;
+    border-width: 3px;
     #menu{
         position: relative;
         display: flex;
@@ -37,7 +40,9 @@ export default {
         align-items: center;
         justify-content: flex-end;
         #site-search{
-            width: 70%;
+            width: 90%;
+            box-shadow: inset 0.08rem 0.08rem #226d63;
+            background-color:  #e5f0ee; 
         }
     }
 }

@@ -1,18 +1,18 @@
 <template>
     <div id="FooterShop">
         <div class="row" id="liens">
-            <div class="col-3" name="col1">
-                <a href="#BACKTOTOP">Accueil</a> 
-            </div>
-            <div class="col-3" name="col2">
-                <a href="#BACKTOMONPROFIL">Profil</a> 
-            </div>
-            <div class="col-3" name="col3">
-                <a href="#BACKTOINFOPRATIQUES">Contact</a> 
-            </div>
-            <div  class="col-3" name="col4">
-                <a href="#BACKTOINFOPRATIQUES">Facebook</a> 
-            </div>
+            <router-link to="/shop">
+                <div class="col-3">Accueil</div>
+            </router-link>
+            <router-link to="/shop">
+                <div class="col-3">Profil</div>
+            </router-link>
+            <router-link to="/shop">
+                <div class="col-3">Contact</div>
+            </router-link>
+            <router-link to="/shop">
+                <div class="col-3">Facebook</div>
+            </router-link>
         </div>
         <div class="row" id="mentions">
             <div class="col" name="col1">
@@ -50,17 +50,26 @@ export default {
             color: #195f56;;
         }
         #liens{
-            position: relative;
-            display: flex;
-            justify-content: space-between;
+            // position: relative;
+            // display: flex;
+            // justify-content: space-between;
             align-items: center;
             background-color: #2f9789;
+            border-color : #3eb9a9 #267a6f #267a6f #3eb9a9;
+            border-style: solid;
+            border-width: 3px;
+            box-shadow: 2px 2px 2px #144d45;
+            display: inline;
+            float: left;
         }
         #mentions{
             background-color: #195f56;
             color: white;
             text-align: center;
             padding-top: 5px;
+            border-color : #26887b #144d45 #144d45 #26887b;
+            border-style: solid;
+            border-width: 3px;
         }
     }
 </style>

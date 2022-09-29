@@ -5,7 +5,7 @@
         
         <div id="menu">
         <router-link to="/">
-            <div class="col" id="logo"><img src="../../assets/images/logo.svg" alt="logo icon"></div>
+            <div class="col" id="logo"><img src="../../assets/images/logo.svg" svg alt="logo icon"></div>
         </router-link>
 
         <router-link to="/shop/SignUpIn">
@@ -36,6 +36,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 #HeaderShop{
     *{
     margin: 0;
@@ -48,6 +49,7 @@ export default {
             width: 50px;
             margin: 5px;
             padding: 5px;
+            
         }
     }
     #menu{

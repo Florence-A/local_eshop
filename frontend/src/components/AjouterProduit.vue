@@ -169,44 +169,5 @@
     }
   };
 </script>
-
-<!-- <style lang="scss">
-* {
-            margin: 0;
-            padding: 0;
-        }
-  .row{
-    text-align: center;
-  }
-  button{
-    background-color: #706b3b;
-    border-radius: 5px;
-    color: white;
-    margin-bottom: 2px;
-  }
-  h3 {
-    text-align: center;
-    background-color: #706b3b;
-    color: white;
-    padding-bottom: 5px;
-  }
-  #infos {
-    background-color: #d6d2ab;
-    padding: 5px;
-  }
-        
-  .col-6 {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    color: #a0995c;
-    flex-direction: column;
-    align-content: center;
-    float: left;
-    display: inline
-  }  
-  p {
-    margin: 0;
-    padding: 0;
-    padding-left: 5px;
-  }    
-</style> -->
+<style lang="scss">
+</style>

@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <h2 class="title">Nos articles</h2>
-        <div v-for="data in dataItem" :key="data.id">
+        <div v-for="data in dataItem" :key="data.id" >
             <h3 class="name">{{data.name}}</h3>
             <p class="prix">{{data.HT_price}} €</p>
             <div class="image" v-for="(image, index) in data.Images" :key="index">
@@ -9,6 +9,7 @@
             </div>
             <div class="quantity-toggle">
                 <button @click="decrement()">&mdash;</button>
+
                 <input class="input_qte" type="text" :value="quantity" readonly>
                 <button @click="increment()">&#xff0b;</button>
             </div>

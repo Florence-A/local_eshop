@@ -39,8 +39,16 @@
 .UserPanel{
     height          : 100vh;
     background-color: #cfdad8;
-    padding         : 40px 20px 20px 20px;
-}
+    padding         : 40px 20px 20px 20px;}
+.btn-primary{
+    border: none;
+    border-radius: 8px;
+    border-color : #2e8d82 #0e3530 #0e3530 #2e8d82;
+    border-style: solid;
+    border-width: 3px;
+    box-shadow: 2px 2px 2px #144d45;
+    }
+
 
 a{
     text-decoration: none;
