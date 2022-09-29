@@ -15,13 +15,13 @@
             </div>
             <div class="g-address flex-b">
                 <label for="nu"> N° de rue </label>
-                <input class="form_input num" v-model="number"       id="nu"     type="text"     placeholder="N°"         maxlength="5">  <br>
+                <input class="form_input num" v-model="number"       id="nu"     type="text"     placeholder="N°"            maxlength="5"    >  <br>
                 
                 <label for="sn"> Nom de rue </label>
                 <input class="form_input" v-model="street_name"      id="sn"     type="text"     placeholder="Rue/Lieu-dit"  maxlength="30"> <br>
                 
                 <label for="pc" > Code postal </label>
-                <input class="form_input" v-model="postal_code"      id="pc"     type="text"     placeholder="Code Postal"   maxlength="5">  <br>
+                <input class="form_input" v-model="postal_code"      id="pc"     type="text"     placeholder="Code Postal"   maxlength="5"   minlength="5"> <br>
                 
                 <label for="c" > Ville </label>
                 <input class="form_input" v-model="city"             id="c"      type="text"     placeholder="Ville"         maxlength="25"> <br>
@@ -66,7 +66,7 @@
         },
 
         methods: {
-
+            // obligé de mettre les parguments ?s
             send(ln,fn,m,p,ph,nb,st,pc,c){
                 // Params
                 ln = this.last_name ;
@@ -104,12 +104,73 @@
     
     .SubScribe {
         background-color: #cfdad8;
-        padding         : 40px 20px 20px 20px;
+        padding         : 40px 0px 0px 0px;
+        width : 100%;
     }
     
     .msg {
         color: purple;
         margin-bottom : 15px;
         
+    }
+
+        
+    /* Params Grid */
+    .msg{       grid-area : msg ;}
+    .g-info{    grid-area : info ;}
+    .g-address{ grid-area : ad ;}
+    .g-ids{     grid-area : ids ;}
+    .g-btn{     grid-area : bt ;}
+
+
+    /* Phones */
+    @media screen and (min-width: 250px){
+        .form_wrapper {
+            max-width   : 225px;
+            margin      : auto;
+        }
+    }
+    /* iPads,Tablets */
+    @media screen and (min-width: 480px){
+        .form_wrapper {
+            max-width   : 300px;
+            margin      : auto;
+        }
+    }
+    /* Small screens, laptops */
+    @media screen and (min-width: 769px){
+        .form_wrapper {
+            max-width   : 350px;
+            margin      : auto;
+        }
+    }
+    /* Large screens, desktops */
+    @media screen and (min-width: 1025px){
+        .form_wrapper {
+            max-width   : 375px;
+            margin      : auto;
+        }
+    }
+    /* Extra screens */
+    @media screen and (min-width: 1281px){
+        .form_wrapper {
+            max-width   : 500px;
+            margin      : auto;
+            display     : grid;
+            grid-template-areas: ".     ad"
+                                "info  ad" 
+                                "ids   ids"
+                                "msg   msg"
+                                "bt    bt";
+        }
+        .flex-b {
+            justify-content: flex-end;
+        }
+        .g-info{  
+            margin-right :20px;
+        }
+        .g-address{ 
+            margin-left :20px;
+        }
     }
 </style>
