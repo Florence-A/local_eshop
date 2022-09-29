@@ -233,8 +233,8 @@ li {
 
 .carousel__navigation-button {
     display: inline-block;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.8rem;
+    height: 1.8rem;
     background-color: #2f9789;
     background-clip: content-box;
     border: 0.25rem solid transparent;
@@ -281,14 +281,18 @@ li {
     line-height: 4rem;
     text-align: center;
     pointer-events: none;
+    border-color : #3eb9a9 #267a6f #267a6f #3eb9a9;
+        border-style: solid;
+        border-width: 0.15rem;
+        box-shadow: 3px 3px 2px #144d45;
 }
 
 .carousel::before {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,50 80,100 80,0' fill='%23fff'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,50 80,100 80,0' fill='%233eb9a9'/%3E%3C/svg%3E");
 }
 
 .carousel::after {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='100,50 20,100 20,0' fill='%23fff'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='100,50 20,100 20,0' fill='%233eb9a9'/%3E%3C/svg%3E");
 }
 
 
