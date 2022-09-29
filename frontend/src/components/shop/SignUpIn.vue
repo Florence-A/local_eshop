@@ -10,9 +10,13 @@
         <br><br>
 
         <div>
-            <router-link to="/shop/SubScribe">
+            <router-link v-if="originCms" :to="{ name: 'cmsSubScribe', params: { fromCms: originCms } }">
                 <button class="btn btn-primary"> Inscription </button>
             </router-link>
+            <router-link v-else :to="{ name: 'SubScribe', params: { fromCms: originCms } }">
+                <button class="btn btn-primary"> Inscription </button>
+            </router-link>
+
         </div>
 
 
@@ -27,7 +31,16 @@
 
     export default {
         name: 'SignUpIn',
+        props: {
+            originCms: Boolean
+        },
+        
+        mounted() {
+            console.log(this.originCms)
+        },
     }
+
+   
 
 </script>
 

@@ -25,7 +25,7 @@
 <script>
 // import { computed } from '@vue/reactivity'
 export default {
-    id:"FooterCMS",
+    name:"FooterCMS",
     props:{
     
     }

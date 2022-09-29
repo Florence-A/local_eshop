@@ -1,24 +1,26 @@
 <template>
-   <HeaderCMS></HeaderCMS>
-   <AdminProductsPage></AdminProductsPage>
-   <FooterCMS></FooterCMS>
+    <div id="CmsHome">
+        <HeaderCMS></HeaderCMS>
+        <router-view></router-view>
+        <FooterCMS></FooterCMS>
+   </div>
 </template>
   
 <script>
-import FooterCMS from "../components/FooterCMS.vue"
-import HeaderCMS from "../components/HeaderCMS.vue";
-import AdminProductsPage from "../components/AdminProductsPage.vue";
+    import FooterCMS from "../components/FooterCMS.vue"
+    import HeaderCMS from "../components/HeaderCMS.vue";
+    
     export default {
         name: 'CmsHome',
         components: {
-    HeaderCMS,
-    FooterCMS,
-    AdminProductsPage,
-}
+            HeaderCMS,
+            FooterCMS,
+        }
     }
 </script>
   
 <style lang="scss">
+#CmsHome{
     a{
         color: white;
         text-decoration: none;

@@ -19,17 +19,18 @@ module.exports = {
     },
 
 
+    // REVOIR RES.REDIRECT
     authenticateToken : (req, res, next) => {
         
         const token = req.headers.authorization;
         
         if (!token) { 
-            return res.sendStatus(401) ;
+            return res.redirect('/shop/SignIn');
         }
 
         jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
             if (err) {
-                return res.sendStatus(403);
+                return res.redirect('/shop/SignIn');
             }
             req.user = user;
             next();

@@ -25,7 +25,10 @@
 </script>
   
 <style lang="scss">
-// #ShopHome{
+    #ShopHome {
+        height:100%;
+        background-color:#cfdad8;
+    }
     *{
             margin: 0;
             padding: 0;
@@ -112,11 +115,11 @@
         border-width: 3px;
         box-shadow: 2px 2px 2px #144d45;
     }
-    input.qtity{
+
+    .input_qte{
         max-width: 50px;
         text-align: center;
     }
-// } 
 
 </style>
   

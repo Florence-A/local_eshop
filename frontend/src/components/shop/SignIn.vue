@@ -53,11 +53,11 @@
                             location.assign( '/shop/UserPanel' )
                         }
                         else {
-                            this.msg = "Mot de passe et/ou adresse mail incorrects"
+                            this.msg = res.data.msg;
                         }
                     } 
                     else {
-                        this.msg = "Mot de passe et/ou adresse mail incorrects"
+                        this.msg = res.data.msg;
                     }
                 })
                 .catch((err) => { console.log(err) })                
