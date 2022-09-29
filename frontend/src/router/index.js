@@ -11,8 +11,9 @@ import ProductsPage from "@/components/shop/ProductsPage.vue";
 import CustomerAccountPage from "@/components/shop/CustomerAccountPage.vue";
 import UserInfo from "@/components/shop/UserInfo.vue"
 import cmsHomePage from "@/components/cmsHomePage.vue"
-// import DashBoard from "@/components/DashBoard.vue"
-import AjouterProduit from "@/components/AjouterProduit.vue"
+import DashBoard from "@/components/DashBoard.vue"
+import cmsSignUpIn from "@/components/cmsSignUpIn.vue"
+// import AjouterProduit from "@/components/AjouterProduit.vue"
 
 
 const routes = [
@@ -28,16 +29,39 @@ const routes = [
             },
             {
                 path: "SignUpIn",
-                name: "SignUpIn",
-                component: SignUpIn
+                name: "cmsSignUpIn",
+                component: cmsSignUpIn
             },
             {
-                
-                        path: "DashBoard",
-                        name:"AjouterProduit",
-                        component:AjouterProduit
-                    
-                
+                path: "SubScribe/:fromCms",
+                name: "cmsSubScribe",
+                component: SubScribe,
+                props: true
+            },
+            {
+                path: "SignIn",
+                name: "cmsSignIn",
+                component: SignIn
+            },
+            {
+                path: "UserPanel",
+                name: "cmsUserPanel",
+                component: UserPanel
+            },
+            {
+                path: "UserInfo",
+                name: "cmsUserInfo",
+                component: UserInfo
+            },
+            {
+                path: "CustomerAccountPage",
+                name: "cmsCustomerAccountPage",
+                component: CustomerAccountPage
+            },
+            {
+                path: "DashBoard",
+                name:"DashBoard",
+                component:DashBoard
             },
         ]
     },
@@ -57,9 +81,10 @@ const routes = [
                 component: SignUpIn
             },
             {
-                path: "SubScribe",
+                path: "SubScribe/:fromCms",
                 name: "SubScribe",
-                component: SubScribe
+                component: SubScribe,
+                props: true
             },
             {
                 path: "SignIn",

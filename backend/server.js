@@ -1,7 +1,7 @@
 //imports
 const express = require('express');
 const helmet = require('helmet');
-// const cors    = require('cors');
+const cors    = require('cors');
 const path    = require('path')
 
 const port    = 9000;
@@ -15,7 +15,7 @@ const userRouter = require('./routes/user.routes');
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-// app.use(cors());
+app.use(cors({credentials: true, origin: true}));
 app.use(userRouter);
 // app.use(function(req, res, next) {
 //     res.header("Access-Control-Allow-Origin", "*"); 

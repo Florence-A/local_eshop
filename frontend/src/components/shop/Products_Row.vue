@@ -5,7 +5,7 @@
             <h3 class="name">{{data.name}}</h3>
             <p class="prix">{{data.HT_price}} €</p>
             <div class="image" v-for="(image, index) in data.Images" :key="index">
-                <img :src="image.path" alt="">
+                <img :src="image.path" alt="product-image" crossorigin="use-credentials">
             </div>
             <div class="quantity-toggle">
                 <button @click="decrement()">&mdash;</button>
