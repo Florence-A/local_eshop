@@ -7,7 +7,17 @@
         <router-link to="/">
             <div class="col" id="logo"><img src="../../assets/images/logo.svg" alt="logo icon"></div>
         </router-link>
-        <router-link to="/SignUpIn">
+        <router-link v-if="userConnected" to="/UserPanel">
+            <div class="col" id="user">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#4dd4c2" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="512" height="512">
+                    <g>
+                        <circle cx="256" cy="128" r="128"/>
+                        <path d="M256,298.667c-105.99,0.118-191.882,86.01-192,192C64,502.449,73.551,512,85.333,512h341.333   c11.782,0,21.333-9.551,21.333-21.333C447.882,384.677,361.99,298.784,256,298.667z"/>
+                    </g>
+                </svg>
+            </div>
+        </router-link>
+        <router-link v-else to="/SignUpIn">
             <div class="col" id="user">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#4dd4c2" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="512" height="512">
                     <g>
@@ -37,8 +47,10 @@
 // import { computed } from '@vue/reactivity'
 export default {
     name:"HeaderCMS",
-    props:{
-    
+    data(){
+        return{
+            userConnected: localStorage.token
+        }
     }
 }
 </script>
