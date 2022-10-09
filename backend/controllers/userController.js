@@ -8,7 +8,7 @@ const userUtils     = require('../utils/userUtils');
 const shapingUtils  = require('../utils/shapingUtils');
 
 // Constants
-const EMAIL_REGEX    = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+const EMAIL_REGEX    = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 const PHONE_REGEX    = /^0[1-9]{1}(([0-9]{2}){4})$/;
 const PC_REGEX       = /^[0-9]{5}$/;

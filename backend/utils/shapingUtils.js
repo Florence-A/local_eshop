@@ -13,7 +13,7 @@ module.exports = {
       
     escapeHtml : (string) => {
             
-        // HTMLSpecialChars
+        // HTMLSpecialChars version Javascript
         var entityMap = {
         '&': '&amp;',
         '<': '&lt;',
@@ -32,4 +32,4 @@ module.exports = {
     }
 
 }
-// Shaping
+
